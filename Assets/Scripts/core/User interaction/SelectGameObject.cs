@@ -98,7 +98,7 @@ public class SelectGameObject : MonoBehaviour {
 
 
 		float yPosition = target.transform.position.y + 1;
-		float yRotation = target.transform.rotation.y;
+		float yRotation = target.transform.eulerAngles.y;
 		Debug.Log(yRotation);
 		GameObject instRB = Instantiate(Resources.Load("gui/SelectionPart"), target.transform.localPosition, Quaternion.Euler(90, 270+yRotation, 0)) as GameObject;
 		instRB.transform.parent = target.transform;
