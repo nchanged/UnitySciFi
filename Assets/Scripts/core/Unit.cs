@@ -15,13 +15,13 @@ public abstract class Unit : MonoBehaviour, ISelectable {
 
 	public void OnSelect()
 	{
-		SelectGameObject.HighlightObject (gameObject);
+
 		unitSelected = true;
 	}
 	
 	public void OnDeselect()
 	{
-		SelectGameObject.UnHightlightObject (gameObject);
+
 		unitSelected = false;
 	}
 

@@ -2,12 +2,25 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class SelectGameObject {
+
+public class SelectGameObject : MonoBehaviour {
 
 	// Current list of selected object
 	private static List<ISelectable> selected
 		= new List<ISelectable>();	
 
+
+	private static List<GameObject> selectionHelperMap
+		= new List<GameObject>();	
+
+	void Start()
+	{
+
+	}
+	void Update()
+	{
+
+	}
 	// Deselect all object
 	public static void DeselectAll()
 	{
@@ -16,6 +29,7 @@ public class SelectGameObject {
 			cSelected.OnDeselect();
 			selected.Remove(cSelected);
 		}
+		removeSelection();
 	}
 
 	public static bool SelectionPresent()
@@ -34,14 +48,15 @@ public class SelectGameObject {
 		// Iterate over Selectable components
 		Component[] selectableComponents 
 			= target.GetComponents(typeof(ISelectable));
-		
+
 		for (int i = 0; i<selectableComponents.Length; i++){
 			// If the class inherits selectable inteface
 			if (selectableComponents[i] is ISelectable){
 				ISelectable selectableObject = selectableComponents[i] as ISelectable;
-				
+
 				ISelectable alreadySelected = null;
 
+				removeSelection();
 				// In future, we may allow groups to be selected
 				// But for now, let's just reset em all
 				for (int a = 0; a<selected.Count; a++){
@@ -57,6 +72,7 @@ public class SelectGameObject {
 				// We don't want to select it twice, do we?
 				if ( selected.Contains(selectableObject) == false) {
 					selectableObject.OnSelect();
+					drawSelection(target);
 					// Adding it to the list of selected object
 					selected.Add(selectableObject);
 					alreadySelected = selectableObject;
@@ -67,17 +83,49 @@ public class SelectGameObject {
 		}
 	}
 
-	public static void HighlightObject(GameObject objectToSelect)
+	public static void removeSelection()
 	{
-		// Assigns a material named "Assets/Resources/SelectedIndicator_Material" to the object.
-		Material indicatorMaterial = Resources.Load("SelectedIndicator_Material", typeof(Material)) as Material;
-		GameObject selectedIndicator = objectToSelect.transform.Find ("SelectedIndicator").gameObject;
-		selectedIndicator.renderer.material = indicatorMaterial;
+		for (int a = 0; a<selectionHelperMap.Count; a++){
+			GameObject.Destroy(selectionHelperMap[a]);
+		}
+		selectionHelperMap = new List<GameObject>();	 
+		
 	}
-	public static void UnHightlightObject(GameObject objectToDeSelect)
+
+	public static void drawSelection(GameObject target)
 	{
-		Material[] emptyMaterialsList = new Material[0];
-		GameObject selectedIndicator = objectToDeSelect.transform.Find ("SelectedIndicator").gameObject;
-		selectedIndicator.renderer.materials = emptyMaterialsList;
+		Vector3 size = target.renderer.bounds.size;
+
+
+		float yPosition = target.transform.position.y + 1;
+		float yRotation = target.transform.rotation.y;
+		Debug.Log(yRotation);
+		GameObject instRB = Instantiate(Resources.Load("gui/SelectionPart"), target.transform.localPosition, Quaternion.Euler(90, 270+yRotation, 0)) as GameObject;
+		instRB.transform.parent = target.transform;
+		instRB.transform.localScale = new Vector3(10,10,1);
+		instRB.transform.localPosition = new Vector3(size.y,yPosition, size.y); 
+
+		selectionHelperMap.Add (instRB);
+		GameObject instLT = Instantiate(Resources.Load("gui/SelectionPart"), target.transform.localPosition, Quaternion.Euler(90, 90+yRotation, 0)) as GameObject;
+		instLT.transform.parent = target.transform;
+		instLT.transform.localScale = new Vector3(10,10,1);
+		instLT.transform.localPosition = new Vector3(size.y*-1,yPosition, size.y*-1); 
+		selectionHelperMap.Add (instLT);
+
+		GameObject instTR = Instantiate(Resources.Load("gui/SelectionPart"), target.transform.localPosition, Quaternion.Euler(90, 180+yRotation, 0)) as GameObject;
+		instTR.transform.parent = target.transform;
+		instTR.transform.localScale = new Vector3(10,10,1);
+		instTR.transform.localPosition = new Vector3(size.y*-1,yPosition, size.y); 
+		selectionHelperMap.Add (instTR);
+
+
+		GameObject instLB = Instantiate(Resources.Load("gui/SelectionPart"), target.transform.localPosition, Quaternion.Euler(90, 0+yRotation, 0)) as GameObject;
+		instLB.transform.parent = target.transform;
+		instLB.transform.localScale = new Vector3(10,10,1);
+		instLB.transform.localPosition = new Vector3(size.y, yPosition,size.y*-1);
+
+		selectionHelperMap.Add (instLB);
+
 	}
+
 }

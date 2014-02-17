@@ -86,8 +86,8 @@ public class UserInput : MonoBehaviour
 		LayerMask layerMask = ~8;
 
 		if (Physics.Raycast (ray, out hit, 100, layerMask)){
-			Debug.Log(hit.transform.gameObject.name);
-			Debug.DrawLine (ray.origin, hit.point);
+			//Debug.Log(hit.transform.gameObject.name);
+			//Debug.DrawLine (ray.origin, hit.point);
 		}
 	}
 
@@ -210,6 +210,7 @@ public class UserInput : MonoBehaviour
 				// If we have not move a screen
 				if (withinDeadZone)
 				{
+				
 					SelectGameObject.Dispatch (hit.transform.gameObject);
 				}
 
