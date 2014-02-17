@@ -94,35 +94,44 @@ public class SelectGameObject : MonoBehaviour {
 
 	public static void drawSelection(GameObject target)
 	{
-		Vector3 size = target.renderer.bounds.size;
+		BoxCollider collider = target.GetComponent("BoxCollider") as BoxCollider;
+		Vector3 colliderSize = collider.size;
+		float localScale = target.transform.localScale.x;
+
+		Vector3 size = new Vector3(colliderSize.x /2, colliderSize.y /2, colliderSize.z /2 );
 
 
-		float yPosition = target.transform.position.y + 1;
+		float yPosition = target.transform.position.y*-1 + 1;
 		float yRotation = target.transform.eulerAngles.y;
-		Debug.Log(yRotation);
+
+
+
+		Debug.Log(" NATURAL " + size);
+		Debug.Log("REAL " + collider.size);
+		//size = collider.size;
 		GameObject instRB = Instantiate(Resources.Load("gui/SelectionPart"), target.transform.localPosition, Quaternion.Euler(90, 270+yRotation, 0)) as GameObject;
 		instRB.transform.parent = target.transform;
 		instRB.transform.localScale = new Vector3(10,10,1);
-		instRB.transform.localPosition = new Vector3(size.y,yPosition, size.y); 
+		instRB.transform.localPosition = new Vector3(size.x,yPosition, size.z); 
 
 		selectionHelperMap.Add (instRB);
 		GameObject instLT = Instantiate(Resources.Load("gui/SelectionPart"), target.transform.localPosition, Quaternion.Euler(90, 90+yRotation, 0)) as GameObject;
 		instLT.transform.parent = target.transform;
 		instLT.transform.localScale = new Vector3(10,10,1);
-		instLT.transform.localPosition = new Vector3(size.y*-1,yPosition, size.y*-1); 
+		instLT.transform.localPosition = new Vector3(size.x*-1,yPosition, size.z*-1); 
 		selectionHelperMap.Add (instLT);
 
 		GameObject instTR = Instantiate(Resources.Load("gui/SelectionPart"), target.transform.localPosition, Quaternion.Euler(90, 180+yRotation, 0)) as GameObject;
 		instTR.transform.parent = target.transform;
 		instTR.transform.localScale = new Vector3(10,10,1);
-		instTR.transform.localPosition = new Vector3(size.y*-1,yPosition, size.y); 
+		instTR.transform.localPosition = new Vector3(size.x*-1,yPosition, size.z); 
 		selectionHelperMap.Add (instTR);
 
 
 		GameObject instLB = Instantiate(Resources.Load("gui/SelectionPart"), target.transform.localPosition, Quaternion.Euler(90, 0+yRotation, 0)) as GameObject;
 		instLB.transform.parent = target.transform;
 		instLB.transform.localScale = new Vector3(10,10,1);
-		instLB.transform.localPosition = new Vector3(size.y, yPosition,size.y*-1);
+		instLB.transform.localPosition = new Vector3(size.x, yPosition,size.z*-1);
 
 		selectionHelperMap.Add (instLB);
 
