@@ -20,6 +20,8 @@ public class UserInput : MonoBehaviour
 	private bool withinDeadZone = true;
 	private Vector3 deadZoneLeavePosition = Vector3.zero;
 
+	public Camera guiCamera;
+
 	void Awake ()
 	{
 		Application.targetFrameRate = 60;
@@ -56,11 +58,36 @@ public class UserInput : MonoBehaviour
 			}
 		}
 
+		guiDispatcher(pointerPosition);
 		selectAndDrag (pointerPosition, userFingerUp, userFingerDown, userFingerPressed);
 
 		if (!lockCameraMovement)
 		{
 			moveCamera (userFingerUp, userFingerDown, userFingerPressed, pointerPosition);
+		}
+	}
+
+	void guiDispatcher(Vector3 pointerPosition)
+	{
+	/*	RaycastHit hit;
+		
+		Ray ray = Camera.main.ScreenPointToRay(pointerPosition);
+		Plane hPlane = new Plane(Vector3.up, Vector3.zero);
+		float distance = 0; 
+		if (hPlane.Raycast(ray, out distance)){
+
+			hit = ray.GetPoint(distance);
+			Debug.Log(hit.transform.gameObject.name);
+		}
+*/
+
+		Ray ray = guiCamera.ScreenPointToRay (pointerPosition);
+		RaycastHit hit;
+		LayerMask layerMask = ~8;
+
+		if (Physics.Raycast (ray, out hit, 100, layerMask)){
+			Debug.Log(hit.transform.gameObject.name);
+			Debug.DrawLine (ray.origin, hit.point);
 		}
 	}
 
@@ -134,8 +161,8 @@ public class UserInput : MonoBehaviour
 	{
 		RaycastHit hit;
 		Ray ray = Camera.main.ScreenPointToRay (pointerPosition);
-
-		if (Physics.Raycast (ray, out hit))
+		int layerMask =~(1 << 10);
+		if (Physics.Raycast (ray, out hit, Mathf.Infinity, layerMask))
 		{
 			if (userFingerDown)
 			{
