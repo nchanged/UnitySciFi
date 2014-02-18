@@ -96,16 +96,19 @@ public class SelectGameObject : MonoBehaviour {
 	{
 		BoxCollider collider = target.GetComponent("BoxCollider") as BoxCollider;
 		Vector3 colliderSize = collider.size;
+		Vector3 colliderCenter = collider.center;
 		float localScale = target.transform.localScale.x;
 
-		Vector3 size = new Vector3(colliderSize.x /2, colliderSize.y /2, colliderSize.z /2 );
+		Vector3 size = new Vector3(colliderSize.x /2, 
+		                           colliderSize.y /2 , 
+		                           colliderSize.z /2);
 
 
 		float yPosition = target.transform.position.y*-1 + 1;
 		float yRotation = target.transform.eulerAngles.y;
 
 
-		Vector3 cornerScale = new Vector3(3,3,1);
+		Vector3 cornerScale = new Vector3(2,2,1);
 		//Debug.Log(" NATURAL " + size);
 		//Debug.Log("REAL " + collider.size);
 		//size = collider.size;
