@@ -99,11 +99,11 @@ public class SelectGameObject : MonoBehaviour {
 		Vector3 colliderCenter = collider.center;
 		float localScale = target.transform.localScale.x;
 
-		Vector3 size = new Vector3(colliderSize.x /2, 
-		                           colliderSize.y /2 , 
-		                           colliderSize.z /2);
+		//Vector3 size = new Vector3(colliderSize.x /2, 
+		 //                          colliderSize.y /2 , 
+		 //                          colliderSize.z /2);
 
-
+		Vector3 size = new Vector3(colliderSize.x/2 - colliderCenter.x,0,colliderSize.z /2 - colliderCenter.z);
 		float yPosition = target.transform.position.y*-1 + 1;
 		float yRotation = target.transform.eulerAngles.y;
 
