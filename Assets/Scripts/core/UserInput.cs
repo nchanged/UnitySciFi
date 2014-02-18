@@ -9,7 +9,12 @@ public class UserInput : MonoBehaviour
 	private Vector3 hitPosition = Vector3.zero;
 	private Vector3 cameraStartPosition = Vector3.zero;
 	private Vector3 cameraMovePosition = Vector3.zero;
+
 	public float defaultCameraY = 100;
+	public float cameraMinX = 1000f;
+	public float cameraMaxX = 1400f;
+	public float cameraMinZ = 700f;
+	public float cameraMaxZ = 1300f;
 
 	private Vector3 lastCameraPosition = Vector3.zero; // Used to calculate camera velocity
 	private Vector3 cameraVelocity = Vector3.zero; // Used to smoothly decelerate camera
@@ -117,9 +122,13 @@ public class UserInput : MonoBehaviour
 			Vector3 direction = Camera.main.ScreenToWorldPoint (pointerPosition) - Camera.main.ScreenToWorldPoint (hitPosition);
 			direction *= -1;
 
+			// Clamp X and Z for map boundaries.
 			Vector3 calculatedPosition = cameraStartPosition + direction;
-			cameraMovePosition = new Vector3 (calculatedPosition.x, defaultCameraY, calculatedPosition.z);
-
+			cameraMovePosition = new Vector3 (
+				Mathf.Clamp (calculatedPosition.x, cameraMinX, cameraMaxX),
+				defaultCameraY,
+				Mathf.Clamp (calculatedPosition.z, cameraMinZ, cameraMaxZ)
+			);
 
 			Camera.main.transform.position = cameraMovePosition;
 
@@ -136,8 +145,8 @@ public class UserInput : MonoBehaviour
 		if(smoothToStop)
 		{
 			Vector3 newVelocity = cameraVelocity - (cameraVelocity / momentum);
-			float newXPosition = Camera.main.transform.position.x + newVelocity.x;
-			float newZPosition = Camera.main.transform.position.z + newVelocity.z;
+			float newXPosition = Mathf.Clamp (Camera.main.transform.position.x + newVelocity.x, cameraMinX, cameraMaxX);
+			float newZPosition = Mathf.Clamp (Camera.main.transform.position.z + newVelocity.z, cameraMinZ, cameraMaxZ);
 			
 			Camera.main.transform.position = new Vector3(newXPosition, defaultCameraY, newZPosition);
 			
