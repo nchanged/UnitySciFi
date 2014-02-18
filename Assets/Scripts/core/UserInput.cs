@@ -132,7 +132,6 @@ public class UserInput : MonoBehaviour
 
 			Camera.main.transform.position = cameraMovePosition;
 
-			print (Vector3.Distance (Camera.main.transform.position, lastCameraPosition));
 			cameraVelocity = (Camera.main.transform.position - lastCameraPosition);
 			lastCameraPosition = cameraMovePosition;
 		}
