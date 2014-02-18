@@ -21,7 +21,7 @@ public class UserInput : MonoBehaviour
 	private bool smoothToStop = false; // Flag that tells whether the camera should decelerate or not
 	public float momentum = 9.0f; // Determines how long it takes for the camera to stop
 
-	private float deadZoneThreshold = 30f;
+	private float deadZoneThreshold = 15f;
 	private bool withinDeadZone = true;
 	private Vector3 deadZoneLeavePosition = Vector3.zero;
 

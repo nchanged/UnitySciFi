@@ -105,32 +105,32 @@ public class SelectGameObject : MonoBehaviour {
 		float yRotation = target.transform.eulerAngles.y;
 
 
-
+		Vector3 cornerScale = new Vector3(3,3,1);
 		//Debug.Log(" NATURAL " + size);
 		//Debug.Log("REAL " + collider.size);
 		//size = collider.size;
 		GameObject instRB = Instantiate(Resources.Load("gui/SelectionPart"), target.transform.localPosition, Quaternion.Euler(90, 270+yRotation, 0)) as GameObject;
 		instRB.transform.parent = target.transform;
-		instRB.transform.localScale = new Vector3(10,10,1);
+		instRB.transform.localScale = cornerScale;
 		instRB.transform.localPosition = new Vector3(size.x,yPosition, size.z); 
 
 		selectionHelperMap.Add (instRB);
 		GameObject instLT = Instantiate(Resources.Load("gui/SelectionPart"), target.transform.localPosition, Quaternion.Euler(90, 90+yRotation, 0)) as GameObject;
 		instLT.transform.parent = target.transform;
-		instLT.transform.localScale = new Vector3(10,10,1);
+		instLT.transform.localScale = cornerScale;
 		instLT.transform.localPosition = new Vector3(size.x*-1,yPosition, size.z*-1); 
 		selectionHelperMap.Add (instLT);
 
 		GameObject instTR = Instantiate(Resources.Load("gui/SelectionPart"), target.transform.localPosition, Quaternion.Euler(90, 180+yRotation, 0)) as GameObject;
 		instTR.transform.parent = target.transform;
-		instTR.transform.localScale = new Vector3(10,10,1);
+		instTR.transform.localScale = cornerScale;
 		instTR.transform.localPosition = new Vector3(size.x*-1,yPosition, size.z); 
 		selectionHelperMap.Add (instTR);
 
 
 		GameObject instLB = Instantiate(Resources.Load("gui/SelectionPart"), target.transform.localPosition, Quaternion.Euler(90, 0+yRotation, 0)) as GameObject;
 		instLB.transform.parent = target.transform;
-		instLB.transform.localScale = new Vector3(10,10,1);
+		instLB.transform.localScale = cornerScale;
 		instLB.transform.localPosition = new Vector3(size.x, yPosition,size.z*-1);
 
 		selectionHelperMap.Add (instLB);
