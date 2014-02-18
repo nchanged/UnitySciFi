@@ -51,7 +51,6 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable
 
 
 			transform.position = dragStartUnitPosition + position - dragStartPosition;
-			Debug.Log("SELECTED");
 			return true;
 		}
 		return false;

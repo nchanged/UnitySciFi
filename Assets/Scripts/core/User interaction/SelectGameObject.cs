@@ -106,8 +106,8 @@ public class SelectGameObject : MonoBehaviour {
 
 
 
-		Debug.Log(" NATURAL " + size);
-		Debug.Log("REAL " + collider.size);
+		//Debug.Log(" NATURAL " + size);
+		//Debug.Log("REAL " + collider.size);
 		//size = collider.size;
 		GameObject instRB = Instantiate(Resources.Load("gui/SelectionPart"), target.transform.localPosition, Quaternion.Euler(90, 270+yRotation, 0)) as GameObject;
 		instRB.transform.parent = target.transform;

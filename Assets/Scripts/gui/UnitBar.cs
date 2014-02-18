@@ -32,7 +32,6 @@ public class UnitBar : MonoBehaviour {
 		
 		if ( researchButton != null ){
 			GameObject.Destroy(researchButton);
-			Debug.Log("removing buttons");
 		}
 		if ( buildButton != null ){
 			GameObject.Destroy(buildButton);
