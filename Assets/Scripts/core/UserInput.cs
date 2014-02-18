@@ -132,6 +132,7 @@ public class UserInput : MonoBehaviour
 
 			Camera.main.transform.position = cameraMovePosition;
 
+			print (Vector3.Distance (Camera.main.transform.position, lastCameraPosition));
 			cameraVelocity = (Camera.main.transform.position - lastCameraPosition);
 			lastCameraPosition = cameraMovePosition;
 		}
@@ -151,8 +152,10 @@ public class UserInput : MonoBehaviour
 			Camera.main.transform.position = new Vector3(newXPosition, defaultCameraY, newZPosition);
 			
 			cameraVelocity = newVelocity;
+			lastCameraPosition = Camera.main.transform.position; // Keep tabs on where the camera is, even when we're not moving it with a finger.
 
-			if(cameraVelocity == Vector3.zero)
+			// Don't do those ridiculously small movements such as 0.0001f
+			if(Mathf.Abs (cameraVelocity.x) < 0.01 && Mathf.Abs (cameraVelocity.z) < 0.01)
 			{
 				smoothToStop = false;
 			}
