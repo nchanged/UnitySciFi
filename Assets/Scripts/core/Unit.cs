@@ -17,6 +17,7 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 	{
 		seeker = gameObject.AddComponent("Seeker") as Seeker;
 		gameObject.AddComponent("SimpleSmoothModifier");
+		this.animation.wrapMode = WrapMode.Loop;
 	}
 
 	public void OnMoveCommand(Vector3 destination)
