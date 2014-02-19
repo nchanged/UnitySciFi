@@ -68,7 +68,8 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable
 		else
 		{
 			lastValidPosition = gameObject.transform.position;
-			AstarPath.active.UpdateGraphs (gameObject.collider.bounds);
+			AstarPath.active.Scan();
+			//AstarPath.active.UpdateGraphs (gameObject.collider.bounds);
 		}
 	}
 	// Selecting unit
