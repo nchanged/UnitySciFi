@@ -2,7 +2,7 @@
 using System.Collections;
 using Pathfinding;
 
-public abstract class Unit : MonoBehaviour, ISelectable
+public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 {
 	private bool unitSelected = false;
 
@@ -17,13 +17,16 @@ public abstract class Unit : MonoBehaviour, ISelectable
 	{
 		seeker = gameObject.AddComponent("Seeker") as Seeker;
 		gameObject.AddComponent("SimpleSmoothModifier");
-
-		targetPosition = new Vector3(1100,1,1100);
-
-		//Start a new path to the targetPosition, return the result to the OnPathComplete function
-		seeker.StartPath (transform.position,targetPosition, OnPathComplete);
 	}
-	
+
+	public void OnMoveCommand(Vector3 destination)
+	{
+		destination = new Vector3(destination.x,0,destination.z);
+		
+		//Start a new path to the targetPosition, return the result to the OnPathComplete function
+		seeker.StartPath (transform.position,destination, OnPathComplete);
+	}
+
 	public void OnPathComplete (Path p)
 	{
 		//Found a path
@@ -35,7 +38,7 @@ public abstract class Unit : MonoBehaviour, ISelectable
 		}
 	}
 	
-	public void FixedUpdate ()
+	public void Update ()
 	{
 		// Don't have a path to move after
 		if (path == null)

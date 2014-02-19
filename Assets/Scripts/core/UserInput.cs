@@ -166,6 +166,9 @@ public class UserInput : MonoBehaviour
 	private Vector3 latestDragCameraPosition;
 	private Vector3 latestFingerDownPosition;
 	private bool draggingOccured = false;
+
+	private ICommandable commandableComponent = null;
+
 	private Vector3 terrainPointed;
 
 	void selectAndDrag (Vector3 pointerPosition, bool userFingerUp, bool userFingerDown, bool userFingerPressed)
@@ -210,12 +213,19 @@ public class UserInput : MonoBehaviour
 
 			if (userFingerUp)
 			{
-				// Deselect all objects
 				if (hit.transform.gameObject.name == "Terrain")
 				{
 					if (withinDeadZone)
 					{
-						SelectGameObject.DeselectAll ();
+						if(commandableComponent != null)
+						{
+							CommandGameObject.DispatchMoveCommand(commandableComponent, hit.point);
+						}
+						else
+						{
+							// Not ordering any units to move.. Deselect all objects
+							SelectGameObject.DeselectAll ();
+						}
 					}
 				}
 				// If we have not move a screen
@@ -231,6 +241,7 @@ public class UserInput : MonoBehaviour
 					draggingOccured = false;
 				}
 
+				commandableComponent = CommandGameObject.GetCommandable(hit.transform.gameObject);
 				draggableComponent = null;
 				withinDeadZone = true;
 			}
