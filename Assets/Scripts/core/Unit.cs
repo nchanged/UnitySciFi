@@ -1,27 +1,77 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Pathfinding;
 
-public abstract class Unit : MonoBehaviour, ISelectable {
-
+public abstract class Unit : MonoBehaviour, ISelectable
+{
 	private bool unitSelected = false;
 
-	void Start () {
+	public Vector3 targetPosition;
+	public float speed = 100;                //The AI's speed per second
+	private Seeker seeker;                   //Finds the best path to the targetPosition
+	private Path path;                       //The calculated path
+	private int currentWaypoint = 0;         //Index of the waypoint we are currently moving towards
+	private float nextWaypointDistance = 2;  //Next waypoint needs to be within this distance to consider moving to it
 	
+	public void Start ()
+	{
+		seeker = gameObject.AddComponent("Seeker") as Seeker;
+		gameObject.AddComponent("SimpleSmoothModifier");
+
+		targetPosition = new Vector3(1100,1,1100);
+
+		//Start a new path to the targetPosition, return the result to the OnPathComplete function
+		seeker.StartPath (transform.position,targetPosition, OnPathComplete);
+	}
+	
+	public void OnPathComplete (Path p)
+	{
+		//Found a path
+		if (!p.error)
+		{
+			path = p;
+			//Reset the waypoint counter
+			currentWaypoint = 0;
+		}
+	}
+	
+	public void FixedUpdate ()
+	{
+		// Don't have a path to move after
+		if (path == null)
+		{
+			return;
+		}		
+		// Reached destination
+		if (currentWaypoint >= path.vectorPath.Count)
+		{
+			return;
+		}
+		
+		//Direction to the next waypoint
+		Vector3 dir = (path.vectorPath[currentWaypoint]-transform.position).normalized;
+		dir *= speed * Time.fixedDeltaTime;
+		Vector3 moveTo = new Vector3(transform.position.x + dir.x, 0, transform.position.z + dir.z);
+
+		transform.LookAt(moveTo);
+		transform.position = moveTo;
+
+		//Check if we are close enough to the next waypoint
+		//If we are, proceed to follow the next waypoint
+		if (Vector3.Distance (transform.position,path.vectorPath[currentWaypoint]) < nextWaypointDistance) {
+			currentWaypoint++;
+			return;
+		}
 	}
 
-	void Update () {
-	
-	}
+
 
 	public void OnSelect()
 	{
-
 		unitSelected = true;
 	}
-	
 	public void OnDeselect()
 	{
-
 		unitSelected = false;
 	}
 

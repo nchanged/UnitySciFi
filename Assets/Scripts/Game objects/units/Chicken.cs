@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Chicken : Building {
+public class Chicken : Unit {
 
 
 }
