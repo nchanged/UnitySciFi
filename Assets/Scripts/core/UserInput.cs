@@ -229,8 +229,8 @@ public class UserInput : MonoBehaviour
 				// If we have not move a screen
 				if (withinDeadZone)
 				{
-				
 					SelectGameObject.Dispatch (hit.transform.gameObject);
+					commandableComponent = CommandGameObject.GetCommandable(hit.transform.gameObject);
 				}
 
 				if (draggableComponent != null && draggingOccured)
@@ -238,8 +238,6 @@ public class UserInput : MonoBehaviour
 					DragGameObject.DispatchDragStop (draggableComponent);
 					draggingOccured = false;
 				}
-
-				commandableComponent = CommandGameObject.GetCommandable(hit.transform.gameObject);
 				draggableComponent = null;
 				withinDeadZone = true;
 			}
