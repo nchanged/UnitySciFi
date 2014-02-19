@@ -221,11 +221,9 @@ public class UserInput : MonoBehaviour
 						{
 							CommandGameObject.DispatchMoveCommand(commandableComponent, hit.point);
 						}
-						else
-						{
-							// Not ordering any units to move.. Deselect all objects
-							SelectGameObject.DeselectAll ();
-						}
+
+						//Deselect all objects, whether we are commanding or not.
+						SelectGameObject.DeselectAll ();
 					}
 				}
 				// If we have not move a screen
