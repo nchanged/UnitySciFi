@@ -18,6 +18,7 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 		seeker = gameObject.AddComponent("Seeker") as Seeker;
 		gameObject.AddComponent("SimpleSmoothModifier");
 		this.animation.wrapMode = WrapMode.Loop;
+		this.animation.Stop();
 	}
 
 	public void OnMoveCommand(Vector3 destination)
@@ -25,7 +26,10 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 		destination = new Vector3(destination.x,0,destination.z);
 		
 		//Start a new path to the targetPosition, return the result to the OnPathComplete function
+
 		seeker.StartPath (transform.position,destination, OnPathComplete);
+		this.animation.Play();
+		this.animation.wrapMode = WrapMode.Loop;
 	}
 
 	public void OnPathComplete (Path p)
@@ -36,6 +40,9 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 			path = p;
 			//Reset the waypoint counter
 			currentWaypoint = 0;
+			//this.animation.Stop();
+
+
 		}
 	}
 	
@@ -54,7 +61,7 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 		
 		//Direction to the next waypoint
 		Vector3 dir = (path.vectorPath[currentWaypoint]-transform.position).normalized;
-		dir *= speed * Time.fixedDeltaTime;
+		dir *= speed * Time.fixedDeltaTime/6;
 		Vector3 moveTo = new Vector3(transform.position.x + dir.x, 0, transform.position.z + dir.z);
 
 		transform.LookAt(moveTo);
