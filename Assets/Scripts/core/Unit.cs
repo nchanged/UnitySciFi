@@ -40,7 +40,7 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 			path = p;
 			//Reset the waypoint counter
 			currentWaypoint = 0;
-			//this.animation.Stop();
+			//
 
 
 		}
@@ -56,6 +56,7 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 		// Reached destination
 		if (currentWaypoint >= path.vectorPath.Count)
 		{
+			this.animation.Stop();
 			return;
 		}
 		
