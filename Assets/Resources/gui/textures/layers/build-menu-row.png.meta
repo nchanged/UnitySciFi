@@ -14,7 +14,7 @@ TextureImporter:
   bumpmap:
     convertToNormalMap: 0
     externalNormalMap: 0
-    heightScale: .25
+    heightScale: .00200000009
     normalMapFilter: 0
   isReadable: 0
   grayScaleToAlpha: 0
@@ -24,10 +24,10 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: 1
-    aniso: -1
+    aniso: 0
     mipBias: -1
-    wrapMode: -1
-  nPOTScale: 1
+    wrapMode: 0
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
   spriteMode: 0
@@ -36,7 +36,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: .5, y: .5}
   spritePixelsToUnits: 100
-  alphaIsTransparency: 1
+  alphaIsTransparency: 0
   textureType: 5
   buildTargetSettings: []
   spriteSheet:
