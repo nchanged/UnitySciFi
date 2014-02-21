@@ -8,7 +8,7 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 
 	public Vector3 targetPosition;
 	public float speed = 100;                //The AI's speed per second
-	private Seeker seeker;                   //Finds the best path to the targetPosition
+	protected Seeker seeker;                   //Finds the best path to the targetPosition
 	private Path path;                       //The calculated path
 	private int currentWaypoint = 0;         //Index of the waypoint we are currently moving towards
 	private float nextWaypointDistance = 2;  //Next waypoint needs to be within this distance to consider moving to it
@@ -17,8 +17,17 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 	{
 		seeker = gameObject.AddComponent("Seeker") as Seeker;
 		gameObject.AddComponent("SimpleSmoothModifier");
+
+
 		this.animation.wrapMode = WrapMode.Loop;
-		this.animation.Stop();
+		
+		this.animation.Play();
+		if ( this.name == "heavy-bot") {
+			this.animation.CrossFade("emo_2");
+		}
+
+
+
 	}
 
 	public void OnMoveCommand(Vector3 destination)
@@ -28,7 +37,9 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 		//Start a new path to the targetPosition, return the result to the OnPathComplete function
 
 		seeker.StartPath (transform.position,destination, OnPathComplete);
+
 		this.animation.Play();
+		this.animation.CrossFade ("run");
 		this.animation.wrapMode = WrapMode.Loop;
 	}
 
@@ -56,6 +67,7 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 		// Reached destination
 		if (currentWaypoint >= path.vectorPath.Count)
 		{
+
 			this.animation.Stop();
 			return;
 		}
