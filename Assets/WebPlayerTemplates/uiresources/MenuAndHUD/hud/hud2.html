@@ -12,21 +12,26 @@
 </head>
 <body>
 <div id="hud">
-	<div style="width:200px; height:50px; border:1px solid red;">Hello fuck face</div>
+	<div id="test" style="width:200px; height:50px; border:1px solid red;background-color:red;">Hello fuck face</div>
 </div>
 <div id="debug" style="position: absolute; bottom: -30px;"></div>
     <!-- js -->
     <script src="js/jquery/jquery-1.7.2.min.js"></script>
-	<script src="js/underscore/underscore-min.js"></script>
-	<script src="js/backbone/backbone-min.js"></script>
-	<script src="js/jquery.sparkline.min.js"></script>
-	<script src="js/compass.js"></script>
+	
+
 
 	
 	<script src="js/coherent.js"></script>
-    <script src="js/player.js"></script>
-	<script src="js/tips.js"></script>
-	<script src="js/oscilloscope.js"></script>
+    
+
+	<script>
+		engine.on('Ready', function () {
+			$("#test").click(function(){
+				$(this).html("trololo");
+			})
+		});
+
+	</script>
 	
 	
 </body>
