@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf8">
+    
+	<link rel="stylesheet" href="css/vader/jquery-ui-1.8.21.custom.css" type="text/css" media="screen">
+    <link rel="stylesheet" type="text/css" href="css/facebook.css">
+    	
+	<script type="text/javascript" src="javascript/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="javascript/jquery-ui-1.8.21.custom.min.js"></script>
+	
+	<title>Facebook Sample</title>
+</head>
+<body>
+	<div id="fb-root"></div>
+
+	<script type="text/javascript">
+
+		var appID = '344764665598630';
+		var appURL = 'http://www.coherent-labs.com/sample.html';
+		
+		function SetPortrait(fbAvatar) {
+			var url = fbAvatar.picture.data.url;
+			var picture = new Image;
+			picture.onload = function () { $('#picture').attr('src', url) };
+			picture.src = url;
+		}
+		
+		function parseAuthorization(url) {
+			var v = url.split('#')[1].split('&');
+			var n = v.length;
+			var r = {}
+			for (var i = 0; i != n; ++i) {
+				var c = v[i].split('=');
+				r[c[0]] = decodeURIComponent(c[1]);
+			}
+			return r;
+		}
+		
+		if (window.location.hash.length == 0)
+		{
+				$(function () {
+				var button = $('<button id="login">Facebook Login</button>').button().click(function () {
+					var path = 'https://www.facebook.com/dialog/oauth?';
+					var queryParams = {
+						client_id: appID,
+						redirect_uri: appURL,
+						response_type: 'token,signed_request,code',
+						scope: 'user_photos'
+					};
+					var url = path + $.param(queryParams);
+					// redirect the view to the facebook authorization dialog
+					window.location.href = url;
+				});
+				$('body').append(button);
+			});
+		}
+		else
+		{
+		    (function(d){
+				var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement('script'); js.id = id; js.async = true;
+				js.src = "http://connect.facebook.net/en_US/all.js";
+				ref.parentNode.insertBefore(js, ref);
+			}(document));
+		}
+		
+		function CreatePhotosCircle(photosResponse) {
+			var photos = photosResponse.data;
+			var sides = 12;
+			var rotation = 360 / sides;
+			var photo = 0;
+			var posters = $('<div></div>').attr('class', 'posters');
+			for (var s = 0; s < sides; ++s) {
+				var poster = document.createElement('div');
+				poster.className='poster';
+				poster.style.webkitTransform = 'rotateY(' + rotation * s + 'deg) translateZ(300px)';
+				var image = poster.appendChild(document.createElement('img'));
+				image.src = photos[photo].picture;
+				
+				image.onclick = (function (url) {
+					return function () {
+						$('#selectedPoster').css('background-image', 'none');
+						window.setTimeout(function () {
+							$('#selectedPoster').css('background-image', 'url(' + url + ')');
+						}, 1);
+					};
+				}(photos[photo].source));
+				
+				photo++;
+				posters.append(poster);
+			}
+			$('#posterHolder').append(posters);
+		}
+		
+		// Init the SDK upon load
+		window.fbAsyncInit = function() {
+			// listen for and handle auth.statusChange events
+			FB.Event.subscribe('auth.statusChange', function(response) {
+				if (response.authResponse) {
+					// user has auth'd your app and is logged into Facebook
+					// request users' first name and profile picture
+					FB.api('/me?fields=picture,first_name', function(me){
+						$('#name').html(me.first_name);
+						SetPortrait(me);
+					});
+				}
+			})
+						
+			FB.Event.subscribe('auth.statusChange', function(response) {
+				if (response.authResponse) {
+					// request the first 12 photos that the user has been tagged in
+					// take the URLs of the thumbnail and the real photo
+					FB.api('/me/photos?fields=id,picture,source&limit=12', CreatePhotosCircle);
+				}
+			});
+
+			// parse the authorization response details from the URL
+			var parsed = parseAuthorization(window.location.href);
+			// convert to FB authResponse
+			var auth = {
+				accessToken : parsed.access_token,
+				signedRequest : parsed.signed_request,
+				expiresIn : parsed.expires_in,
+				code: parsed.code
+			};
+			FB.init({
+				appId      :  appID,
+				authResponse: auth,
+				status     : true, // check login status
+				cookie     : true, // enable cookies to allow the server to access the session
+				xfbml      : false  // parse XFBML
+			});
+		} 
+	</script>
+	<div id="logo"><img src="logo.png"/></div>
+	<div id="avatar">
+		<img id="picture" src="unknown_person.jpg" />
+		<div id="name"></div>
+	</div>
+	<div id="selectedPoster"></div>
+	<div id="posterHolder"></div>
+</body>
+</html>

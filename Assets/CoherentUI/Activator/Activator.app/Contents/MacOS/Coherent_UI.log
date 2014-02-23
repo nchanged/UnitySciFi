@@ -1,0 +1,20 @@
+-1 09:38:21.985913 I | Initializing Coherent UI ver. 1.8.1.1
+-1 09:38:21.999562 I | CGL device used in client composition: 16915206
+-1 09:38:22.201520 I | PID: 1413 | -1 09:38:22.166326 Staring Coherent UI Host ver. 1.8.1.1
+-1 09:38:22.201557 I | PID: 1413 | -1 09:38:22.167643 Detected OS: Mac OS X 10.9.1
+-1 09:38:22.201575 I | PID: 1413 | -1 09:38:22.200382 [1413:1287:INFO:UIContentClient.cpp(73)] GPU info collected in host process: 
+-1 09:38:22.201596 I | PID: 1413 | -1 09:38:22.200398 [1413:1287:INFO:UIContentClient.cpp(78)] Main GPU vendor 4098 device 26433
+-1 09:38:22.201615 I | PID: 1413 | -1 09:38:22.200405 [1413:1287:INFO:UIContentClient.cpp(83)] Secondary GPU vendor 32902 device 278
+-1 09:38:22.201629 I | PID: 1413 | -1 09:38:22.200411 [1413:1287:INFO:UIContentClient.cpp(93)] AMD Dynamic Switchable graphics is enabled
+-1 09:38:22.240594 I | Coherent UI system initialized successfully
+-1 09:38:22.253799 W | View to https://www.coherent-labs.com:3000/
+-1 09:38:22.255579 I | View created successfully with id 0
+-1 09:38:22.277505 I | PID: 1413 | -1 09:38:22.255426 Navigating view 0 to https://www.coherent-labs.com:3000/
+-1 09:38:22.277543 I | PID: 1413 | -1 09:38:22.275560 [1413:1287:INFO:compositing_iosurface_mac_coherent.mm(357)] Device used for IOSurface composition: 16915206
+-1 09:38:22.396519 I | PID: 1413 | -1 09:38:22.396433 [1414:1287:INFO:renderer_main.cc(215)] Running without renderer sandbox
+-1 09:38:22.511526 I | PID: 1413 | -1 09:38:22.511027 [1413:1287:INFO:(0)] GPU info collected in gpu-process process: 
+-1 09:38:22.511562 I | PID: 1413 | -1 09:38:22.511090 [1413:1287:INFO:(0)] Main GPU vendor 4098 device 26433
+-1 09:38:22.521408 I | PID: 1413 | -1 09:38:22.521061 [1413:1287:INFO:(0)] Created virtual GL context.
+-1 09:38:41.967119 I | Removing view 0
+-1 09:38:41.967292 I | Uninitializing Coherent UI
+-1 09:38:42.069810 I | Coherent UI uninitialized successfully

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Heartcode CanvasLoader example</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="language" content="en" />
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	
+	<!-- Include the heartcode canvasloader js file -->
+	<script src="js/heartcode-canvasloader-min-0.9.1.js"></script>
+	
+	<link rel="stylesheet" href="css/fonts.css" type="text/css" charset="utf-8" />
+	
+	<style type="text/css">
+		body, html {			
+			margin:0;
+			padding:0;
+			overflow:hidden;
+			background-color:#000000;
+		}
+		.wrapper {
+			position:absolute;
+			top:50%;
+			left:50%;
+		}
+		#canvasText {
+			font-family: 'akashiregular';
+			font-size: 36px;
+			color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<!-- Create a div which will be the canvasloader wrapper -->	
+	<div id="canvasloader-container" class="wrapper"><div id="canvasText" style="display: block; position: absolute; left: -78px;">Loading...</div></div>
+		
+	<!-- This script creates a new CanvasLoader instance and places it in the wrapper div -->
+	<script type="text/javascript">
+		var cl = new CanvasLoader('canvasloader-container');
+		cl.setColor('#ffffff'); // default is '#000000'
+		cl.setShape('spiral'); // default is 'oval'
+		cl.setDiameter(115); // default is 40
+		cl.setDensity(66); // default is 40
+		cl.setRange(1.1); // default is 1.3
+		cl.setFPS(30); // default is 24
+		cl.show(); // Hidden by default
+		
+		// This bit is only for positioning - not necessary
+		var loaderObj = document.getElementById("canvasLoader");
+  		loaderObj.style.position = "absolute";
+  		loaderObj.style["top"] = cl.getDiameter() * -0.5 + "px";
+  		loaderObj.style["left"] = cl.getDiameter() * -0.5 + "px";
+		
+		var canvasText = document.getElementById("canvasText");
+		canvasText.style["top"] = cl.getDiameter() * 0.5 + 20 + "px";//cl.getDiameter() * -0.5 + "px";
+    </script>
+</body>
+</html>

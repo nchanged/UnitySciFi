@@ -1,0 +1,94 @@
+body {
+	background-image:url("../background.jpg");
+	overflow: hidden;
+}
+
+@-webkit-keyframes turning_cw
+{
+	0%
+	{
+		-webkit-transform: rotate(0deg);
+	}
+	100%
+	{
+		-webkit-transform: rotate(360deg);
+	}
+ }
+
+#logo {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	-webkit-animation: turning_cw 8s infinite;
+}
+
+#logo > img {
+	height: 80px;
+	width: 80px;
+}
+
+#login {
+	position: absolute;
+	width: 180px;
+	height: 60px;
+	top: -webkit-calc(50% - 30px);
+	left: -webkit-calc(50% - 90px);
+}
+
+#picture {
+	width: 80px;
+}
+
+#avatar {
+	color: white;
+	text-align: center;
+	width: 100px;
+	height: 120px;
+}
+
+@-webkit-keyframes rotatePosters
+{
+	0%
+	{
+		-webkit-transform: rotateY(0deg);
+	}
+	100%
+	{
+		-webkit-transform: rotateY(360deg);
+	}
+}
+ 
+#posterHolder {
+	position: absolute;
+	width: 600px;
+	height: 300px;
+	left: -webkit-calc(50% - 300px);
+	top: 100px;
+	-webkit-perspective: 800;
+}
+
+#selectedPoster {
+	position: absolute;
+	width: 640px;
+	height: 480px;
+	left: -webkit-calc(50% - 320px);
+	bottom: 20px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}
+
+.posters {
+	height: 110px;
+	width: 100%;
+	-webkit-transform-style: preserve-3d;
+	-webkit-animation: rotatePosters 12s linear infinite;
+}
+
+
+.poster {
+	position: absolute;
+	left: -webkit-calc(50% - 50px);
+	width: 100px;
+	height: 100px;
+}
