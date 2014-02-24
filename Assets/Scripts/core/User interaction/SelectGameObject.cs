@@ -88,12 +88,17 @@ public class SelectGameObject : MonoBehaviour {
 		for (int a = 0; a<selectionHelperMap.Count; a++){
 			GameObject.Destroy(selectionHelperMap[a]);
 		}
-		selectionHelperMap = new List<GameObject>();	 
+		selectionHelperMap = new List<GameObject>();
+		GUIView.View.TriggerEvent("HideUnitBar");
 		
 	}
 
 	public static void drawSelection(GameObject target)
 	{
+
+		//gui.triggerEvent("showUnitBar");
+
+		GUIView.View.TriggerEvent("ShowUnitBar");
 		BoxCollider collider = target.GetComponent("BoxCollider") as BoxCollider;
 		Vector3 colliderSize = collider.size;
 		Vector3 colliderCenter = collider.center;

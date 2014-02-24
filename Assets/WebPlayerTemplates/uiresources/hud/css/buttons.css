@@ -1,7 +1,7 @@
 .button {
-	 width: 100px;
-    height: 100px;
-    -webkit-border-radius: 53px;
+	 width: 80px;
+    height: 80px;
+    -webkit-border-radius: 43px;
     background-color:black;
     border:3px solid cyan;
     text-align: center;
@@ -10,17 +10,17 @@
     -webkit-box-sizing: border-box;
     margin-left: auto;
     margin-right: auto;
+    display:inline-block;
+    margin-right: 5px;
 
 }
 .inner-circle {
-	 width: 80px;
-    height: 80px;
-    -webkit-border-radius: 53px;
+	 width: 60px;
+    height: 60px;
+    -webkit-border-radius: 33px;
     background-color:black;
     border:3px solid #0a6e70;		
     margin:0 auto; 
-
-    
 
 }
 
@@ -28,5 +28,7 @@
     background-image: url("../img/buttons/research.png");
     background-repeat: no-repeat;
     background-position: 40% 42%;
+
+    background-size:40px 40px;
 
 }

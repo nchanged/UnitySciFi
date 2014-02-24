@@ -25,7 +25,7 @@ public class UserInput : MonoBehaviour
 	private bool withinDeadZone = true;
 	private Vector3 deadZoneLeavePosition = Vector3.zero;
 
-	public Camera guiCamera;
+
 
 	void Awake ()
 	{
@@ -35,7 +35,11 @@ public class UserInput : MonoBehaviour
 	void Start ()
 	{
 		Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x, defaultCameraY, Camera.main.transform.position.z);
+
 	}
+
+
+
 
 	void Update ()
 	{
@@ -74,26 +78,7 @@ public class UserInput : MonoBehaviour
 
 	void guiDispatcher(Vector3 pointerPosition)
 	{
-	/*	RaycastHit hit;
-		
-		Ray ray = Camera.main.ScreenPointToRay(pointerPosition);
-		Plane hPlane = new Plane(Vector3.up, Vector3.zero);
-		float distance = 0; 
-		if (hPlane.Raycast(ray, out distance)){
-
-			hit = ray.GetPoint(distance);
-			Debug.Log(hit.transform.gameObject.name);
-		}
-*/
-
-		Ray ray = guiCamera.ScreenPointToRay (pointerPosition);
-		RaycastHit hit;
-		LayerMask layerMask = ~8;
-
-		if (Physics.Raycast (ray, out hit, 100, layerMask)){
-			//Debug.Log(hit.transform.gameObject.name);
-			//Debug.DrawLine (ray.origin, hit.point);
-		}
+	
 	}
 
 	void moveCamera (bool userFingerUp, bool userFingerDown, bool userFingerPressed, Vector3 pointerPosition)

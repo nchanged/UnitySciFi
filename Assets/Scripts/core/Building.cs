@@ -75,10 +75,7 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable
 	// Selecting unit
 	public void OnSelect()
 	{
-		//showInfoButton.Show();
 
-
-		UnitBar.show();
 		unitSelected = true;
 
 	}
@@ -86,7 +83,7 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable
 	public void OnDeselect()
 	{
 		unitSelected = false;
-		UnitBar.hide();
+
 	}
 
 	public bool IsSelected
