@@ -1,0 +1,15 @@
+body {
+	padding: 0;
+	margin: 0;
+}
+.bottom-bar {
+	
+	text-align: center;
+	vertical-align: middle;
+	position: fixed;
+	bottom:0;
+	
+	height:100px;
+	
+	width:100%;
+}

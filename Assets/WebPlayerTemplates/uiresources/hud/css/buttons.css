@@ -1,0 +1,32 @@
+.button {
+	 width: 100px;
+    height: 100px;
+    -webkit-border-radius: 53px;
+    background-color:black;
+    border:3px solid cyan;
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 4px;
+    -webkit-box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+.inner-circle {
+	 width: 80px;
+    height: 80px;
+    -webkit-border-radius: 53px;
+    background-color:black;
+    border:3px solid #0a6e70;		
+    margin:0 auto; 
+
+    
+
+}
+
+.btn-research {
+    background-image: url("../img/buttons/research.png");
+    background-repeat: no-repeat;
+    background-position: 40% 42%;
+
+}
