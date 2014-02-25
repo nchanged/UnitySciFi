@@ -23,35 +23,50 @@ ui.showUnitButtons = function(options) {
 		return $('<div class="button unit-button"><div class="inner-circle"></div></div>');
 	}
 
+	var getTitleTemplate = function()
+	{
+		return $('<div class="unit-bar-title"></div></div>');	
+	}
+
 	var bottomBar = ui.getBottomBar();
-
+	var infoHolder = $("<div class='unit-info-holder'></div>");
+	// Reset the holder
+	move(infoHolder[0]).y(100).set("opacity", 0).rotate(90).scale(0.5).end()
 	// Removing existing buttons
-	bottomBar.find('.unit-button').remove();
+	bottomBar.find('.unit-info-holder').remove();
+	
 
-	var unit_id = options.unit_id;
+	var unitName = options.unitName;
+	if ( game.Building[unitName] ) {
+		
+		var titleTpl = getTitleTemplate();
+		var info = game.Building[unitName];
+		
+		titleTpl.html("["+info.displayName+"]");
+		titleTpl.appendTo( infoHolder);
+	}
+
+
 	// Showing research button
 	if (options.research) {
 		var research = getTemplate();
 		research.find('.inner-circle').addClass("btn-research");
-		move(research[0]).y(100).set("opacity", 0).rotate(90).scale(0.5).end();
 		research.appendTo(bottomBar);
-
-		ui.animate(research[0]);
+		infoHolder.append(research);
 
 		var research = getTemplate();
 		research.find('.inner-circle').addClass("btn-research");
-		move(research[0]).y(100).set("opacity", 0).rotate(90).scale(0.5).end();
 		research.appendTo(bottomBar);
-
-		ui.animate(research[0]);
-		
+		infoHolder.append(research);
 	}
+	infoHolder.appendTo(bottomBar);
+	ui.animate(infoHolder[0]);
 }
 
 ui.hideUnitButtons = function()
 {
 	var bottomBar = ui.getBottomBar();
-	bottomBar.find(".unit-button").each(function(){
+	bottomBar.find(".unit-info-holder").each(function(){
 		ui.animate(this,{
 			opacity : 0, scale : 0.3, rotate : 90, y :100
 		})

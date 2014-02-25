@@ -11,7 +11,7 @@
 </head>
 <body>
 <div id="hud" class="coui-noinput">
-	
+	<div id="deb" style="background-color:black;width:100%;display:none;padding:2px; height:50px;color:white">df</div>
 <style>
 #test {
 	background-color: black;
@@ -36,7 +36,8 @@
     <script src="js/lib/move.min.js"></script>
     
 	<script src="js/coherent.js"></script>
-	
+	<script src="js/game/core.js"></script>
+	<script src="js/game/buildings.js"></script>
 	<script src="js/ui/bottom.bar.js"></script>
     
 
@@ -47,13 +48,16 @@
 		engine.on('Ready', function () {
 			$('#test').on('touchstart', function(event){});
 		});
-		engine.on("ShowUnitBar", function(){
-			ui.showUnitButtons({unit_id : 1, research : true});	
+		engine.on("ShowUnitBar", function(unitName){
+			ui.showUnitButtons({unitName : unitName, research : true});	
 		})
 		engine.on("HideUnitBar", function(){
 			ui.hideUnitButtons();	
 		})
 
+
+		ui.showUnitButtons({unitName : "building-nexus", research : true});	
+		
 		/*ui.showUnitButtons({unit_id : 1, research : true});	
 		setTimeout(function(){
 			ui.hideUnitButtons();	

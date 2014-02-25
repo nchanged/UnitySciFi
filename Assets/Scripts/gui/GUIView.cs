@@ -4,7 +4,7 @@ using System.Collections;
 
 public class GUIView : MonoBehaviour {
 
-	public static Coherent.UI.View core;
+
 
 
 	// Use this for initialization
@@ -12,14 +12,18 @@ public class GUIView : MonoBehaviour {
 		CoherentUIView viewComponent = GetComponent(typeof(CoherentUIView)) as CoherentUIView;
 		viewComponent.OnViewCreated += this.ViewCreated;
 	}
-
-
+	#if UNITY_EDITOR
+	public static Coherent.UI.View core;
 	void ViewCreated(Coherent.UI.View core) {
 		GUIView.core = core;
 	}
-
-	// Update is called once per frame
-	void Update () {
-	
+	#else
+	public static Coherent.UI.Mobile.View core;
+	void ViewCreated(Coherent.UI.Mobile.View core) {
+		GUIView.core = core;
 	}
+	#endif
+
+
+
 }

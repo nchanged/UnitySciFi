@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Coherent.UI.Binding;
 
 
 public class SelectGameObject : MonoBehaviour {
@@ -93,12 +94,29 @@ public class SelectGameObject : MonoBehaviour {
 		
 	}
 
+
+	// Get GUI name
+	public static string getUnitGUIName(GameObject target )
+	{
+		Component[] guiUnites 
+			= target.GetComponents(typeof(GUIUnit));
+		for (int i = 0; i<guiUnites.Length; i++){
+			if (guiUnites[i] is GUIUnit){
+				GUIUnit unit = guiUnites[i] as GUIUnit;
+				return unit.getName();
+			}
+		}
+		return null;
+	}
 	public static void drawSelection(GameObject target)
 	{
 
 		//gui.triggerEvent("showUnitBar");
+		string guiName = getUnitGUIName(target);
 
-		GUIView.core.TriggerEvent("ShowUnitBar");
+		GUIView.core.TriggerEvent("ShowUnitBar", guiName);
+
+
 		BoxCollider collider = target.GetComponent("BoxCollider") as BoxCollider;
 		Vector3 colliderSize = collider.size;
 		Vector3 colliderCenter = collider.center;

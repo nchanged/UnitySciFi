@@ -1,3 +1,5 @@
+
+@font-face { font-family: CFSpaceship; src: url('../fonts/CFSpaceship-Regular.ttf'); } 
 .button {
 	 width: 80px;
     height: 80px;
@@ -12,6 +14,7 @@
     margin-right: auto;
     display:inline-block;
     margin-right: 5px;
+    position: relative;
 
 }
 .inner-circle {
@@ -22,6 +25,15 @@
     border:3px solid #0a6e70;		
     margin:0 auto; 
 
+}
+.unit-bar-title {
+    position: relative;
+    top:-10px;
+    letter-spacing: 2px;
+    
+    color:cyan;
+    font-family: Tahoma;
+    font-size:15px;
 }
 
 .btn-research {
