@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
-using UnityEditor;
 
 public abstract class Building : MonoBehaviour, ISelectable, IDraggable
 {
@@ -19,9 +18,7 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable
 
 	void Start()
     {
-
 		lastValidPosition = gameObject.transform.position;
-		GameObjectUtility.SetNavMeshLayer(gameObject, 1);
 		NavMeshObstacle navMeshObstacle = (NavMeshObstacle)gameObject.AddComponent("NavMeshObstacle");
 		navMeshObstacle.carving = true;
     }
