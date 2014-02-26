@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using UnityEditor;
 
 public abstract class Building : MonoBehaviour, ISelectable, IDraggable
 {
 	private bool unitSelected = false;
 	private Vector3 lastValidPosition;
 	private bool currentPositionValid = true;
-
-
 
 
 	private bool upgradeButtonShown = false;
@@ -22,6 +21,9 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable
     {
 
 		lastValidPosition = gameObject.transform.position;
+		GameObjectUtility.SetNavMeshLayer(gameObject, 1);
+		NavMeshObstacle navMeshObstacle = (NavMeshObstacle)gameObject.AddComponent("NavMeshObstacle");
+		navMeshObstacle.carving = true;
     }
 
     void Update()
