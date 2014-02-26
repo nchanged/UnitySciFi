@@ -1,0 +1,46 @@
+.user-bar {
+	position: absolute;
+	width:300px;
+	
+	height: 100px;
+	right: 50%;
+	top:30%;
+	display: none;
+}
+.user-bar .main-circle{
+	width:100px;
+	height: 97px;
+	background-image: url("../img/level-main-circle.png");
+	position: absolute;
+	z-index: 1;
+}
+.user-bar .inner-circle {
+	width:66px; height: 66px;
+	position: absolute;
+	background-image: url("../img/level-inner-circle.png");
+	top:16px;
+	background-repeat: no-repeat;
+	left:19px;
+	z-index: 2;
+
+}
+.user-bar .minerals-bar {
+	background-image: url("../img/currency-bar.png");
+	width:141px;
+	height: 40px;
+	position: absolute;
+	z-index: 0;
+	top:50px;
+	left:50px;
+}
+
+.user-bar .gas-bar {
+	background-image: url("../img/currency-bar.png");
+	width:141px;
+	height: 40px;
+	position: absolute;
+	z-index: 0;
+	top:9px;
+	-webkit-transform: scaleY(-1);
+	left:50px;
+}

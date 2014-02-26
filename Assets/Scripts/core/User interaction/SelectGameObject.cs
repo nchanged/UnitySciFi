@@ -1,7 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
 using Coherent.UI.Binding;
+#else
+using Coherent.UI.Mobile.Binding;
+#endif
 
 
 public class SelectGameObject : MonoBehaviour {

@@ -17,7 +17,7 @@
     position: relative;
 
 }
-.inner-circle {
+.button .inner-circle {
 	 width: 60px;
     height: 60px;
     -webkit-border-radius: 33px;
