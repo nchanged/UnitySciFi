@@ -21,12 +21,6 @@
 
 </style>
 	
-<div class="user-bar">
-	<div class="main-circle"></div>
-	<div class="inner-circle"></div>
-	<div class="minerals-bar"></div>
-	<div class="gas-bar"></div>
-</div>
 
 
 	<div class="bottom-bar">
@@ -47,6 +41,7 @@
 	<script src="js/game/core.js"></script>
 	<script src="js/game/buildings.js"></script>
 	<script src="js/ui/bottom.bar.js"></script>
+	<script src="js/ui/user.bar.js"></script>
     
 
 	<script>
@@ -62,7 +57,8 @@
 		engine.on("HideUnitBar", function(){
 			ui.hideUnitButtons();	
 		})
-
+		
+		ui.attachUserBar();
 
 		//ui.showUnitButtons({unitName : "building-nexus", research : true});	
 		

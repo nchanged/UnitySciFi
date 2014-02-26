@@ -1,11 +1,12 @@
+@font-face { font-family: Copperplate; src: url('../fonts/copperplate_becker_med.ttf'); } 
 .user-bar {
 	position: absolute;
-	width:300px;
+	width:230px;
 	
 	height: 100px;
-	right: 50%;
-	top:30%;
-	display: none;
+	right: 0;
+	top:10px;
+
 }
 .user-bar .main-circle{
 	width:100px;
@@ -18,23 +19,23 @@
 	width:66px; height: 66px;
 	position: absolute;
 	background-image: url("../img/level-inner-circle.png");
-	top:16px;
+	top:17px;
 	background-repeat: no-repeat;
-	left:19px;
+	left:18px;
 	z-index: 2;
 
 }
-.user-bar .minerals-bar {
+.user-bar .gas-bar {
 	background-image: url("../img/currency-bar.png");
 	width:141px;
 	height: 40px;
 	position: absolute;
 	z-index: 0;
 	top:50px;
-	left:50px;
+	left:72px;
 }
 
-.user-bar .gas-bar {
+.user-bar .minerals-bar {
 	background-image: url("../img/currency-bar.png");
 	width:141px;
 	height: 40px;
@@ -42,5 +43,49 @@
 	z-index: 0;
 	top:9px;
 	-webkit-transform: scaleY(-1);
-	left:50px;
+	left:72px;
 }
+.user-bar .mineral-icon {
+	background-image: url("../img/mineral.png");
+	width: 23px;
+	height: 18px;
+	
+	left:100px;
+	top:20px;
+	position: absolute;
+}
+.user-bar .gas-icon {
+	background-image: url("../img/gas.png");
+	width: 17px;
+	height: 22px;
+	left:102px;
+	top:58px;
+	
+	position: absolute;
+}
+
+.user-bar .minerals-amount {
+	position: absolute;
+	width: 50px;
+	color:white;
+	font-size: 11px;
+	height: 11px;
+	font-family: Copperplate;
+	color:#b0ae18;
+	left:127px;
+	top:22px;
+}
+
+
+.user-bar .gas-amount {
+	position: absolute;
+	width: 50px;
+	color:white;
+	font-size: 11px;
+	height: 11px;
+	font-family: Copperplate;
+	color:#61b8d1;
+	left:127px;
+	top:62px;
+}
+
