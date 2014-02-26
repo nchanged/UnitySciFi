@@ -13,6 +13,8 @@ public class UserInput : MonoBehaviour
 	public float defaultCameraY = 100;
 	public float cameraMinX = 1000f;
 	public float cameraMaxX = 1400f;
+	public float cameraMinY = 15f;
+	public float cameraMaxY = 100f;
 	public float cameraMinZ = 700f;
 	public float cameraMaxZ = 1300f;
 
@@ -25,7 +27,13 @@ public class UserInput : MonoBehaviour
 	private bool withinDeadZone = true;
 	private Vector3 deadZoneLeavePosition = Vector3.zero;
 
-
+	private Vector2 currTouch1 = Vector2.zero;
+	private Vector2 currTouch2 = Vector2.zero;
+	private Vector2 lastTouch1 = Vector2.zero;
+	private Vector2 lastTouch2 = Vector2.zero;
+	private float currDist = 0.0f;
+	private float lastDist = 0.0f;
+	private float zoomSpeed = 5.0f;
 
 	void Awake ()
 	{
@@ -38,15 +46,17 @@ public class UserInput : MonoBehaviour
 
 	}
 
-
-
-
 	void Update ()
 	{
 		bool userFingerUp = false;
 		bool userFingerDown = false;
 		bool userFingerPressed = false;
 		Vector3 pointerPosition = Vector3.zero;
+
+		bool secondFingerUp = false;
+		bool secondFingerDown = false;
+		bool secondFingerPressed = false;
+		Vector3 secondPointerPosition = Vector3.zero;
 
 
 		if (Input.touchCount == 0)
@@ -55,30 +65,39 @@ public class UserInput : MonoBehaviour
 			userFingerDown = Input.GetMouseButtonDown (0);
 			userFingerPressed = Input.GetMouseButton (0);
 			pointerPosition = Input.mousePosition;
+
+			selectAndDrag (pointerPosition, userFingerUp, userFingerDown, userFingerPressed);
+			
+			if (!lockCameraMovement)
+			{
+				moveCamera (userFingerUp, userFingerDown, userFingerPressed, pointerPosition);
+			}
 		}
 		else
 		{
+			userFingerUp = Input.GetTouch (0).phase == TouchPhase.Ended;
+			userFingerDown = Input.GetTouch (0).phase == TouchPhase.Began;
+			userFingerPressed = Input.GetTouch (0).phase == TouchPhase.Moved;
+			pointerPosition = Input.GetTouch (0).position;
+
 			if (Input.touchCount == 1)
 			{
-				userFingerUp = Input.GetTouch (0).phase == TouchPhase.Ended;
-				userFingerDown = Input.GetTouch (0).phase == TouchPhase.Began;
-				userFingerPressed = Input.GetTouch (0).phase == TouchPhase.Moved;
-				pointerPosition = Input.GetTouch (0).position;
+				selectAndDrag (pointerPosition, userFingerUp, userFingerDown, userFingerPressed);				
+				if (!lockCameraMovement)
+				{
+					moveCamera (userFingerUp, userFingerDown, userFingerPressed, pointerPosition);
+				}
 			}
+			else if (Input.touchCount == 2)
+			{
+				secondFingerUp = Input.GetTouch (1).phase == TouchPhase.Ended;
+				secondFingerDown = Input.GetTouch (1).phase == TouchPhase.Began;
+				secondFingerPressed = Input.GetTouch (1).phase == TouchPhase.Moved;
+				secondPointerPosition = Input.GetTouch (1).position;
+			}
+
+			zoom(userFingerPressed, secondFingerPressed);
 		}
-
-		guiDispatcher(pointerPosition);
-		selectAndDrag (pointerPosition, userFingerUp, userFingerDown, userFingerPressed);
-
-		if (!lockCameraMovement)
-		{
-			moveCamera (userFingerUp, userFingerDown, userFingerPressed, pointerPosition);
-		}
-	}
-
-	void guiDispatcher(Vector3 pointerPosition)
-	{
-	
 	}
 
 	void moveCamera (bool userFingerUp, bool userFingerDown, bool userFingerPressed, Vector3 pointerPosition)
@@ -151,9 +170,7 @@ public class UserInput : MonoBehaviour
 	private Vector3 latestDragCameraPosition;
 	private Vector3 latestFingerDownPosition;
 	private bool draggingOccured = false;
-
 	private ICommandable commandableComponent = null;
-
 	private Vector3 terrainPointed;
 
 	void selectAndDrag (Vector3 pointerPosition, bool userFingerUp, bool userFingerDown, bool userFingerPressed)
@@ -241,5 +258,30 @@ public class UserInput : MonoBehaviour
 			lockCameraMovement = false;
 		}
 		latestDragCameraPosition = pointerPosition;
+	}
+
+
+	/*--- Pinch to zoom ---*/
+	void zoom(bool userFingerPressed, bool secondFingerPressed)
+	{
+		if(userFingerPressed)
+		{
+			currTouch1 = Input.GetTouch(0).position;
+			lastTouch1 = currTouch1 - Input.GetTouch(0).deltaPosition;
+
+			currDist = 0.0f;
+			lastDist = 0.0f;
+		}
+		else if(userFingerPressed && secondFingerPressed)
+		{
+			currTouch2 = Input.GetTouch(1).position;
+			lastTouch2 = currTouch2 - Input.GetTouch(1).deltaPosition;
+
+			currDist = Vector2.Distance(currTouch1, currTouch2);
+			lastDist = Vector2.Distance(lastTouch1, lastTouch2);
+
+			float zoomFactor = Mathf.Clamp(lastDist - currDist, cameraMinY, cameraMaxY);
+			Camera.mainCamera.transform.Translate(Vector3.up * zoomFactor * zoomSpeed * Time.deltaTime);
+		}
 	}
 }
