@@ -33,7 +33,7 @@ public class UserInput : MonoBehaviour
 	private Vector2 lastTouch2 = Vector2.zero;
 	private float currDist = 0.0f;
 	private float lastDist = 0.0f;
-	private float zoomSpeed = 5.0f;
+	private float zoomSpeed = 10.0f;
 
 	void Awake ()
 	{
@@ -264,24 +264,22 @@ public class UserInput : MonoBehaviour
 	/*--- Pinch to zoom ---*/
 	void zoom(bool userFingerPressed, bool secondFingerPressed)
 	{
-		if(userFingerPressed)
+		if (Input.touchCount == 2)
 		{
 			currTouch1 = Input.GetTouch(0).position;
-			lastTouch1 = currTouch1 - Input.GetTouch(0).deltaPosition;
-
-			currDist = 0.0f;
-			lastDist = 0.0f;
-		}
-		else if(userFingerPressed && secondFingerPressed)
-		{
 			currTouch2 = Input.GetTouch(1).position;
-			lastTouch2 = currTouch2 - Input.GetTouch(1).deltaPosition;
-
 			currDist = Vector2.Distance(currTouch1, currTouch2);
-			lastDist = Vector2.Distance(lastTouch1, lastTouch2);
 
-			float zoomFactor = Mathf.Clamp(lastDist - currDist, cameraMinY, cameraMaxY);
-			Camera.mainCamera.transform.Translate(Vector3.up * zoomFactor * zoomSpeed * Time.deltaTime);
+			//lastTouch1 = currTouch1 - Input.GetTouch(0).deltaPosition;
+			//lastTouch2 = currTouch2 - Input.GetTouch(1).deltaPosition;
+
+			//
+			//float zoomFactor = Mathf.Clamp(lastDist - currDist, cameraMinY, cameraMaxY);
+
+			Debug.Log("cur:" + currDist + " last:" + lastDist + " diff:" + lastDist-currDist);
+			lastDist = currDist;
+
+			//Camera.mainCamera.transform.Translate(Vector3.up * zoomFactor * zoomSpeed * Time.deltaTime);
 		}
 	}
 }

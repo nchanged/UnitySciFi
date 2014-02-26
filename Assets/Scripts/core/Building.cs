@@ -23,14 +23,6 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable
 		navMeshObstacle.carving = true;
     }
 
-    void Update()
-    {
-		if ( upgradeButton) {
-			//UI.animateFromBottom(upgradeButton,0);
-		}
-    }
-
-
 	private Vector3 dragStartPosition = Vector3.zero;
 	private Vector3 dragStartUnitPosition = Vector3.zero;
 	// Dragging
@@ -67,8 +59,6 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable
 		else
 		{
 			lastValidPosition = gameObject.transform.position;
-			AstarPath.active.Scan();
-			//AstarPath.active.UpdateGraphs (gameObject.collider.bounds);
 		}
 	}
 	// Selecting unit
