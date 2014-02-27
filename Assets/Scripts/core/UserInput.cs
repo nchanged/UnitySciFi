@@ -96,7 +96,7 @@ public class UserInput : MonoBehaviour
 				secondPointerPosition = Input.GetTouch (1).position;
 			}
 
-			zoom(userFingerPressed, secondFingerPressed);
+			zoom(userFingerUp, userFingerPressed, pointerPosition, secondFingerUp, secondFingerPressed, secondPointerPosition);
 		}
 	}
 
@@ -104,6 +104,7 @@ public class UserInput : MonoBehaviour
 	{
 		if (userFingerDown)
 		{
+			Debug.Log ("Finger down in movecamera");
 			hitPosition = pointerPosition;
 			cameraStartPosition = Camera.main.transform.position;
 			cameraVelocity = Vector3.zero;
@@ -262,7 +263,8 @@ public class UserInput : MonoBehaviour
 
 
 	/*--- Pinch to zoom ---*/
-	void zoom(bool userFingerPressed, bool secondFingerPressed)
+	void zoom(bool userFingerUp, bool userFingerPressed, Vector3 pointerPosition,
+	          bool secondFingerUp, bool secondFingerPressed, Vector3 secondPointerPosition)
 	{
 		if (Input.touchCount == 2)
 		{
@@ -270,16 +272,33 @@ public class UserInput : MonoBehaviour
 			currTouch2 = Input.GetTouch(1).position;
 			currDist = Vector2.Distance(currTouch1, currTouch2);
 
-			//lastTouch1 = currTouch1 - Input.GetTouch(0).deltaPosition;
-			//lastTouch2 = currTouch2 - Input.GetTouch(1).deltaPosition;
+			if(lastDist != 0.0f){
+				float zoomFactor = (lastDist-currDist);
+				Camera.mainCamera.transform.Translate(Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime);
+			}
 
-			//
-			//float zoomFactor = Mathf.Clamp(lastDist - currDist, cameraMinY, cameraMaxY);
-
-			Debug.Log("cur:" + currDist + " last:" + lastDist + " diff:" + lastDist-currDist);
 			lastDist = currDist;
+			defaultCameraY = Camera.mainCamera.transform.position.y;
+		
 
-			//Camera.mainCamera.transform.Translate(Vector3.up * zoomFactor * zoomSpeed * Time.deltaTime);
+			if(userFingerUp)
+			{
+				Debug.Log ("Second finger on screen");
+				lastDist = 0.0f;
+				hitPosition = secondPointerPosition;
+				cameraStartPosition = Camera.main.transform.position;
+				cameraVelocity = Vector3.zero;
+				smoothToStop = false;
+			}
+			if(secondFingerUp)
+			{
+				Debug.Log ("First finger on screen");
+				lastDist = 0.0f;
+				hitPosition = pointerPosition;
+				cameraStartPosition = Camera.main.transform.position;
+				cameraVelocity = Vector3.zero;
+				smoothToStop = false;
+			}
 		}
 	}
 }
