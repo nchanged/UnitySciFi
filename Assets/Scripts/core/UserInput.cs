@@ -104,7 +104,6 @@ public class UserInput : MonoBehaviour
 	{
 		if (userFingerDown)
 		{
-			Debug.Log ("Finger down in movecamera");
 			hitPosition = pointerPosition;
 			cameraStartPosition = Camera.main.transform.position;
 			cameraVelocity = Vector3.zero;
@@ -113,6 +112,7 @@ public class UserInput : MonoBehaviour
 
 		if (userFingerPressed && !withinDeadZone)
 		{
+			print("pointer: " + pointerPosition + "  hit: " + hitPosition);
 			cameraVelocity = Vector3.zero;
 			smoothToStop = false;
 
@@ -279,13 +279,13 @@ public class UserInput : MonoBehaviour
 
 			lastDist = currDist;
 			defaultCameraY = Camera.mainCamera.transform.position.y;
-		
 
 			if(userFingerUp)
 			{
-				Debug.Log ("Second finger on screen");
+				Debug.Log ("Second finger on screen. Setting hit to: " + secondPointerPosition);
 				lastDist = 0.0f;
 				hitPosition = secondPointerPosition;
+				deadZoneLeavePosition = secondPointerPosition;
 				cameraStartPosition = Camera.main.transform.position;
 				cameraVelocity = Vector3.zero;
 				smoothToStop = false;
@@ -295,6 +295,7 @@ public class UserInput : MonoBehaviour
 				Debug.Log ("First finger on screen");
 				lastDist = 0.0f;
 				hitPosition = pointerPosition;
+				deadZoneLeavePosition = pointerPosition;
 				cameraStartPosition = Camera.main.transform.position;
 				cameraVelocity = Vector3.zero;
 				smoothToStop = false;
