@@ -13,7 +13,7 @@ public class UserInput : MonoBehaviour
 	public float defaultCameraY = 100;
 	public float cameraMinX = 1000f;
 	public float cameraMaxX = 1400f;
-	public float cameraMinY = 15f;
+	public float cameraMinY = 20f;
 	public float cameraMaxY = 100f;
 	public float cameraMinZ = 700f;
 	public float cameraMaxZ = 1300f;
@@ -112,7 +112,6 @@ public class UserInput : MonoBehaviour
 
 		if (userFingerPressed && !withinDeadZone)
 		{
-			print("pointer: " + pointerPosition + "  hit: " + hitPosition);
 			cameraVelocity = Vector3.zero;
 			smoothToStop = false;
 
@@ -274,7 +273,12 @@ public class UserInput : MonoBehaviour
 
 			if(lastDist != 0.0f){
 				float zoomFactor = (lastDist-currDist);
-				Camera.mainCamera.transform.Translate(Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime);
+				if(zoomFactor < 0 && Camera.main.transform.position.y > cameraMinY ||
+				   zoomFactor > 0 && Camera.main.transform.position.y < cameraMaxY)
+				{
+					Vector3 zoom = Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime;
+					Camera.mainCamera.transform.Translate(zoom);
+				}
 			}
 
 			lastDist = currDist;
@@ -292,7 +296,7 @@ public class UserInput : MonoBehaviour
 			}
 			if(secondFingerUp)
 			{
-				Debug.Log ("First finger on screen");
+				Debug.Log ("First finger on screen. Setting hit to: " + secondPointerPosition);
 				lastDist = 0.0f;
 				hitPosition = pointerPosition;
 				deadZoneLeavePosition = pointerPosition;
