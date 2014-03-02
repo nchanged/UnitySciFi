@@ -14,7 +14,7 @@ public class UserInput : MonoBehaviour
 	public float defaultCameraY = 100;
 	public float cameraMinX = 1000f;
 	public float cameraMaxX = 1400f;
-	public float cameraMinY = 30f;
+	public float cameraMinY = 25f;
 	public float cameraMaxY = 100f;
 	public float cameraMinZ = 700f;
 	public float cameraMaxZ = 1300f;
