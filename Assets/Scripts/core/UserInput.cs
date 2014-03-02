@@ -7,13 +7,14 @@ public class UserInput : MonoBehaviour
 {
 	private bool lockCameraMovement = false;
 	private Vector3 hitPosition = Vector3.zero;
+	private Vector3 pointerPosition = Vector3.zero;
 	private Vector3 cameraStartPosition = Vector3.zero;
 	private Vector3 cameraMovePosition = Vector3.zero;
 
 	public float defaultCameraY = 100;
 	public float cameraMinX = 1000f;
 	public float cameraMaxX = 1400f;
-	public float cameraMinY = 20f;
+	public float cameraMinY = 30f;
 	public float cameraMaxY = 100f;
 	public float cameraMinZ = 700f;
 	public float cameraMaxZ = 1300f;
@@ -33,7 +34,7 @@ public class UserInput : MonoBehaviour
 	private Vector2 lastTouch2 = Vector2.zero;
 	private float currDist = 0.0f;
 	private float lastDist = 0.0f;
-	private float zoomSpeed = 10.0f;
+	private float zoomSpeed = 7.0f;
 
 	void Awake ()
 	{
@@ -51,7 +52,7 @@ public class UserInput : MonoBehaviour
 		bool userFingerUp = false;
 		bool userFingerDown = false;
 		bool userFingerPressed = false;
-		Vector3 pointerPosition = Vector3.zero;
+		pointerPosition = Vector3.zero;
 
 		bool secondFingerUp = false;
 		bool secondFingerDown = false;
@@ -66,11 +67,11 @@ public class UserInput : MonoBehaviour
 			userFingerPressed = Input.GetMouseButton (0);
 			pointerPosition = Input.mousePosition;
 
-			selectAndDrag (pointerPosition, userFingerUp, userFingerDown, userFingerPressed);
+			selectAndDrag (userFingerUp, userFingerDown, userFingerPressed);
 			
 			if (!lockCameraMovement)
 			{
-				moveCamera (userFingerUp, userFingerDown, userFingerPressed, pointerPosition);
+				moveCamera (userFingerUp, userFingerDown, userFingerPressed);
 			}
 		}
 		else
@@ -82,10 +83,10 @@ public class UserInput : MonoBehaviour
 
 			if (Input.touchCount == 1)
 			{
-				selectAndDrag (pointerPosition, userFingerUp, userFingerDown, userFingerPressed);				
+				selectAndDrag (userFingerUp, userFingerDown, userFingerPressed);				
 				if (!lockCameraMovement)
 				{
-					moveCamera (userFingerUp, userFingerDown, userFingerPressed, pointerPosition);
+					moveCamera (userFingerUp, userFingerDown, userFingerPressed);
 				}
 			}
 			else if (Input.touchCount == 2)
@@ -96,31 +97,34 @@ public class UserInput : MonoBehaviour
 				secondPointerPosition = Input.GetTouch (1).position;
 			}
 
-			zoom(userFingerUp, userFingerPressed, pointerPosition, secondFingerUp, secondFingerPressed, secondPointerPosition);
+			zoom(userFingerUp, userFingerPressed, secondFingerUp, secondFingerPressed, secondPointerPosition);
 		}
 	}
 
-	void moveCamera (bool userFingerUp, bool userFingerDown, bool userFingerPressed, Vector3 pointerPosition)
+	void moveCamera (bool userFingerUp, bool userFingerDown, bool userFingerPressed)
 	{
 		if (userFingerDown)
 		{
 			hitPosition = pointerPosition;
 			cameraStartPosition = Camera.main.transform.position;
+			lastCameraPosition = Camera.main.transform.position;
 			cameraVelocity = Vector3.zero;
 			smoothToStop = false;
 		}
 
-		if (userFingerPressed && !withinDeadZone)
+		//if (userFingerPressed && !withinDeadZone)
+		if (userFingerPressed)
 		{
 			cameraVelocity = Vector3.zero;
 			smoothToStop = false;
 
 			// Our camera is rotated 90degrees on the X axis.. so Z axis and Y axis are inverted.
-			pointerPosition.z = hitPosition.z = deadZoneLeavePosition.z = cameraStartPosition.y;
+			//pointerPosition.z = hitPosition.z = deadZoneLeavePosition.z = cameraStartPosition.y;
+			pointerPosition.z = hitPosition.z = cameraStartPosition.y;
 
 			// Add the offset of the deadZone, so that the camera doesn't suddenly jump 30f when it starts moving.
-			Vector3 deadZoneOffset = deadZoneLeavePosition - hitPosition;
-			hitPosition += deadZoneOffset;
+			//Vector3 deadZoneOffset = deadZoneLeavePosition - hitPosition;
+			//hitPosition += deadZoneOffset;
 
 			// Calculating camera shift
 			Vector3 direction = Camera.main.ScreenToWorldPoint (pointerPosition) - Camera.main.ScreenToWorldPoint (hitPosition);
@@ -173,7 +177,7 @@ public class UserInput : MonoBehaviour
 	private ICommandable commandableComponent = null;
 	private Vector3 terrainPointed;
 
-	void selectAndDrag (Vector3 pointerPosition, bool userFingerUp, bool userFingerDown, bool userFingerPressed)
+	void selectAndDrag (bool userFingerUp, bool userFingerDown, bool userFingerPressed)
 	{
 		RaycastHit hit;
 		Ray ray = Camera.main.ScreenPointToRay (pointerPosition);
@@ -262,7 +266,7 @@ public class UserInput : MonoBehaviour
 
 
 	/*--- Pinch to zoom ---*/
-	void zoom(bool userFingerUp, bool userFingerPressed, Vector3 pointerPosition,
+	void zoom(bool userFingerUp, bool userFingerPressed,
 	          bool secondFingerUp, bool secondFingerPressed, Vector3 secondPointerPosition)
 	{
 		if (Input.touchCount == 2)
@@ -273,34 +277,31 @@ public class UserInput : MonoBehaviour
 
 			if(lastDist != 0.0f){
 				float zoomFactor = (lastDist-currDist);
-				if(zoomFactor < 0 && Camera.main.transform.position.y > cameraMinY ||
-				   zoomFactor > 0 && Camera.main.transform.position.y < cameraMaxY)
-				{
-					Vector3 zoom = Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime;
-					Camera.mainCamera.transform.Translate(zoom);
+				float rotationFactor = Mathf.Tan(Camera.main.transform.eulerAngles.x * Mathf.Deg2Rad);
+
+				Vector3 zoom = Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime * -1;					
+				float Y = Mathf.Clamp(Camera.main.transform.position.y + zoom.z, cameraMinY, cameraMaxY);
+				float X = Mathf.Clamp(Camera.main.transform.position.x + (zoom.z * rotationFactor), cameraMinX, cameraMaxX);
+				float Z = Camera.main.transform.position.z;
+				Vector3 newPos = new Vector3(X,Y,Z);
+
+				if(Y > cameraMinY && zoomFactor < 0 || Y < cameraMaxY && zoomFactor > 0){
+					Camera.main.transform.position = newPos;
 				}
 			}
 
 			lastDist = currDist;
 			defaultCameraY = Camera.mainCamera.transform.position.y;
 
-			if(userFingerUp)
+			if(userFingerUp || secondFingerUp)
 			{
-				Debug.Log ("Second finger on screen. Setting hit to: " + secondPointerPosition);
+				Vector3 remainingFingerPos = userFingerUp ? secondPointerPosition : pointerPosition;
 				lastDist = 0.0f;
-				hitPosition = secondPointerPosition;
-				deadZoneLeavePosition = secondPointerPosition;
+				pointerPosition = remainingFingerPos;
+				hitPosition = remainingFingerPos;
+				deadZoneLeavePosition = remainingFingerPos;
 				cameraStartPosition = Camera.main.transform.position;
-				cameraVelocity = Vector3.zero;
-				smoothToStop = false;
-			}
-			if(secondFingerUp)
-			{
-				Debug.Log ("First finger on screen. Setting hit to: " + secondPointerPosition);
-				lastDist = 0.0f;
-				hitPosition = pointerPosition;
-				deadZoneLeavePosition = pointerPosition;
-				cameraStartPosition = Camera.main.transform.position;
+				lastCameraPosition = Camera.main.transform.position;
 				cameraVelocity = Vector3.zero;
 				smoothToStop = false;
 			}
