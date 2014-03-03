@@ -3,6 +3,8 @@ html, body {
 	margin: 0;
 	height:100%;
 	overflow: hidden;
+	-webkit-touch-callout: none;
+-webkit-user-select: none;
 	
 }
 
@@ -26,7 +28,7 @@ html, body {
 	vertical-align: middle;
 	position: fixed;
 	bottom:0;
-	height:120px;
+	height:100px;
 	
 	width:100%;
 }

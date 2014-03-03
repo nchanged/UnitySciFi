@@ -1,6 +1,6 @@
 ui._userBarTemplate = function()
 {
-	return $('<div class="user-bar"><div class="main-circle"></div><div class="inner-circle"></div>'+
+	return $('<div class="user-bar"><div class="user-name-bar">User name</div><div class="main-circle"></div><div class="inner-circle"></div>'+
 	'<div class="minerals-bar"></div><div class="mineral-icon"></div><div class="gas-bar"></div>'+
 	'<div class="gas-icon"></div><div class="minerals-amount">1,087,009</div>'+
 	'<div class="gas-amount">879,700</div></div>');
@@ -26,7 +26,5 @@ ui.attachUserBar = function()
 	}
 	setTimeout(function(){
 		animate();	
-	},1)
-	
-	
+	},1);
 }

@@ -42,7 +42,7 @@ ui.showUnitButtons = function(options) {
 		var titleTpl = getTitleTemplate();
 		var info = game.Building[unitName];
 		
-		titleTpl.html("["+info.displayName+"]");
+		titleTpl.html(info.displayName);
 		titleTpl.appendTo( infoHolder);
 	}
 
@@ -68,7 +68,7 @@ ui.hideUnitButtons = function()
 	var bottomBar = ui.getBottomBar();
 	bottomBar.find(".unit-info-holder").each(function(){
 		ui.animate(this,{
-			opacity : 0, scale : 0.3, rotate : 90, y :100
+			opacity : 0, scale : 0.3, rotate : 90, y :120
 		})
 	})
 }

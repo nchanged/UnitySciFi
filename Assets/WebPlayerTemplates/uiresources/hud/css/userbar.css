@@ -5,7 +5,22 @@
 	
 	height: 100px;
 	right: 0;
-	top:10px;
+	top:7px;
+
+}
+.user-name-bar {
+	font-family: Copperplate;
+	color:white;
+	position: absolute;
+	right:25px;
+	width:123px;
+	line-height: 35px;
+	-webkit-box-sizing: border-box;
+	top:-17px;
+	height:35px;
+	padding-left: 20px;
+	font-size: 11px;
+	
 
 }
 .user-bar .main-circle{
