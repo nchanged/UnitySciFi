@@ -11,13 +11,13 @@ public class UserInput : MonoBehaviour
 	private Vector3 cameraStartPosition = Vector3.zero;
 	private Vector3 cameraMovePosition = Vector3.zero;
 
-	public float defaultCameraY = 100;
-	public float cameraMinX = 1000f;
-	public float cameraMaxX = 1400f;
-	public float cameraMinY = 25f;
-	public float cameraMaxY = 100f;
-	public float cameraMinZ = 700f;
-	public float cameraMaxZ = 1300f;
+	private float defaultCameraY = 100;
+	private float cameraMinX = 1000f;
+	private float cameraMaxX = 1400f;
+	private float cameraMinY = 25f;
+	private float cameraMaxY = 100f;
+	private float cameraMinZ = 700f;
+	private float cameraMaxZ = 1300f;
 
 	private Vector3 lastCameraPosition = Vector3.zero; // Used to calculate camera velocity
 	private Vector3 cameraVelocity = Vector3.zero; // Used to smoothly decelerate camera
@@ -34,7 +34,7 @@ public class UserInput : MonoBehaviour
 	private Vector2 lastTouch2 = Vector2.zero;
 	private float currDist = 0.0f;
 	private float lastDist = 0.0f;
-	private float zoomSpeed = 7.0f;
+	private float defaultZoomSpeed = 7.0f;
 
 	void Awake ()
 	{
@@ -278,6 +278,7 @@ public class UserInput : MonoBehaviour
 			if(lastDist != 0.0f){
 				float zoomFactor = (lastDist-currDist);
 				float rotationFactor = Mathf.Tan(Camera.main.transform.eulerAngles.x * Mathf.Deg2Rad);
+				float zoomSpeed = (zoomFactor < 0 && Camera.main.transform.position.y < 40f) ? Camera.main.transform.position.y/10 : defaultZoomSpeed;
 
 				Vector3 zoom = Vector3.back * zoomFactor * zoomSpeed * Time.deltaTime * -1;					
 				float Y = Mathf.Clamp(Camera.main.transform.position.y + zoom.z, cameraMinY, cameraMaxY);
@@ -286,7 +287,8 @@ public class UserInput : MonoBehaviour
 				Vector3 newPos = new Vector3(X,Y,Z);
 
 				if(Y > cameraMinY && zoomFactor < 0 || Y < cameraMaxY && zoomFactor > 0){
-					Camera.main.transform.position = newPos;
+					Debug.Log (Camera.main.transform.position + "zoomspeed:" + zoomSpeed);
+					Camera.main.transform.position = Vector3.Lerp (Camera.main.transform.position, newPos, 0.5f);
 				}
 			}
 
