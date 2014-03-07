@@ -42,6 +42,7 @@
 	<script src="js/game/buildings.js"></script>
 	<script src="js/ui/bottom.bar.js"></script>
 	<script src="js/ui/user.bar.js"></script>
+	<script src="js/ui/socket.js"></script>
     
 
 	<script>
@@ -67,6 +68,12 @@
 			ui.hideUnitButtons();	
 			console.log("HIDE")
 		},1000)*/
+		
+		var socket = io.connect('http://10.85.18.93:8075');
+		socket.on("trololo", function(data){
+			game.debug(data);
+		});
+		socket.emit('pukka');
 		
 
 	</script>
