@@ -5,7 +5,7 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 {
 	private bool unitSelected = false;
 	public string DefaultAnimation {get;set;}
-	public NavMeshAgent PathfindingAgent;
+	private NavMeshAgent PathfindingAgent;
 	private Vector3 destinationPosition;
 	private bool reachedDestination = true;
 
@@ -16,6 +16,13 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 		this.animation.CrossFade(this.DefaultAnimation);
 		PathfindingAgent = (NavMeshAgent)gameObject.AddComponent("NavMeshAgent");
 		destinationPosition = gameObject.transform.position;
+
+		Rigidbody rigidbody = (Rigidbody)gameObject.AddComponent("Rigidbody");
+		rigidbody.mass = 50f;
+		rigidbody.drag = 50f;
+		rigidbody.angularDrag = 50f;
+		rigidbody.useGravity = true;
+		rigidbody.freezeRotation = true;
 	}
 
 	public void Update()
