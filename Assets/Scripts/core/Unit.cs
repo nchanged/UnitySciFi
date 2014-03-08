@@ -4,6 +4,7 @@ using System.Collections;
 public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 {
 	private bool unitSelected = false;
+	public string[] SelectAnimations {get;set;}
 	public string DefaultAnimation {get;set;}
 	private NavMeshAgent PathfindingAgent;
 	private Vector3 destinationPosition;
@@ -37,6 +38,12 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 				reachedDestination = true;
 			}
 		}
+
+		if(!this.animation.isPlaying)
+		{
+			this.animation.wrapMode = WrapMode.Loop;
+			this.animation.Play(this.DefaultAnimation);
+		}
 	}
 
 	public void OnMoveCommand(Vector3 destination)
@@ -44,6 +51,7 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 		destination = new Vector3(destination.x,0,destination.z);
 		destinationPosition = destination;
 		PathfindingAgent.SetDestination(destination);
+		this.animation.wrapMode = WrapMode.Loop;
 		this.animation.CrossFade("walk");
 		reachedDestination = false;
 	}
@@ -51,6 +59,14 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 	public void OnSelect()
 	{
 		unitSelected = true;
+
+		if(this.animation.IsPlaying(this.DefaultAnimation))
+		{	
+			int index = Random.Range(0, this.SelectAnimations.Length);
+			string name = this.SelectAnimations[index];
+			this.animation.wrapMode = WrapMode.Once;
+			this.animation.CrossFade(name);
+		}
 	}
 	public void OnDeselect()
 	{
