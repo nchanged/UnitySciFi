@@ -1,0 +1,345 @@
+fileFormatVersion: 2
+guid: 65825f14d70e6a0479e670a46d81a480
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: L_Back1
+    100002: L_Back2
+    100004: L_Back3
+    100006: L_Front1
+    100008: L_Front2
+    100010: L_Front3
+    100012: L_LowerFin1
+    100014: L_LowerFin2
+    100016: L_UpperFin1
+    100018: L_UpperFin2
+    100020: L_UpperFin3
+    100022: //RootNode
+    100024: Probe_Root
+    100026: ProbeMesh
+    100028: R_Back1
+    100030: R_Back2
+    100032: R_Back3
+    100034: R_Front1
+    100036: R_Front2
+    100038: R_Front3
+    100040: R_LowerFin1
+    100042: R_LowerFin2
+    100044: R_UpperFin1
+    100046: R_UpperFin2
+    100048: R_UpperFin3
+    400000: L_Back1
+    400002: L_Back2
+    400004: L_Back3
+    400006: L_Front1
+    400008: L_Front2
+    400010: L_Front3
+    400012: L_LowerFin1
+    400014: L_LowerFin2
+    400016: L_UpperFin1
+    400018: L_UpperFin2
+    400020: L_UpperFin3
+    400022: //RootNode
+    400024: Probe_Root
+    400026: ProbeMesh
+    400028: R_Back1
+    400030: R_Back2
+    400032: R_Back3
+    400034: R_Front1
+    400036: R_Front2
+    400038: R_Front3
+    400040: R_LowerFin1
+    400042: R_LowerFin2
+    400044: R_UpperFin1
+    400046: R_UpperFin2
+    400048: R_UpperFin3
+    4300000: ProbeMesh
+    7400000: Walk
+    7400002: Probe_Walk
+    7400004: Take 0010
+    7400006: Probe_Idle
+    7400008: walk
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: ProbeMesh
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 2
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Probe_Walk
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 24
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Probe_Root
+        weight: 1
+      - path: Probe_Root/L_Back1
+        weight: 1
+      - path: Probe_Root/L_Back1/L_Back2
+        weight: 1
+      - path: Probe_Root/L_Back1/L_Back2/L_Back3
+        weight: 1
+      - path: Probe_Root/L_Front1
+        weight: 1
+      - path: Probe_Root/L_Front1/L_Front2
+        weight: 1
+      - path: Probe_Root/L_Front1/L_Front2/L_Front3
+        weight: 1
+      - path: Probe_Root/L_LowerFin1
+        weight: 1
+      - path: Probe_Root/L_LowerFin1/L_LowerFin2
+        weight: 1
+      - path: Probe_Root/L_UpperFin1
+        weight: 1
+      - path: Probe_Root/L_UpperFin1/L_UpperFin2
+        weight: 1
+      - path: Probe_Root/L_UpperFin1/L_UpperFin2/L_UpperFin3
+        weight: 1
+      - path: Probe_Root/R_Back1
+        weight: 1
+      - path: Probe_Root/R_Back1/R_Back2
+        weight: 1
+      - path: Probe_Root/R_Back1/R_Back2/R_Back3
+        weight: 1
+      - path: Probe_Root/R_Front1
+        weight: 1
+      - path: Probe_Root/R_Front1/R_Front2
+        weight: 1
+      - path: Probe_Root/R_Front1/R_Front2/R_Front3
+        weight: 1
+      - path: Probe_Root/R_LowerFin1
+        weight: 1
+      - path: Probe_Root/R_LowerFin1/R_LowerFin2
+        weight: 1
+      - path: Probe_Root/R_UpperFin1
+        weight: 1
+      - path: Probe_Root/R_UpperFin1/R_UpperFin2
+        weight: 1
+      - path: Probe_Root/R_UpperFin1/R_UpperFin2/R_UpperFin3
+        weight: 1
+      - path: ProbeMesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Probe_Idle
+      takeName: Take 001
+      firstFrame: 25
+      lastFrame: 200
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Probe_Root
+        weight: 1
+      - path: Probe_Root/L_Back1
+        weight: 1
+      - path: Probe_Root/L_Back1/L_Back2
+        weight: 1
+      - path: Probe_Root/L_Back1/L_Back2/L_Back3
+        weight: 1
+      - path: Probe_Root/L_Front1
+        weight: 1
+      - path: Probe_Root/L_Front1/L_Front2
+        weight: 1
+      - path: Probe_Root/L_Front1/L_Front2/L_Front3
+        weight: 1
+      - path: Probe_Root/L_LowerFin1
+        weight: 1
+      - path: Probe_Root/L_LowerFin1/L_LowerFin2
+        weight: 1
+      - path: Probe_Root/L_UpperFin1
+        weight: 1
+      - path: Probe_Root/L_UpperFin1/L_UpperFin2
+        weight: 1
+      - path: Probe_Root/L_UpperFin1/L_UpperFin2/L_UpperFin3
+        weight: 1
+      - path: Probe_Root/R_Back1
+        weight: 1
+      - path: Probe_Root/R_Back1/R_Back2
+        weight: 1
+      - path: Probe_Root/R_Back1/R_Back2/R_Back3
+        weight: 1
+      - path: Probe_Root/R_Front1
+        weight: 1
+      - path: Probe_Root/R_Front1/R_Front2
+        weight: 1
+      - path: Probe_Root/R_Front1/R_Front2/R_Front3
+        weight: 1
+      - path: Probe_Root/R_LowerFin1
+        weight: 1
+      - path: Probe_Root/R_LowerFin1/R_LowerFin2
+        weight: 1
+      - path: Probe_Root/R_UpperFin1
+        weight: 1
+      - path: Probe_Root/R_UpperFin1/R_UpperFin2
+        weight: 1
+      - path: Probe_Root/R_UpperFin1/R_UpperFin2/R_UpperFin3
+        weight: 1
+      - path: ProbeMesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: walk
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 24
+      wrapMode: 2
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Probe_Root
+        weight: 1
+      - path: Probe_Root/L_Back1
+        weight: 1
+      - path: Probe_Root/L_Back1/L_Back2
+        weight: 1
+      - path: Probe_Root/L_Back1/L_Back2/L_Back3
+        weight: 1
+      - path: Probe_Root/L_Front1
+        weight: 1
+      - path: Probe_Root/L_Front1/L_Front2
+        weight: 1
+      - path: Probe_Root/L_Front1/L_Front2/L_Front3
+        weight: 1
+      - path: Probe_Root/L_LowerFin1
+        weight: 1
+      - path: Probe_Root/L_LowerFin1/L_LowerFin2
+        weight: 1
+      - path: Probe_Root/L_UpperFin1
+        weight: 1
+      - path: Probe_Root/L_UpperFin1/L_UpperFin2
+        weight: 1
+      - path: Probe_Root/L_UpperFin1/L_UpperFin2/L_UpperFin3
+        weight: 1
+      - path: Probe_Root/R_Back1
+        weight: 1
+      - path: Probe_Root/R_Back1/R_Back2
+        weight: 1
+      - path: Probe_Root/R_Back1/R_Back2/R_Back3
+        weight: 1
+      - path: Probe_Root/R_Front1
+        weight: 1
+      - path: Probe_Root/R_Front1/R_Front2
+        weight: 1
+      - path: Probe_Root/R_Front1/R_Front2/R_Front3
+        weight: 1
+      - path: Probe_Root/R_LowerFin1
+        weight: 1
+      - path: Probe_Root/R_LowerFin1/R_LowerFin2
+        weight: 1
+      - path: Probe_Root/R_UpperFin1
+        weight: 1
+      - path: Probe_Root/R_UpperFin1/R_UpperFin2
+        weight: 1
+      - path: Probe_Root/R_UpperFin1/R_UpperFin2/R_UpperFin3
+        weight: 1
+      - path: ProbeMesh
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .5
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  additionalBone: 0
+  userData: 
