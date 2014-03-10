@@ -11,7 +11,7 @@
 
 </head>
 <body>
-<div id="hud" class="coui-noinput">
+<div id="hud" class="coui-inputcallback">
 	<div id="deb" style="background-color:black;width:100%;display:none;padding:2px; height:50px;color:white">df</div>
 <style>
 #test {
@@ -69,6 +69,8 @@
     <script src="js/lib/jquery.2.1.0.min.js"></script>
     <script src="js/lib/move.min.js"></script>
     
+    <script src="js/ui/core.js"></script>
+
 	<script src="js/coherent.js"></script>
 	<script src="js/game/core.js"></script>
 	<script src="js/ui/popup.js"></script>
@@ -82,9 +84,7 @@
     
 
 	<script>
-	 	HTMLImageElement.prototype.couiInputCallback = function(x, y){     
-          return true;
- 		}
+	 	
 		engine.on('Ready', function () {
 			$('#test').on('touchstart', function(event){});
 		});
@@ -96,15 +96,9 @@
 		})
 		
 		ui.attachUserBar();
+		ui.initTransparency();
 
 		ui.showUnitButtons({unitName : "probe", research : true});	
-		
-		/*ui.showUnitButtons({unit_id : 1, research : true});	
-		setTimeout(function(){
-			ui.hideUnitButtons();	
-			console.log("HIDE")
-		},1000)*/
-		
 		
 		
 

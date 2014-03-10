@@ -1,4 +1,4 @@
-window.ui = window.ui || {};
+
 ui.animate = function(element,options){
 	setTimeout(function() {
 		this.o = this.o || {};

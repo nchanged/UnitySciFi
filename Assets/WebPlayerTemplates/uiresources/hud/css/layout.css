@@ -39,6 +39,7 @@ html, body {
 	left:50%;
 	border-radius: 15px;
 	top:50%;
+	opacity: 0;
 	
 }
 #popup .contents {
