@@ -37,18 +37,31 @@ ui.showUnitButtons = function(options) {
 	
 
 	var unitName = options.unitName;
-	if ( game.Building[unitName] ) {
+
+	if ( game.Units[unitName] ) {
 		
 		var titleTpl = getTitleTemplate();
-		var info = game.Building[unitName];
+		var info = game.Units[unitName];
 		
 		titleTpl.html(info.displayName);
 		titleTpl.appendTo( infoHolder);
+
+		if ( info["probe-menu"]){
+			var research = getTemplate();
+			research.find('.inner-circle').addClass("btn-research");
+			research.appendTo(bottomBar);
+			research.click(function(){
+				game.Menu.OpenProbMenu(info);
+				ui.hideUnitButtons();
+			})
+				
+			infoHolder.append(research);
+		}
 	}
 
 
 	// Showing research button
-	if (options.research) {
+	/*if (options.research) {
 		var research = getTemplate();
 		research.find('.inner-circle').addClass("btn-research");
 		research.appendTo(bottomBar);
@@ -58,7 +71,7 @@ ui.showUnitButtons = function(options) {
 		research.find('.inner-circle').addClass("btn-research");
 		research.appendTo(bottomBar);
 		infoHolder.append(research);
-	}
+	}*/
 	infoHolder.appendTo(bottomBar);
 	ui.animate(infoHolder[0]);
 }

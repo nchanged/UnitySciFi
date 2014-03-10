@@ -8,9 +8,6 @@ html, body {
 	
 }
 
-
-
-
 .cFix {
 	clear: both;
 	float: none;
@@ -32,3 +29,103 @@ html, body {
 	
 	width:100%;
 }
+
+#popup {
+	position: absolute;
+	width: 60%;
+	border:5px solid #034b67;
+	background-color: black;
+	height: 100px;
+	left:50%;
+	border-radius: 15px;
+	top:50%;
+	
+}
+#popup .contents {
+	padding: 10px;
+}
+#popup .unit-info .title {
+	font-family: CFSpaceship;
+	font-size: 30px;
+	margin-bottom: 10px;
+}
+#popup .scrolling {
+	 -webkit-overflow-scrolling: touch;
+	 
+	 overflow-y	:auto;
+	 
+	 
+}
+#popup .scrolling .unit-list {
+	 
+}
+
+.unit table {
+	width: 100%;
+	padding: 0;
+	border-collapse: collapse;
+}
+.unit table td {
+	vertical-align: top;
+}
+.unit .img {
+	float: left;
+	width: 80px;
+	height: 80px;
+	margin:5px;
+	border:1px solid #034b67;
+}
+.unit .info {
+	
+	float: left;
+	height: 80px;
+	width: 200px;
+
+}
+.unit .header {
+	
+	
+	color:white;
+	
+}
+.unit .desc {
+	color:white;
+	font-size: 10px;
+	color:#999999;
+}
+.unit .prices {
+	padding: 10px;
+}
+.unit .minerals {
+	color:#d2d2d2;
+	background-image: url("../img/mineral.png");
+	background-repeat: no-repeat;
+	background-position: left;
+	padding-left: 30px;
+	font-size: 13px;
+	margin-bottom: 10px;
+}
+
+.unit .hydrogen {
+	color:#d2d2d2;
+	background-image: url("../img/gas.png");
+	background-repeat: no-repeat;
+	background-position: left;
+	padding-left: 30px;
+	font-size: 13px;
+}
+
+
+
+.scrolling .unit {
+	font-family: Copperplate;
+
+	width: 99%;
+	height: 95px;
+	border:2px solid #034b67;
+	margin-bottom: 5px;
+}
+
+
+
+

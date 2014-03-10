@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Probe : Unit {
-
+public class Probe : Unit, GUIUnit {
+	public string getName()
+	{
+		return "probe";
+	}
 	void Start()
 	{
 		this.SelectAnimations = new string[] { "Probe_Idle" };		

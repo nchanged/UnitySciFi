@@ -22,12 +22,44 @@
 </style>
 	
 
+<div class="contents" id="builder-menu-template" style="display:none">
+	<div class="unit-info">
+		<div class="title" style="color:white">Buildings</div>
+	</div>
+	<div class="scrolling">
+		<div class="unit-list">
+		</div>
+	</div>
+</div>
+
+<!-- Unit template -->
+<div class="unit" id="unit-template" style="display:none">
+	<table>
+		<tr>
+			<td width="80">
+				<div style="background-image: url('img/buildings/nexus.png')" class="img">
+			</td>
+			<td>
+				<div class="header">Main building</div>
+				<div class="desc">
+					The basic building. Pretty much everything starts from it
+				</div>
+			</td>
+			<td width="50">
+				<div class="prices">
+					<div class="minerals">2000</div>
+					<div class="hydrogen">2000</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</div>
+
+
+
 
 	<div class="bottom-bar coui-noinput">
-		<!--<div class="button">
-			<div class="inner-circle btn-research">
-			</div>
-		</div>-->
+		
 	</div>
 </div>
 <div id="debug" style="position: absolute; bottom: -30px;"></div>
@@ -39,10 +71,14 @@
     
 	<script src="js/coherent.js"></script>
 	<script src="js/game/core.js"></script>
+	<script src="js/ui/popup.js"></script>
+
 	<script src="js/game/buildings.js"></script>
+	<script src="js/game/units.js"></script>
+	<script src="js/ui/menu.js"></script>
 	<script src="js/ui/bottom.bar.js"></script>
 	<script src="js/ui/user.bar.js"></script>
-	<script src="js/ui/socket.js"></script>
+	
     
 
 	<script>
@@ -61,7 +97,7 @@
 		
 		ui.attachUserBar();
 
-		ui.showUnitButtons({unitName : "building-nexus", research : true});	
+		ui.showUnitButtons({unitName : "probe", research : true});	
 		
 		/*ui.showUnitButtons({unit_id : 1, research : true});	
 		setTimeout(function(){
@@ -69,11 +105,7 @@
 			console.log("HIDE")
 		},1000)*/
 		
-		var socket = io.connect('http://10.85.18.93:8075');
-		socket.on("trololo", function(data){
-			game.debug(data);
-		});
-		socket.emit('pukka');
+		
 		
 
 	</script>
