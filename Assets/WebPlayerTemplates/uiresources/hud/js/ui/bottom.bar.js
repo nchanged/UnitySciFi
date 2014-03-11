@@ -19,6 +19,7 @@ ui.getBottomBar = function()
 	return $(".bottom-bar");
 }
 ui.showUnitButtons = function(options) {
+	
 	var getTemplate = function() {
 		return $('<div class="button unit-button"><div class="inner-circle"></div></div>');
 	}
@@ -27,8 +28,10 @@ ui.showUnitButtons = function(options) {
 	{
 		return $('<div class="unit-bar-title"></div></div>');	
 	}
+	
 
 	var bottomBar = ui.getBottomBar();
+	bottomBar.show();
 	var infoHolder = $("<div class='unit-info-holder'></div>");
 	// Reset the holder
 	move(infoHolder[0]).y(100).set("opacity", 0).rotate(90).scale(0.5).end()
@@ -82,6 +85,6 @@ ui.hideUnitButtons = function()
 	bottomBar.find(".unit-info-holder").each(function(){
 		ui.animate(this,{
 			opacity : 0, scale : 0.3, rotate : 90, y :120
-		})
+		});
 	})
 }

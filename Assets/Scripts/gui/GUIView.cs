@@ -16,6 +16,7 @@ public class GUIView : MonoBehaviour {
 	public static Coherent.UI.View core;
 	void ViewCreated(Coherent.UI.View core) {
 		GUIView.core = core;
+		GUIView.core.SetTargetFramerate(60);
 	}
 	#else
 	public static Coherent.UI.Mobile.View core;

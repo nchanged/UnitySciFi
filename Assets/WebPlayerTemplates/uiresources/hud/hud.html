@@ -10,9 +10,9 @@
     
 
 </head>
-<body>
+<body class="coui-noinput">
 <div id="hud" class="coui-inputcallback">
-	<div id="deb" style="background-color:black;width:100%;display:none;padding:2px; height:50px;color:white">df</div>
+	
 <style>
 #test {
 	background-color: black;
@@ -58,7 +58,7 @@
 
 
 
-	<div class="bottom-bar coui-noinput">
+	<div class="bottom-bar">
 		
 	</div>
 </div>
@@ -84,12 +84,19 @@
     
 
 	<script>
-	 	
+	 	$(function(){
+	 		$("body").css({height:document.documentElement.clientHeight})
+	 	})
 		engine.on('Ready', function () {
 			$('#test').on('touchstart', function(event){});
 		});
 		engine.on("ShowUnitBar", function(unitName){
 			ui.showUnitButtons({unitName : unitName, research : true});	
+		})
+
+		engine.on("test", function(unitName){
+			//ui.showUnitButtons({unitName : unitName, research : true});	
+			game.Menu.OpenProbMenu();
 		})
 		engine.on("HideUnitBar", function(){
 			ui.hideUnitButtons();	
@@ -98,7 +105,7 @@
 		ui.attachUserBar();
 		ui.initTransparency();
 
-		ui.showUnitButtons({unitName : "probe", research : true});	
+		//ui.showUnitButtons({unitName : "probe", research : true});	
 		
 		
 

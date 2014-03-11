@@ -117,8 +117,10 @@ public class SelectGameObject : MonoBehaviour {
 
 		//gui.triggerEvent("showUnitBar");
 		string guiName = getUnitGUIName(target);
-
 		GUIView.core.TriggerEvent("ShowUnitBar", guiName);
+		//Debug.Log("")
+		//GUIView.core.TriggerEvent("test");
+
 
 
 		BoxCollider collider = target.GetComponent("BoxCollider") as BoxCollider;
