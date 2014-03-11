@@ -24,7 +24,7 @@ ui.attachUserBar = function()
 			},1)
 		});	
 	}
-	setTimeout(function(){
-		animate();	
-	},1);
+	//setTimeout(function(){
+//		animate();	
+//	},1);
 }

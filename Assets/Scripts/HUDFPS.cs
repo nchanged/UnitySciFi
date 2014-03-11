@@ -19,11 +19,17 @@ public class HUDFPS : MonoBehaviour
     private float accum   = 0; // FPS accumulated over the interval
     private int   frames  = 0; // Frames drawn over the interval
     private float timeleft; // Left time for current interval
-     
+	float fps = 60;
     void Start()
     {
         timeleft = updateInterval;  
     }
+
+	void OnGUI () {
+		// Make a background box
+		GUI.Box (new Rect (10,10,85,25), fps.ToString() + " fps");
+
+	}
      
     void Update()
     {
@@ -35,7 +41,7 @@ public class HUDFPS : MonoBehaviour
         if( timeleft <= 0.0 )
         {
             // display two fractional digits (f2 format)
-            float fps = accum/frames;
+            fps = accum/frames;
             string format = System.String.Format("{0:F2} FPS",fps);
             print(format);
 

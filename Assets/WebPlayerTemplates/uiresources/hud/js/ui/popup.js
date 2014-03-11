@@ -18,25 +18,18 @@ game.popup = {
 			marginTop : (boxHeight / 2) * -1
 		});	
 
-		setTimeout(function(){
-			move(el[0]).set("opacity",0.0).scale(0.2).end();
-			setTimeout(function(){
-				move(el[0]).ease('out').duration(300).scale(1).set("opacity",1).end(function(){
-					
-				});	
-			},200)
-			options.opened(el);
-		
-		},1)
 		
 
+		setTimeout(function(){
+			options.opened(el);
+		},1);
 		
 
 		ui.bindOverlayTap(function(){
-			move(el[0]).ease('out').duration(300).set("opacity",0).scale(0).end(function(){
+			//move(el[0]).ease('out').duration(300).set("opacity",0).end(function(){
 				
 				el.remove();
-			});
+			//});
 
 			
 			return true;

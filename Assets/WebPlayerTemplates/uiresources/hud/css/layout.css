@@ -25,7 +25,7 @@ body {
 .bottom-bar {
 	text-align: center;
 	vertical-align: middle;
-	position: absolute;
+	position: fixed;
 	bottom:0;
 	height:100px;
 	
@@ -41,8 +41,18 @@ body {
 	left:50%;
 	border-radius: 15px;
 	top:50%;
-	opacity: 0;
 	
+	
+}
+.nice-out {
+	-webkit-transition: scale(0, 0);
+	-webkit-transition: 0.5ms ease-out
+	opacity: 0;
+}
+.nice-in {
+	-webkit-transition: 0.5ms ease-out
+	-webkit-transform: scale(1, 1);
+	opacity: 1;
 }
 #popup .contents {
 	padding: 10px;

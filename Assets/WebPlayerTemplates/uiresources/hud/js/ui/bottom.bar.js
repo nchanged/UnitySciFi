@@ -34,7 +34,7 @@ ui.showUnitButtons = function(options) {
 	bottomBar.show();
 	var infoHolder = $("<div class='unit-info-holder'></div>");
 	// Reset the holder
-	move(infoHolder[0]).y(100).set("opacity", 0).rotate(90).scale(0.5).end()
+	
 	// Removing existing buttons
 	bottomBar.find('.unit-info-holder').remove();
 	
@@ -83,8 +83,9 @@ ui.hideUnitButtons = function()
 {
 	var bottomBar = ui.getBottomBar();
 	bottomBar.find(".unit-info-holder").each(function(){
-		ui.animate(this,{
-			opacity : 0, scale : 0.3, rotate : 90, y :120
-		});
+		$(this).remove();
+		//ui.animate(this,{
+		//	opacity : 0, scale : 0.3, rotate : 90, y :120
+		//});
 	})
 }
