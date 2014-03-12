@@ -287,7 +287,7 @@ public class UserInput : MonoBehaviour
 				Vector3 newPos = new Vector3(X,Y,Z);
 
 				if(Y > cameraMinY && zoomFactor < 0 || Y < cameraMaxY && zoomFactor > 0){
-					Debug.Log (Camera.main.transform.position + "zoomspeed:" + zoomSpeed);
+					//Debug.Log (Camera.main.transform.position + "zoomspeed:" + zoomSpeed);
 					Camera.main.transform.position = Vector3.Lerp (Camera.main.transform.position, newPos, 0.5f);
 				}
 			}
