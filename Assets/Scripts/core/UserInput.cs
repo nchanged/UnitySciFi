@@ -26,12 +26,9 @@ public class UserInput : MonoBehaviour
 
 	private float deadZoneThreshold = 15f;
 	private bool withinDeadZone = true;
-	private Vector3 deadZoneLeavePosition = Vector3.zero;
 
 	private Vector2 currTouch1 = Vector2.zero;
 	private Vector2 currTouch2 = Vector2.zero;
-	private Vector2 lastTouch1 = Vector2.zero;
-	private Vector2 lastTouch2 = Vector2.zero;
 	private float currDist = 0.0f;
 	private float lastDist = 0.0f;
 	private float defaultZoomSpeed = 7.0f;
@@ -55,7 +52,6 @@ public class UserInput : MonoBehaviour
 		pointerPosition = Vector3.zero;
 
 		bool secondFingerUp = false;
-		bool secondFingerDown = false;
 		bool secondFingerPressed = false;
 		Vector3 secondPointerPosition = Vector3.zero;
 
@@ -92,7 +88,6 @@ public class UserInput : MonoBehaviour
 			else if (Input.touchCount == 2)
 			{
 				secondFingerUp = Input.GetTouch (1).phase == TouchPhase.Ended;
-				secondFingerDown = Input.GetTouch (1).phase == TouchPhase.Began;
 				secondFingerPressed = Input.GetTouch (1).phase == TouchPhase.Moved;
 				secondPointerPosition = Input.GetTouch (1).position;
 			}
@@ -119,12 +114,7 @@ public class UserInput : MonoBehaviour
 			smoothToStop = false;
 
 			// Our camera is rotated 90degrees on the X axis.. so Z axis and Y axis are inverted.
-			//pointerPosition.z = hitPosition.z = deadZoneLeavePosition.z = cameraStartPosition.y;
 			pointerPosition.z = hitPosition.z = cameraStartPosition.y;
-
-			// Add the offset of the deadZone, so that the camera doesn't suddenly jump 30f when it starts moving.
-			//Vector3 deadZoneOffset = deadZoneLeavePosition - hitPosition;
-			//hitPosition += deadZoneOffset;
 
 			// Calculating camera shift
 			Vector3 direction = Camera.main.ScreenToWorldPoint (pointerPosition) - Camera.main.ScreenToWorldPoint (hitPosition);
@@ -171,11 +161,9 @@ public class UserInput : MonoBehaviour
 
 	/*----- Moving a draggable object below ------*/
 	private IDraggable draggableComponent = null;
-	private Vector3 latestDragCameraPosition;
 	private Vector3 latestFingerDownPosition;
 	private bool draggingOccured = false;
 	private ICommandable commandableComponent = null;
-	private Vector3 terrainPointed;
 
 	void selectAndDrag (bool userFingerUp, bool userFingerDown, bool userFingerPressed)
 	{
@@ -188,13 +176,7 @@ public class UserInput : MonoBehaviour
 			{
 				latestFingerDownPosition = pointerPosition;
 				withinDeadZone = true;
-
-				if (hit.transform.gameObject.name == "Terrain")
-				{
-					terrainPointed = pointerPosition;
-				}
-				
-				
+								
 				draggableComponent = DragGameObject.GetDraggable (hit.transform.gameObject);
 				if (draggableComponent != null && SelectGameObject.GetObjectByIndex (0) == draggableComponent)
 				{
@@ -213,7 +195,6 @@ public class UserInput : MonoBehaviour
 				if(draggedDistance > deadZoneThreshold)
 				{
 					withinDeadZone = false;
-					deadZoneLeavePosition = pointerPosition;
 				}
 			}
 
@@ -261,7 +242,6 @@ public class UserInput : MonoBehaviour
 		{
 			lockCameraMovement = false;
 		}
-		latestDragCameraPosition = pointerPosition;
 	}
 
 
@@ -293,7 +273,7 @@ public class UserInput : MonoBehaviour
 			}
 
 			lastDist = currDist;
-			defaultCameraY = Camera.mainCamera.transform.position.y;
+			defaultCameraY = Camera.main.transform.position.y;
 
 			if(userFingerUp || secondFingerUp)
 			{
@@ -301,7 +281,6 @@ public class UserInput : MonoBehaviour
 				lastDist = 0.0f;
 				pointerPosition = remainingFingerPos;
 				hitPosition = remainingFingerPos;
-				deadZoneLeavePosition = remainingFingerPos;
 				cameraStartPosition = Camera.main.transform.position;
 				lastCameraPosition = Camera.main.transform.position;
 				cameraVelocity = Vector3.zero;

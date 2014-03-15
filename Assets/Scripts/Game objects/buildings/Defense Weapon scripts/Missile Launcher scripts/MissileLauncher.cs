@@ -13,8 +13,6 @@ public class MissileLauncher : Building
     private Transform enemyTarget;
     private float nextFireTime;
 
-    void Start() { }
-
     void Update()
     {
         // Enemy is in range.

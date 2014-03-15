@@ -6,7 +6,7 @@ public class Probe : Unit, GUIUnit {
 	{
 		return "probe";
 	}
-	void Start()
+	public override void Start()
 	{
 		this.SelectAnimations = new string[] { "Probe_Idle" };		
 		this.DefaultAnimation = "Probe_Idle";

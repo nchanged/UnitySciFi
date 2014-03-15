@@ -42,9 +42,6 @@ public class HUDFPS : MonoBehaviour
         {
             // display two fractional digits (f2 format)
             fps = accum/frames;
-            string format = System.String.Format("{0:F2} FPS",fps);
-          //  print(format);
-
             timeleft = updateInterval;
             accum = 0.0F;
             frames = 0;

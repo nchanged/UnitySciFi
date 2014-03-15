@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class HeavyGuy : Unit {
-	void Start()
+	public override void Start()
 	{
 		this.SelectAnimations = new string[] { "shoot_01", "shoot_02", "shoot_03", "emo_1" };		
 		this.DefaultAnimation = "idle_1";

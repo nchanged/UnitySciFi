@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Chicken : Unit {
-	void Start()
+	public override void Start()
 	{
 		this.SelectAnimations = new string[] { "power_on" };	
 		this.DefaultAnimation = "shoot1";

@@ -8,15 +8,13 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable
 	private Vector3 lastValidPosition;
 	private bool currentPositionValid = true;
 
-
-	private bool upgradeButtonShown = false;
 	private GameObject upgradeButton;
 	private GameObject buildButton;
 
 
 
 
-	void Start()
+	public virtual void Start()
     {
 		lastValidPosition = gameObject.transform.position;
 		NavMeshObstacle navMeshObstacle = (NavMeshObstacle)gameObject.AddComponent("NavMeshObstacle");
@@ -36,10 +34,6 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable
 			{
 				dragStartUnitPosition = transform.position;
 			}
-
-			float xDiff = position.x - dragStartPosition.x;
-			float zDiff = position.z - dragStartPosition.z;
-
 
 			transform.position = dragStartUnitPosition + position - dragStartPosition;
 			return true;

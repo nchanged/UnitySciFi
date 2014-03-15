@@ -10,7 +10,7 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 	private Vector3 destinationPosition;
 	private bool reachedDestination = true;
 
-	public void Start ()
+	public virtual void Start ()
 	{
 		this.animation.wrapMode = WrapMode.Loop;		
 		this.animation.Play();

@@ -3,11 +3,7 @@ using System.Collections;
 
 public class Tank : Unit {
 
-	void Start () {
-	
-	}
-
-	void Update () {
+	public override void Start () {
 	
 	}
 }

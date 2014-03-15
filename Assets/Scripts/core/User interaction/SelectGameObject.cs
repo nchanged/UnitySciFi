@@ -126,7 +126,6 @@ public class SelectGameObject : MonoBehaviour {
 		BoxCollider collider = target.GetComponent("BoxCollider") as BoxCollider;
 		Vector3 colliderSize = collider.size;
 		Vector3 colliderCenter = collider.center;
-		float localScale = target.transform.localScale.x;
 
 		//Vector3 size = new Vector3(colliderSize.x /2, 
 		 //                          colliderSize.y /2 , 
