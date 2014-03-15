@@ -3,9 +3,9 @@ using System.Collections;
 
 public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 {
-	public string UnitId;
-	public string OwnerId;
-	public string MapId;
+	public string UnitId {get;set;}
+	public string OwnerId {get;set;}
+	public string MapId {get;set;}
 	
 	public string[] SelectAnimations {get;set;}
 	public string DefaultAnimation {get;set;}
