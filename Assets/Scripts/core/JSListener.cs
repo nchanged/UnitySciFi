@@ -43,7 +43,7 @@ public class JSListener : MonoBehaviour {
 		float unitPosZ = float.Parse(unitJson["z"]);
 		Vector3 unitPosition = new Vector3(unitPosX,0,unitPosZ);
 
-		Instantiate(Resources.Load("probe"), unitPosition, new Quaternion());
+		Instantiate(Resources.Load(unitJson["name"]), unitPosition, new Quaternion());
 	}
 
 
