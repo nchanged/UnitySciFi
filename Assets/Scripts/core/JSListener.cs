@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using SimpleJSON;
 
@@ -29,14 +30,20 @@ public class JSListener : MonoBehaviour {
 	{
 		if (isMainFrame)
 		{
-			m_View.View.BindCall("InitUnit", (System.Action<string, string, string, string>)this.InitUnit);
+			m_View.View.BindCall("InitUnit", (System.Action<string>)this.InitUnit);
 			m_View.View.BindCall("InitUserProfile", (System.Action<string>)this.InitUserProfile);
 		}
 	}
 
-	void InitUnit(string id, string name, string owner, string xzPosition)
+	void InitUnit(string unitString)
 	{
-		Debug.Log("Init: " + name + " id - " + id + " owner - " + owner + " position " + xzPosition);
+		var unitJson = JSON.Parse (unitString);
+
+		float unitPosX = float.Parse(unitJson["x"]);
+		float unitPosZ = float.Parse(unitJson["z"]);
+		Vector3 unitPosition = new Vector3(unitPosX,0,unitPosZ);
+
+		Instantiate(Resources.Load("probe"), unitPosition, new Quaternion());
 	}
 
 
