@@ -2,17 +2,18 @@
 using System.Collections;
 using System;
 
-public abstract class Building : MonoBehaviour, ISelectable, IDraggable
+public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentifiable
 {
+	public string GameObjectId {get;set;}
+	public string UserId {get;set;}
+	public string MapId {get;set;}
+
 	private bool unitSelected = false;
 	private Vector3 lastValidPosition;
 	private bool currentPositionValid = true;
 
 	private GameObject upgradeButton;
 	private GameObject buildButton;
-
-
-
 
 	public virtual void Start()
     {

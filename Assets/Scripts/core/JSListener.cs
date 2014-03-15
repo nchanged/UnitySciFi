@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using SimpleJSON;
 
 public class JSListener : MonoBehaviour {
@@ -32,48 +33,39 @@ public class JSListener : MonoBehaviour {
 		if (isMainFrame)
 		{
 			m_View.View.BindCall("InitUnit", (System.Action<string>)this.InitUnit);
-			m_View.View.BindCall("InitBuilding", (System.Action<string>)this.InitUnit);
+			m_View.View.BindCall("InitBuilding", (System.Action<string>)this.InitBuilding);
 			m_View.View.BindCall("InitUserProfile", (System.Action<string>)this.InitUserProfile);
 		}
 	}
 
 	void InitUnit(string unitString)
 	{
-		var unitJson = JSON.Parse (unitString);
-
-		float unitPosX = float.Parse(unitJson["x"]);
-		float unitPosZ = float.Parse(unitJson["z"]);
-		Vector3 unitPosition = new Vector3(unitPosX,0,unitPosZ);
-
-		GameObject newUnit = (GameObject)Instantiate(Resources.Load(unitJson["name"]), unitPosition, new Quaternion());
-		newUnit.transform.parent = DynamicObjects.transform;
-		
-		//Unit unitScript = (Unit)newUnit.GetComponent(typeof(Unit));
-		//unitScript.UnitId = unitJson["_id"];
-		//unitScript.OwnerId = unitJson["owner"];
-		//unitScript.MapId = unitJson["map"];
+		this.placeOnScene(unitString, Storage.UnitList);
 	}
 
 	void InitBuilding(string buildingString)
 	{
-		var buildingJson = JSON.Parse (buildingString);
-
-		float unitPosX = float.Parse(buildingJson["x"]);
-		float unitPosZ = float.Parse(buildingJson["z"]);
-		Vector3 unitPosition = new Vector3(unitPosX,0,unitPosZ);
-
-		GameObject newBuilding = (GameObject)Instantiate(Resources.Load(buildingJson["name"]), unitPosition, new Quaternion());
-		newBuilding.transform.parent = DynamicObjects.transform;
-		
-		//Building buildingScript = (Building)newBuilding.GetComponent(typeof(Building));
-		//buildingScript.UnitId = buildingJson["_id"];
-		//buildingScript.OwnerId = buildingJson["owner"];
-		//buildingScript.MapId = buildingJson["map"];
+		this.placeOnScene(buildingString, Storage.BuildingList);
 	}
 
+	void placeOnScene(string jsonString, List<GameObject> objectCache)
+	{
+		//Place an instance on the scene
+		var json = JSON.Parse (jsonString);
+		float posX = float.Parse(json["x"]);
+		float posZ = float.Parse(json["z"]);
+		Vector3 position = new Vector3(posX,0,posZ);
+		GameObject instance = (GameObject)Instantiate(Resources.Load(json["name"]), position, new Quaternion());
+		instance.transform.parent = DynamicObjects.transform;
 
-	// Update is called once per frame
-	void Update () {
+		//Save instance to cache
+		objectCache.Add (instance);
 
+		//Set Id, UserId, and MapId to object instance
+		Component component = instance.GetComponent(typeof(IDentifiable));
+		IDentifiable asdf = component as IDentifiable;
+		asdf.GameObjectId = json["_id"];
+		asdf.UserId = json["owner"];
+		asdf.MapId = json["map"];
 	}
 }

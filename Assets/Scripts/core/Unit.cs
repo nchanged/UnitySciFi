@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
+public abstract class Unit : MonoBehaviour, ISelectable, ICommandable, IDentifiable
 {
-	public string UnitId {get;set;}
-	public string OwnerId {get;set;}
+	public string GameObjectId {get;set;}
+	public string UserId {get;set;}
 	public string MapId {get;set;}
 	
 	public string[] SelectAnimations {get;set;}
