@@ -16,7 +16,7 @@ namespace Coherent.UI.Mobile
 	{
 		public override void WriteLog(Severity severity, string message, uint length)
 		{
-			UnityEngine.Debug.Log(string.Format("[Coherent UI] ({0}) {1}", severity, message));
+			//UnityEngine.Debug.Log(string.Format("[Coherent UI] ({0}) {1}", severity, message));
 		}
 	
 		public override void Assert(string message)
