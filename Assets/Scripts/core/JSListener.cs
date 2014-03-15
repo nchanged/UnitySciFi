@@ -6,6 +6,7 @@ using SimpleJSON;
 public class JSListener : MonoBehaviour {
 
 
+	public GameObject DynamicObjects;
 	private CoherentUIView m_View;
 	
 	void Start()
@@ -38,12 +39,19 @@ public class JSListener : MonoBehaviour {
 	void InitUnit(string unitString)
 	{
 		var unitJson = JSON.Parse (unitString);
+		Debug.Log(unitJson);
 
 		float unitPosX = float.Parse(unitJson["x"]);
 		float unitPosZ = float.Parse(unitJson["z"]);
 		Vector3 unitPosition = new Vector3(unitPosX,0,unitPosZ);
 
-		Instantiate(Resources.Load(unitJson["name"]), unitPosition, new Quaternion());
+		GameObject newUnit = (GameObject)Instantiate(Resources.Load(unitJson["name"]), unitPosition, new Quaternion());
+		newUnit.transform.parent = DynamicObjects.transform;
+		
+		Unit unitScript = (Unit)newUnit.GetComponent(typeof(Unit));
+		unitScript.UnitId = unitJson["_id"];
+		unitScript.OwnerId = unitJson["owner"];
+		unitScript.MapId = unitJson["map"];
 	}
 
 

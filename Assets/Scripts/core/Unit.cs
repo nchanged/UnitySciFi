@@ -3,9 +3,14 @@ using System.Collections;
 
 public abstract class Unit : MonoBehaviour, ISelectable, ICommandable
 {
-	private bool unitSelected = false;
+	public string UnitId;
+	public string OwnerId;
+	public string MapId;
+	
 	public string[] SelectAnimations {get;set;}
 	public string DefaultAnimation {get;set;}
+	
+	private bool unitSelected = false;
 	private NavMeshAgent PathfindingAgent;
 	private Vector3 destinationPosition;
 	private bool reachedDestination = true;
