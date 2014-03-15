@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SimpleJSON;
 
 public class JSListener : MonoBehaviour {
 
@@ -14,12 +15,22 @@ public class JSListener : MonoBehaviour {
 			m_View.Listener.ReadyForBindings += HandleReadyForBindings;
 		}
 	}
+
+	void InitUserProfile(string userString)
+	{
+		var userJson = JSON.Parse(userString);
+		UserProfile.UserId = userJson["_id"];
+		UserProfile.Name = userJson["name"];
+		UserProfile.Session = userJson["session"];
+		UserProfile.Map = userJson["map"];
+	}
 	
 	void HandleReadyForBindings (int frameId, string path, bool isMainFrame)
 	{
 		if (isMainFrame)
 		{
 			m_View.View.BindCall("InitUnit", (System.Action<string, string, string, string>)this.InitUnit);
+			m_View.View.BindCall("InitUserProfile", (System.Action<string>)this.InitUserProfile);
 		}
 	}
 
