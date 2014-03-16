@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 65825f14d70e6a0479e670a46d81a480
+guid: f8d5a063677ef457a8c35997e4e97668
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -54,11 +54,8 @@ ModelImporter:
     400046: R_UpperFin2
     400048: R_UpperFin3
     4300000: ProbeMesh
-    7400000: Walk
-    7400002: Probe_Walk
-    7400004: Take 0010
-    7400006: Probe_Idle
-    7400008: walk
+    7400000: walk
+    7400002: Probe_Idle
     9500000: //RootNode
     11100000: //RootNode
     13700000: ProbeMesh
@@ -74,91 +71,15 @@ ModelImporter:
     animationRotationError: .5
     animationPositionError: .5
     animationScaleError: .5
-    animationWrapMode: 2
+    animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Probe_Walk
+      name: walk
       takeName: Take 001
       firstFrame: 1
       lastFrame: 24
-      wrapMode: 2
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 1
-      loopTime: 1
-      loopBlend: 1
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Probe_Root
-        weight: 1
-      - path: Probe_Root/L_Back1
-        weight: 1
-      - path: Probe_Root/L_Back1/L_Back2
-        weight: 1
-      - path: Probe_Root/L_Back1/L_Back2/L_Back3
-        weight: 1
-      - path: Probe_Root/L_Front1
-        weight: 1
-      - path: Probe_Root/L_Front1/L_Front2
-        weight: 1
-      - path: Probe_Root/L_Front1/L_Front2/L_Front3
-        weight: 1
-      - path: Probe_Root/L_LowerFin1
-        weight: 1
-      - path: Probe_Root/L_LowerFin1/L_LowerFin2
-        weight: 1
-      - path: Probe_Root/L_UpperFin1
-        weight: 1
-      - path: Probe_Root/L_UpperFin1/L_UpperFin2
-        weight: 1
-      - path: Probe_Root/L_UpperFin1/L_UpperFin2/L_UpperFin3
-        weight: 1
-      - path: Probe_Root/R_Back1
-        weight: 1
-      - path: Probe_Root/R_Back1/R_Back2
-        weight: 1
-      - path: Probe_Root/R_Back1/R_Back2/R_Back3
-        weight: 1
-      - path: Probe_Root/R_Front1
-        weight: 1
-      - path: Probe_Root/R_Front1/R_Front2
-        weight: 1
-      - path: Probe_Root/R_Front1/R_Front2/R_Front3
-        weight: 1
-      - path: Probe_Root/R_LowerFin1
-        weight: 1
-      - path: Probe_Root/R_LowerFin1/R_LowerFin2
-        weight: 1
-      - path: Probe_Root/R_UpperFin1
-        weight: 1
-      - path: Probe_Root/R_UpperFin1/R_UpperFin2
-        weight: 1
-      - path: Probe_Root/R_UpperFin1/R_UpperFin2/R_UpperFin3
-        weight: 1
-      - path: ProbeMesh
-        weight: 1
-      maskType: 0
-      maskSource: {instanceID: 0}
-    - serializedVersion: 16
-      name: Probe_Idle
-      takeName: Take 001
-      firstFrame: 25
-      lastFrame: 200
-      wrapMode: 2
+      wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
@@ -230,11 +151,11 @@ ModelImporter:
       maskType: 0
       maskSource: {instanceID: 0}
     - serializedVersion: 16
-      name: walk
+      name: Probe_Idle
       takeName: Take 001
-      firstFrame: 1
-      lastFrame: 24
-      wrapMode: 2
+      firstFrame: 25
+      lastFrame: 200
+      wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
