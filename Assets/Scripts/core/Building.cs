@@ -4,7 +4,8 @@ using System;
 
 public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentifiable
 {
-	public string GameObjectId {get;set;}
+	public string ObjectId {get;set;}
+	public string ObjectName {get;set;}
 	public string UserId {get;set;}
 	public string MapId {get;set;}
 

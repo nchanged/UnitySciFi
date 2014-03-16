@@ -32,23 +32,12 @@ public class JSListener : MonoBehaviour {
 	{
 		if (isMainFrame)
 		{
-			m_View.View.BindCall("InitUnit", (System.Action<string>)this.InitUnit);
-			m_View.View.BindCall("InitBuilding", (System.Action<string>)this.InitBuilding);
+			m_View.View.BindCall("InitGameObject", (System.Action<string>)this.InitGameObject);
 			m_View.View.BindCall("InitUserProfile", (System.Action<string>)this.InitUserProfile);
 		}
 	}
 
-	void InitUnit(string unitString)
-	{
-		this.placeOnScene(unitString, Storage.UnitList);
-	}
-
-	void InitBuilding(string buildingString)
-	{
-		this.placeOnScene(buildingString, Storage.BuildingList);
-	}
-
-	void placeOnScene(string jsonString, List<GameObject> objectCache)
+	void InitGameObject(string jsonString)
 	{
 		//Place an instance on the scene
 		var json = JSON.Parse (jsonString);
@@ -59,13 +48,14 @@ public class JSListener : MonoBehaviour {
 		instance.transform.parent = DynamicObjects.transform;
 
 		//Save instance to cache
-		objectCache.Add (instance);
+		Storage.GameObjectCache.Add(json["_id"], instance);
 
-		//Set Id, UserId, and MapId to object instance
+		//Set Id, Name, UserId, and MapId to object instance
 		Component component = instance.GetComponent(typeof(IDentifiable));
-		IDentifiable asdf = component as IDentifiable;
-		asdf.GameObjectId = json["_id"];
-		asdf.UserId = json["owner"];
-		asdf.MapId = json["map"];
+		IDentifiable identification = component as IDentifiable;
+		identification.ObjectId = json["_id"];
+		identification.ObjectName = json["name"];
+		identification.UserId = json["owner"];
+		identification.MapId = json["map"];
 	}
 }
