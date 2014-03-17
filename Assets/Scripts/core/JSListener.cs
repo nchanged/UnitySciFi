@@ -41,21 +41,22 @@ public class JSListener : MonoBehaviour {
 	{
 		//Place an instance on the scene
 		var json = JSON.Parse (jsonString);
+
 		float posX = float.Parse(json["x"]);
 		float posZ = float.Parse(json["z"]);
 		Vector3 position = new Vector3(posX,0,posZ);
-		GameObject instance = (GameObject)Instantiate(Resources.Load(json["name"]), position, new Quaternion());
+		GameObject instance = (GameObject)Instantiate(Resources.Load(json["unitType"]["name"]), position, new Quaternion());
 		instance.transform.parent = DynamicObjects.transform;
 
 		//Save instance to cache
-		Storage.GameObjectCache.Add(json["_id"], instance);
+		Storage.GameObjectCache.Add(json["id"], instance);
 
 		//Set Id, Name, UserId, and MapId to object instance
 		Component component = instance.GetComponent(typeof(IDentifiable));
 		IDentifiable identification = component as IDentifiable;
-		identification.ObjectId = json["_id"];
-		identification.ObjectName = json["name"];
-		identification.UserId = json["owner"];
-		identification.MapId = json["map"];
+		identification.ObjectId = json["id"];
+		identification.ObjectName = json["unitType"]["name"];
+		identification.UserId = json["user_id"];
+		identification.MapId = json["map_id"];
 	}
 }
