@@ -9,6 +9,7 @@ public abstract class Building : MonoBehaviour, ISelectable, IDentifiable
 	public string UserId {get;set;}
 	public string MapId {get;set;}
 	bool IsReady {get;set;}
+	bool IsBuilding {get;set;}
 
 	private bool unitSelected = false;
 	private Vector3 lastValidPosition;
