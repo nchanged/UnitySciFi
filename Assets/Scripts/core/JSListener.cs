@@ -41,23 +41,41 @@ public class JSListener : MonoBehaviour {
 	{
 		//Place an instance on the scene
 		var json = JSON.Parse (jsonString);
-
+		string objectId = json["id"];
+		string objectName = json["name"];
+		string userId = json["user_id"];
+		string mapId = json["map_id"];
 		float posX = float.Parse(json["x"]);
 		float posZ = float.Parse(json["z"]);
 		Vector3 position = new Vector3(posX,0,posZ);
-		Debug.Log(json["name"]);
-		GameObject instance = (GameObject)Instantiate(Resources.Load(json["name"]), position, new Quaternion());
+		bool isReady = (Int32.Parse(json["is_ready"]) == 1);
+		bool isBuilding = (Int32.Parse(json["is_ready"]) == 1);
+
+		GameObject instance = (GameObject)Instantiate(Resources.Load(objectName), position, new Quaternion());
 		instance.transform.parent = DynamicObjects.transform;
-
-		//Save instance to cache
-		Storage.GameObjectCache.Add(json["id"], instance);
-
-		//Set Id, Name, UserId, and MapId to object instance
+		
+		//Set IDentifiable fields
 		Component component = instance.GetComponent(typeof(IDentifiable));
 		IDentifiable identification = component as IDentifiable;
-		identification.ObjectId = json["id"];
-		identification.ObjectName = json["name"];
-		identification.UserId = json["user_id"];
-		identification.MapId = json["map_id"];
+		identification.ObjectId = objectId;
+		identification.ObjectName = objectName;
+		identification.UserId = userId;
+		identification.MapId = mapId;
+		identification.IsReady = isReady;
+		identification.IsBuilding = isBuilding;
+
+		//Save instance to cache
+		Storage.GameObjectCache.Add(objectId, instance);
+	
+		if(!isReady)
+		{
+			if(isBuilding)
+			{
+				instance.transform.position = new Vector3(posX, -10, posZ);
+				GameObject plasmaBall = (GameObject)Instantiate(Resources.Load("plasmaball"), Vector3.zero, new Quaternion());
+				plasmaBall.transform.parent = instance.transform;
+				plasmaBall.transform.position = new Vector3(0f, 10.5f, 0f);
+			}
+		}
 	}
 }
