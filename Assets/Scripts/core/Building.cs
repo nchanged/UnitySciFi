@@ -8,24 +8,22 @@ public abstract class Building : MonoBehaviour, ISelectable, IDentifiable
 	public string ObjectName {get;set;}
 	public string UserId {get;set;}
 	public string MapId {get;set;}
+	bool IsReady {get;set;}
 
 	private bool unitSelected = false;
-	/*
 	private Vector3 lastValidPosition;
 	private bool currentPositionValid = true;
-	*/
 
 	private GameObject upgradeButton;
 	private GameObject buildButton;
 
 	public virtual void Start()
     {
-		/*lastValidPosition = gameObject.transform.position;*/
+		lastValidPosition = gameObject.transform.position;
 		NavMeshObstacle navMeshObstacle = (NavMeshObstacle)gameObject.AddComponent("NavMeshObstacle");
 		navMeshObstacle.carving = true;
     }
 
-	/*
 	private Vector3 dragStartPosition = Vector3.zero;
 	private Vector3 dragStartUnitPosition = Vector3.zero;
 
@@ -61,19 +59,16 @@ public abstract class Building : MonoBehaviour, ISelectable, IDentifiable
 			lastValidPosition = gameObject.transform.position;
 		}
 	}
-	*/
+
 	// Selecting unit
 	public void OnSelect()
 	{
-
 		unitSelected = true;
-
 	}
 	// Deselecting unit
 	public void OnDeselect()
 	{
 		unitSelected = false;
-
 	}
 
 	public bool IsSelected
@@ -82,11 +77,10 @@ public abstract class Building : MonoBehaviour, ISelectable, IDentifiable
 		set{unitSelected = value;}
 	}
 
-	/*
+
 	public bool CurrentPositionValid 
 	{
 		get{return currentPositionValid;}
 		set{currentPositionValid = value;}
 	}
-	*/
 }

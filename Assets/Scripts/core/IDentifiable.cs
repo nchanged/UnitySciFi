@@ -6,4 +6,5 @@ public interface IDentifiable {
 	string ObjectName {get;set;}
 	string UserId {get;set;}
 	string MapId {get;set;}
+	bool IsReady {get;set;}
 }
