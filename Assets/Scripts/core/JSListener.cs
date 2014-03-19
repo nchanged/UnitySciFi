@@ -45,7 +45,8 @@ public class JSListener : MonoBehaviour {
 		float posX = float.Parse(json["x"]);
 		float posZ = float.Parse(json["z"]);
 		Vector3 position = new Vector3(posX,0,posZ);
-		GameObject instance = (GameObject)Instantiate(Resources.Load(json["unitType"]["name"]), position, new Quaternion());
+		Debug.Log(json["name"]);
+		GameObject instance = (GameObject)Instantiate(Resources.Load(json["name"]), position, new Quaternion());
 		instance.transform.parent = DynamicObjects.transform;
 
 		//Save instance to cache
@@ -55,7 +56,7 @@ public class JSListener : MonoBehaviour {
 		Component component = instance.GetComponent(typeof(IDentifiable));
 		IDentifiable identification = component as IDentifiable;
 		identification.ObjectId = json["id"];
-		identification.ObjectName = json["unitType"]["name"];
+		identification.ObjectName = json["name"];
 		identification.UserId = json["user_id"];
 		identification.MapId = json["map_id"];
 	}

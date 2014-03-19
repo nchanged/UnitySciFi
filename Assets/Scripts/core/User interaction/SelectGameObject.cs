@@ -94,7 +94,7 @@ public class SelectGameObject : MonoBehaviour {
 			GameObject.Destroy(selectionHelperMap[a]);
 		}
 		selectionHelperMap = new List<GameObject>();
-		GUIView.core.TriggerEvent("HideUnitBar");
+		GUIView.core.TriggerEvent("unitDeselected");
 		
 	}
 
@@ -117,7 +117,8 @@ public class SelectGameObject : MonoBehaviour {
 
 		//gui.triggerEvent("showUnitBar");
 		string guiName = getUnitGUIName(target);
-		GUIView.core.TriggerEvent("ShowUnitBar", guiName);
+
+		GUIView.core.TriggerEvent("unitSelected", guiName);
 		//Debug.Log("")
 		//GUIView.core.TriggerEvent("test");
 
