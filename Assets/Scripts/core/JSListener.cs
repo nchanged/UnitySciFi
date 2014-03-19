@@ -49,7 +49,7 @@ public class JSListener : MonoBehaviour {
 		float posZ = float.Parse(json["z"]);
 		Vector3 position = new Vector3(posX,0,posZ);
 		bool isReady = (Int32.Parse(json["is_ready"]) == 1);
-		bool isBuilding = (Int32.Parse(json["is_ready"]) == 1);
+		bool isBuilding = (Int32.Parse(json["is_building"]) == 1);
 
 		GameObject instance = (GameObject)Instantiate(Resources.Load(objectName), position, new Quaternion());
 		instance.transform.parent = DynamicObjects.transform;
@@ -71,10 +71,13 @@ public class JSListener : MonoBehaviour {
 		{
 			if(isBuilding)
 			{
-				instance.transform.position = new Vector3(posX, -10, posZ);
-				GameObject plasmaBall = (GameObject)Instantiate(Resources.Load("plasmaball"), Vector3.zero, new Quaternion());
-				plasmaBall.transform.parent = instance.transform;
-				plasmaBall.transform.position = new Vector3(0f, 10.5f, 0f);
+				GameObject plasmaBall = (GameObject)Instantiate(Resources.Load("plasmaball"));
+				BoxCollider collider = instance.GetComponent("BoxCollider") as BoxCollider;
+				Vector3 colliderSize = collider.size;
+
+				plasmaBall.transform.parent = DynamicObjects.transform;
+				plasmaBall.transform.position = new Vector3(posX, 0.2f, posZ);
+				plasmaBall.transform.localScale = colliderSize * 2;
 			}
 		}
 	}
