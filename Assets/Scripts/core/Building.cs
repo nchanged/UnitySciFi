@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentifiable
+public abstract class Building : MonoBehaviour, ISelectable, IDentifiable
 {
 	public string ObjectId {get;set;}
 	public string ObjectName {get;set;}
@@ -25,6 +25,7 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 
 	private Vector3 dragStartPosition = Vector3.zero;
 	private Vector3 dragStartUnitPosition = Vector3.zero;
+	/*
 	// Dragging
 	public bool OnDragMove(Vector3 position)
 	{
@@ -57,6 +58,7 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 			lastValidPosition = gameObject.transform.position;
 		}
 	}
+	*/
 	// Selecting unit
 	public void OnSelect()
 	{
@@ -77,9 +79,11 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 		set{unitSelected = value;}
 	}
 
+	/*
 	public bool CurrentPositionValid 
 	{
 		get{return currentPositionValid;}
 		set{currentPositionValid = value;}
 	}
+	*/
 }
