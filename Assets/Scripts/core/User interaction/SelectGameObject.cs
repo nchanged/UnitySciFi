@@ -103,11 +103,11 @@ public class SelectGameObject : MonoBehaviour {
 	public static string getUnitGUIName(GameObject target )
 	{
 		Component[] guiUnites 
-			= target.GetComponents(typeof(GUIUnit));
+			= target.GetComponents(typeof(IDentifiable));
 		for (int i = 0; i<guiUnites.Length; i++){
-			if (guiUnites[i] is GUIUnit){
-				GUIUnit unit = guiUnites[i] as GUIUnit;
-				return unit.getName();
+			if (guiUnites[i] is IDentifiable){
+				IDentifiable unit = guiUnites[i] as IDentifiable;
+				return unit.ObjectId;
 			}
 		}
 		return null;
@@ -116,9 +116,9 @@ public class SelectGameObject : MonoBehaviour {
 	{
 
 		//gui.triggerEvent("showUnitBar");
-		string guiName = getUnitGUIName(target);
+		string unitId = getUnitGUIName(target);
 
-		GUIView.core.TriggerEvent("unitSelected", guiName);
+		GUIView.core.TriggerEvent("unitSelected", unitId);
 		//Debug.Log("")
 		//GUIView.core.TriggerEvent("test");
 
