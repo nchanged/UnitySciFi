@@ -10,22 +10,25 @@ public abstract class Building : MonoBehaviour, ISelectable, IDentifiable
 	public string MapId {get;set;}
 
 	private bool unitSelected = false;
+	/*
 	private Vector3 lastValidPosition;
 	private bool currentPositionValid = true;
+	*/
 
 	private GameObject upgradeButton;
 	private GameObject buildButton;
 
 	public virtual void Start()
     {
-		lastValidPosition = gameObject.transform.position;
+		/*lastValidPosition = gameObject.transform.position;*/
 		NavMeshObstacle navMeshObstacle = (NavMeshObstacle)gameObject.AddComponent("NavMeshObstacle");
 		navMeshObstacle.carving = true;
     }
 
+	/*
 	private Vector3 dragStartPosition = Vector3.zero;
 	private Vector3 dragStartUnitPosition = Vector3.zero;
-	/*
+
 	// Dragging
 	public bool OnDragMove(Vector3 position)
 	{
