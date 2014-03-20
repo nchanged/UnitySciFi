@@ -10,6 +10,7 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 	public string MapId {get;set;}
 	public bool IsReady {get;set;}
 	public bool IsBuilding {get;set;}
+	public bool IsPlaceholder {get;set;}
 
 	private bool unitSelected = false;
 	private Vector3 lastValidPosition;

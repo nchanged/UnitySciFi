@@ -34,6 +34,7 @@ public class JSListener : MonoBehaviour {
 		{
 			m_View.View.BindCall("InitGameObject", (System.Action<string>)this.InitGameObject);
 			m_View.View.BindCall("InitUserProfile", (System.Action<string>)this.InitUserProfile);
+			m_View.View.BindCall("InitBuildingPlaceHolder", (System.Action<string>)this.InitBuildingPlaceHolder);
 		}
 	}
 
@@ -75,9 +76,31 @@ public class JSListener : MonoBehaviour {
 				BoxCollider collider = instance.GetComponent("BoxCollider") as BoxCollider;
 				Vector3 colliderSize = collider.size;
 
-				plasmaBall.transform.parent = DynamicObjects.transform;
+				plasmaBall.transform.parent = instance.transform;
 				plasmaBall.transform.position = new Vector3(posX, 0.2f, posZ);
 				plasmaBall.transform.localScale = colliderSize * 2;
+			}
+		}
+	}
+
+	void InitBuildingPlaceHolder(string jsonString)
+	{
+		var json = JSON.Parse (jsonString);
+		string objectName = json["name"];
+		bool isBuilding = (Int32.Parse(json["is_building"]) == 1);
+
+		if(isBuilding){
+			// Find the center of the screen and put the placeholder there.
+			Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+			RaycastHit hit;			
+			if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "Terrain"){
+				Vector3 position = hit.point;
+				print ("setting to zero");
+				GameObject instance = (GameObject)Instantiate(Resources.Load(objectName), position, new Quaternion());
+				SelectGameObject.DeselectAll();
+				SelectGameObject.Dispatch(instance);
+				IDraggable draggableComponent = DragGameObject.GetDraggable (instance);
+				draggableComponent.IsPlaceholder = true;
 			}
 		}
 	}

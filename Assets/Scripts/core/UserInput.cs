@@ -178,7 +178,7 @@ public class UserInput : MonoBehaviour
 				withinDeadZone = true;
 								
 				draggableComponent = DragGameObject.GetDraggable (hit.transform.gameObject);
-				if (draggableComponent != null && SelectGameObject.GetObjectByIndex (0) == draggableComponent)
+				if (draggableComponent != null && SelectGameObject.GetObjectByIndex (0) == draggableComponent && draggableComponent.IsPlaceholder)
 				{
 					lockCameraMovement = true;
 				}
@@ -232,7 +232,7 @@ public class UserInput : MonoBehaviour
 
 		if (draggableComponent != null)
 		{
-			if (!withinDeadZone)
+			if (!withinDeadZone && draggableComponent.IsPlaceholder)
 			{
 				lockCameraMovement = DragGameObject.DispatchDrag (draggableComponent, pointerPosition);
 				draggingOccured = lockCameraMovement;

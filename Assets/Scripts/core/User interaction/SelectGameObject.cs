@@ -47,6 +47,11 @@ public class SelectGameObject : MonoBehaviour {
 		return index < selected.Count ? selected[index] : null;
 	}
 
+	public static bool CurrentlySelected(Object selectableObject)
+	{
+		return SelectGameObject.GetObjectByIndex (0) == selectableObject;
+	}
+
 	public static void Dispatch(GameObject target)
 	{
 

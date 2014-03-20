@@ -5,4 +5,5 @@ public interface IDraggable {
 	bool OnDragMove (Vector3 position);
 	void OnDragStop();
 	bool CurrentPositionValid { get; set; }
+	bool IsPlaceholder {get;set;}
 }

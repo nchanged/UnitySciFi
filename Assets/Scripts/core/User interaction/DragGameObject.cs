@@ -5,16 +5,8 @@ public class DragGameObject  {
 
 	public static IDraggable GetDraggable(GameObject target)
 	{
-		// Iterate over Selectable components
-		Component[] draggableComponents 
-			= target.GetComponents(typeof(IDraggable));
-
-		for (int i = 0; i<draggableComponents.Length; i++){
-			// If the class inherits draggabl inteface
-			if (draggableComponents[i] is IDraggable)
-				return draggableComponents[i] as IDraggable;
-		}
-		return null;
+		IDraggable draggableComponent = (IDraggable)target.GetComponent(typeof(IDraggable));
+		return draggableComponent;
 	}
 	// Return bool that tells camera to stop or procced with moving
 	public static bool DispatchDrag(IDraggable draggableComponent, Vector3 pos)
