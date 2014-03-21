@@ -26,6 +26,11 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 		navMeshObstacle.carving = true;
     }
 
+	public void Update()
+	{
+
+	}
+
 	private Vector3 dragStartPosition = Vector3.zero;
 	private Vector3 dragStartUnitPosition = Vector3.zero;
 
