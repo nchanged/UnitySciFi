@@ -95,7 +95,6 @@ public class JSListener : MonoBehaviour {
 			RaycastHit hit;			
 			if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "Terrain"){
 				Vector3 position = hit.point;
-				print ("setting to zero");
 				GameObject instance = (GameObject)Instantiate(Resources.Load(objectName), position, new Quaternion());
 				SelectGameObject.DeselectAll();
 				SelectGameObject.Dispatch(instance);
