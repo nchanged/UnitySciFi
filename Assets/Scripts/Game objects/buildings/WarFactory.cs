@@ -3,8 +3,9 @@ using System.Collections;
 
 public class WarFactory : Building {
 
-	private float minOpacity = 0.27f;
+	private float minOpacity = 0.1f;
 	private float maxOpacity = 0.6f;
+	private float pulseSpeed = 0.3f;
 	private bool increaseOpacity = true;
 
 	public override void Start()
@@ -20,7 +21,7 @@ public class WarFactory : Building {
 		if(currentOpacity < maxOpacity && increaseOpacity)
 		{
 			Color newColor = glowMaterial.color;
-			newColor.a = currentOpacity + 0.01f;
+			newColor.a = currentOpacity + pulseSpeed * Time.deltaTime;
 			glowMaterial.color = newColor;
 			if(newColor.a >= maxOpacity)
 			{
@@ -30,7 +31,7 @@ public class WarFactory : Building {
 		if(currentOpacity > minOpacity && !increaseOpacity)
 		{
 			Color newColor = glowMaterial.color;
-			newColor.a = currentOpacity - 0.01f;
+			newColor.a = currentOpacity - pulseSpeed * Time.deltaTime;
 			glowMaterial.color = newColor;
 			if(newColor.a <= minOpacity)
 			{
