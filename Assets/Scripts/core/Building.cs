@@ -26,7 +26,7 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 		navMeshObstacle.carving = true;
     }
 
-	public void Update()
+	public virtual void Update()
 	{
 
 	}
