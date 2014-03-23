@@ -622,7 +622,7 @@ public class CoherentUISystem : MonoBehaviour {
 			{
 				throw new System.ApplicationException("UI System initialization failed!");
 			}
-			Debug.Log ("Coherent UI system initialized..");
+			//Debug.Log ("Coherent UI system initialized..");
 			#if UNITY_EDITOR || COHERENT_UNITY_STANDALONE
 			CoherentUIViewRenderer.WakeRenderer();
 			#endif
