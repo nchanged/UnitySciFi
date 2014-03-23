@@ -12,7 +12,7 @@ public class UserInput : MonoBehaviour
 	private Vector3 cameraMovePosition = Vector3.zero;
 
 	private float defaultCameraY = 50;
-	private float cameraMinX = 1000f;
+	private float cameraMinX = 800f;
 	private float cameraMaxX = 1400f;
 	private float cameraMinY = 25f;
 	private float cameraMaxY = 100f;
