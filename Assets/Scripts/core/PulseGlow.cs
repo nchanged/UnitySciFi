@@ -25,27 +25,47 @@ public class PulseGlow : MonoBehaviour {
 	{
 		if(glowMaterial != null)
 		{
-			float currentOpacity = glowMaterial.color.a;
+			changeOffset ();
+			changeOpacity ();
+		}
+	}
 
-			if(currentOpacity < maxOpacity && increaseOpacity)
+	private void changeOffset()
+	{
+		float currentOffset = glowMaterial.mainTextureOffset.x;
+		if(currentOffset < 10)
+		{
+			glowMaterial.mainTextureOffset = new Vector2(currentOffset + 1 * Time.deltaTime, 0);
+		}
+		else 
+		{
+			glowMaterial.mainTextureOffset = Vector2.zero;
+		}
+		print(glowMaterial.mainTextureOffset);
+	}
+
+	private void changeOpacity()
+	{
+		float currentOpacity = glowMaterial.color.a;
+
+		if(currentOpacity < maxOpacity && increaseOpacity)
+		{
+			Color newColor = glowMaterial.color;
+			newColor.a = currentOpacity + pulseSpeed * Time.deltaTime;
+			glowMaterial.color = newColor;
+			if(newColor.a >= maxOpacity)
 			{
-				Color newColor = glowMaterial.color;
-				newColor.a = currentOpacity + pulseSpeed * Time.deltaTime;
-				glowMaterial.color = newColor;
-				if(newColor.a >= maxOpacity)
-				{
-					increaseOpacity = false;
-				}
+				increaseOpacity = false;
 			}
-			if(currentOpacity > minOpacity && !increaseOpacity)
+		}
+		else if(currentOpacity > minOpacity && !increaseOpacity)
+		{
+			Color newColor = glowMaterial.color;
+			newColor.a = currentOpacity - pulseSpeed * Time.deltaTime;
+			glowMaterial.color = newColor;
+			if(newColor.a <= minOpacity)
 			{
-				Color newColor = glowMaterial.color;
-				newColor.a = currentOpacity - pulseSpeed * Time.deltaTime;
-				glowMaterial.color = newColor;
-				if(newColor.a <= minOpacity)
-				{
-					increaseOpacity = true;
-				}
+				increaseOpacity = true;
 			}
 		}
 	}
