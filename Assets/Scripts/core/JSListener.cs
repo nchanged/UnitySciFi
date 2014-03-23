@@ -72,13 +72,16 @@ public class JSListener : MonoBehaviour {
 		{
 			if(isBuilding)
 			{
-				GameObject plasmaBall = (GameObject)Instantiate(Resources.Load("plasmaball"));
+				GameObject spinner = (GameObject)Instantiate(Resources.Load("ConstructionSpinner"));
 				BoxCollider collider = instance.GetComponent("BoxCollider") as BoxCollider;
-				Vector3 colliderSize = collider.size;
+				float spinnerScale = (collider.size.x > collider.size.z) ? collider.size.x * 1.5f : collider.size.z * 1.5f;
+				Vector3 spinnerSize = new Vector3(spinnerScale, spinnerScale, spinnerScale);
 
-				plasmaBall.transform.parent = instance.transform;
-				plasmaBall.transform.position = new Vector3(posX, 0.2f, posZ);
-				plasmaBall.transform.localScale = colliderSize * 2;
+				spinner.transform.parent = instance.transform;
+				spinner.transform.position = new Vector3(posX, 0.2f, posZ);
+				spinner.transform.localScale = spinnerSize;
+
+				instance.AddComponent("PulseGlow");
 			}
 		}
 	}

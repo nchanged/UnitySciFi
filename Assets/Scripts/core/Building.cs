@@ -16,9 +16,6 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 	private Vector3 lastValidPosition;
 	private bool currentPositionValid = true;
 
-	private GameObject upgradeButton;
-	private GameObject buildButton;
-
 	public virtual void Start()
     {
 		lastValidPosition = gameObject.transform.position;
@@ -26,9 +23,8 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 		navMeshObstacle.carving = true;
     }
 
-	public virtual void Update()
+	void Update()
 	{
-
 	}
 
 	private Vector3 dragStartPosition = Vector3.zero;
