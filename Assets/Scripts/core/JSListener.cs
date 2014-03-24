@@ -61,7 +61,7 @@ public class JSListener : MonoBehaviour {
 		Component component = instance.GetComponent(typeof(IDentifiable));
 		IDentifiable identification = component as IDentifiable;
 		identification.InstanceId = instanceId;
-		identification.ObjectId = instanceId;
+		identification.ObjectId = objectId;
 		identification.ObjectName = objectName;
 		identification.UserId = userId;
 		identification.MapId = mapId;
