@@ -200,24 +200,32 @@ public class UserInput : MonoBehaviour
 
 			if (userFingerUp)
 			{
-				if (hit.transform.gameObject.name == "Terrain")
-				{
-					if (withinDeadZone)
-					{
-						if(commandableComponent != null)
-						{
-							CommandGameObject.DispatchMoveCommand(commandableComponent, hit.point);
-						}
-
-						//Deselect all objects, whether we are commanding or not.
-						SelectGameObject.DeselectAll ();
-					}
-				}
+				GameObject hitObject = hit.transform.gameObject;
 				// If we have not move a screen
 				if (withinDeadZone)
 				{
-					SelectGameObject.Dispatch (hit.transform.gameObject);
-					commandableComponent = CommandGameObject.GetCommandable(hit.transform.gameObject);
+					if (hitObject.name == "Terrain")
+					{
+						if(commandableComponent != null)
+						{
+							// A commandable unit is selected, and we hit the terrain. Move that unit to this position.
+							CommandGameObject.DispatchMoveCommand(commandableComponent, hit.point);
+						}
+						
+						//Deselect all objects, whether we are commanding or not.
+						SelectGameObject.DeselectAll ();
+					}
+					else if (hitObject.name == "OkButton" || hitObject.name == "CancelButton")
+					{
+						// hitObject is the button--> its parent is the button container --> and its parent is the building.
+						GameObject parentGameObject = hitObject.transform.parent.transform.parent.gameObject;
+						JSTrigger.StartBuildingConstruction (parentGameObject);
+					}
+					else
+					{
+						SelectGameObject.Dispatch (hitObject);
+						commandableComponent = CommandGameObject.GetCommandable(hitObject);
+					}
 				}
 
 				if (draggableComponent != null && draggingOccured)

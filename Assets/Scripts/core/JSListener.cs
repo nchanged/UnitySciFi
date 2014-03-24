@@ -33,6 +33,7 @@ public class JSListener : MonoBehaviour {
 		if (isMainFrame)
 		{
 			m_View.View.BindCall("InitGameObject", (System.Action<string>)this.InitGameObject);
+			m_View.View.BindCall("BuildingOrdered", (System.Action<string>)this.InitGameObject);
 			m_View.View.BindCall("InitUserProfile", (System.Action<string>)this.InitUserProfile);
 			m_View.View.BindCall("InitBuildingPlaceHolder", (System.Action<string>)this.InitBuildingPlaceHolder);
 		}
@@ -42,7 +43,8 @@ public class JSListener : MonoBehaviour {
 	{
 		//Place an instance on the scene
 		var json = JSON.Parse (jsonString);
-		string objectId = json["id"];
+		string instanceId = json["id"];
+		string objectId = json["unit_id"];
 		string objectName = json["name"];
 		string userId = json["user_id"];
 		string mapId = json["map_id"];
@@ -58,7 +60,8 @@ public class JSListener : MonoBehaviour {
 		//Set IDentifiable fields
 		Component component = instance.GetComponent(typeof(IDentifiable));
 		IDentifiable identification = component as IDentifiable;
-		identification.ObjectId = objectId;
+		identification.InstanceId = instanceId;
+		identification.ObjectId = instanceId;
 		identification.ObjectName = objectName;
 		identification.UserId = userId;
 		identification.MapId = mapId;
@@ -66,7 +69,7 @@ public class JSListener : MonoBehaviour {
 		identification.IsBuilding = isBuilding;
 
 		//Save instance to cache
-		Storage.GameObjectCache.Add(objectId, instance);
+		Storage.GameObjectCache.Add(instanceId, instance);
 	
 		if(!isReady)
 		{
@@ -82,6 +85,13 @@ public class JSListener : MonoBehaviour {
 				spinner.transform.localScale = spinnerSize;
 
 				instance.AddComponent("PulseGlow");
+
+				float barPosX = instance.renderer.bounds.max.x + 2f;
+				float barPosY = 1f;
+				float barPosZ = instance.renderer.bounds.center.z;
+				Vector3 barPosition = new Vector3(barPosX, barPosY, barPosZ);
+				GameObject progressBar = (GameObject)Instantiate(Resources.Load("gui/progressBar"), barPosition, new Quaternion());
+				progressBar.transform.parent = instance.transform;
 			}
 		}
 	}
@@ -90,6 +100,7 @@ public class JSListener : MonoBehaviour {
 	{
 		var json = JSON.Parse (jsonString);
 		string objectName = json["name"];
+		string objectId = json["unit_id"];
 		bool isBuilding = (Int32.Parse(json["is_building"]) == 1);
 
 		if(isBuilding){
@@ -103,6 +114,16 @@ public class JSListener : MonoBehaviour {
 				SelectGameObject.Dispatch(instance);
 				IDraggable draggableComponent = DragGameObject.GetDraggable (instance);
 				draggableComponent.IsPlaceholder = true;
+				Building buildingComponent = instance.GetComponent<Building>() as Building;
+				buildingComponent.ObjectId = objectId;
+
+
+				float posX = instance.renderer.bounds.max.x + 2f;
+				float posY = 2.5f;
+				float posZ = instance.renderer.bounds.center.z;
+				Vector3 buttonsPosition = new Vector3(posX, posY, posZ);
+				GameObject constructionButtons = (GameObject)Instantiate(Resources.Load("gui/ConstructionButtons"), buttonsPosition, new Quaternion());
+				constructionButtons.transform.parent = instance.transform;
 			}
 		}
 	}

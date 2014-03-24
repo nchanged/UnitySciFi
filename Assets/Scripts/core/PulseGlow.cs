@@ -41,7 +41,6 @@ public class PulseGlow : MonoBehaviour {
 		{
 			glowMaterial.mainTextureOffset = Vector2.zero;
 		}
-		print(glowMaterial.mainTextureOffset);
 	}
 
 	private void changeOpacity()

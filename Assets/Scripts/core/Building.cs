@@ -4,6 +4,7 @@ using System;
 
 public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentifiable
 {
+	public string InstanceId {get;set;}
 	public string ObjectId {get;set;}
 	public string ObjectName {get;set;}
 	public string UserId {get;set;}
@@ -11,6 +12,7 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 	public bool IsReady {get;set;}
 	public bool IsBuilding {get;set;}
 	public bool IsPlaceholder {get;set;}
+	public string PlaceholderId {get;set;}
 
 	private bool unitSelected = false;
 	private Vector3 lastValidPosition;
