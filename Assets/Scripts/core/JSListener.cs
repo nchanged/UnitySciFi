@@ -80,9 +80,9 @@ public class JSListener : MonoBehaviour {
 				float spinnerScale = (collider.size.x > collider.size.z) ? collider.size.x * 1.5f : collider.size.z * 1.5f;
 				Vector3 spinnerSize = new Vector3(spinnerScale, spinnerScale, spinnerScale);
 
-				spinner.transform.parent = instance.transform;
-				spinner.transform.position = new Vector3(posX, 0.2f, posZ);
-				spinner.transform.localScale = spinnerSize;
+				//spinner.transform.parent = instance.transform;
+				//spinner.transform.position = new Vector3(posX, 0.2f, posZ);
+				//spinner.transform.localScale = spinnerSize;
 
 				instance.AddComponent("PulseGlow");
 

@@ -107,7 +107,7 @@ public class SelectGameObject : MonoBehaviour {
 		for (int i = 0; i<guiUnites.Length; i++){
 			if (guiUnites[i] is IDentifiable){
 				IDentifiable unit = guiUnites[i] as IDentifiable;
-				return unit.ObjectId;
+				return unit.InstanceId;
 			}
 		}
 		return null;
@@ -117,6 +117,7 @@ public class SelectGameObject : MonoBehaviour {
 
 		//gui.triggerEvent("showUnitBar");
 		string unitId = getUnitGUIName(target);
+		Debug.Log("unit " + unitId);
 
 		GUIView.core.TriggerEvent("unitSelected", unitId);
 		//Debug.Log("")
