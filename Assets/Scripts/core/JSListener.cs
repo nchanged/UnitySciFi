@@ -92,8 +92,8 @@ public class JSListener : MonoBehaviour {
 
 				instance.AddComponent("PulseGlow");
 
-				float barPosX = instance.renderer.bounds.max.x + 2f;
-				float barPosY = 1f;
+				float barPosX = instance.renderer.bounds.max.x + 3f;
+				float barPosY = 8f;
 				float barPosZ = instance.renderer.bounds.center.z;
 				Vector3 barPosition = new Vector3(barPosX, barPosY, barPosZ);
 				GameObject progressBar = (GameObject)Instantiate(Resources.Load("gui/ProgressBar"), barPosition, new Quaternion());

@@ -46,7 +46,7 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 	{
 		//Debug.Log(ReadyEstimation);
 		TimeSpan ts = TimeSpan.FromMilliseconds(ReadyEstimation - (long) timer);
-		string readableFormat = string.Format("{0:D2} hours {1:D2} min {2:D2} sec", 
+		string readableFormat = string.Format("{0:D2} h {1:D2} min {2:D2} sec", 
 		                              //ts.Days, 
 		                              ts.Hours, 
 		                              ts.Minutes, 
@@ -56,6 +56,8 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 			if ( child.gameObject.name == "progressbar" ) {
 				Transform eta = child.transform.Find("ETA");
 				Transform title = child.transform.Find("Title");
+				Transform spinner = child.transform.Find("Spinner");
+				spinner.Rotate(0,0,50*Time.deltaTime);
 				if ( title != null ) {
 					title.gameObject.GetComponent<TextMesh>().text = "Building " + ObjectName;
 				}
