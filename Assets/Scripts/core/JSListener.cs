@@ -96,7 +96,7 @@ public class JSListener : MonoBehaviour {
 				float barPosY = 1f;
 				float barPosZ = instance.renderer.bounds.center.z;
 				Vector3 barPosition = new Vector3(barPosX, barPosY, barPosZ);
-				GameObject progressBar = (GameObject)Instantiate(Resources.Load("gui/progressBar"), barPosition, new Quaternion());
+				GameObject progressBar = (GameObject)Instantiate(Resources.Load("gui/ProgressBar"), barPosition, new Quaternion());
 				progressBar.gameObject.name = "progressbar";
 				progressBar.transform.parent = instance.transform;
 			}
