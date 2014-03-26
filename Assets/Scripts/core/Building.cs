@@ -13,6 +13,7 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 	public bool IsBuilding {get;set;}
 	public bool IsPlaceholder {get;set;}
 	public string PlaceholderId {get;set;}
+	public long ReadyEstimation {get;set;}
 
 	private bool unitSelected = false;
 	private Vector3 lastValidPosition;
@@ -25,8 +26,52 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 		navMeshObstacle.carving = true;
     }
 
+	float timer = 0f;
 	void Update()
 	{
+	
+		if ( IsReady == false ) {
+			if ( ReadyEstimation > 0 ){
+				timer += Time.deltaTime * 1000;
+
+
+				//Debug.Log(ReadyEstimation);
+				UpdateProgressBar();
+			}
+		}
+	}
+
+
+	void UpdateProgressBar()
+	{
+		//Debug.Log(ReadyEstimation);
+		TimeSpan ts = TimeSpan.FromMilliseconds(ReadyEstimation - (long) timer);
+		string readableFormat = string.Format("{0:D2} hours {1:D2} min {2:D2} sec", 
+		                              //ts.Days, 
+		                              ts.Hours, 
+		                              ts.Minutes, 
+		                              ts.Seconds);
+		foreach (Transform child in transform)
+		{
+			if ( child.gameObject.name == "progressbar" ) {
+				Transform pbackground = child.transform.Find("background");
+				if (pbackground != null) {
+					Transform eta = pbackground.Find("ETA");
+					if (eta != null ){
+						eta.gameObject.GetComponent<TextMesh>().text = readableFormat;
+
+					}
+
+				}
+
+				//foreach (Transform pchild in child.gameObject.transform)
+				//{
+				//	Debug.Log(pchild);
+				//}
+
+			}
+		}
+	
 	}
 
 	private Vector3 dragStartPosition = Vector3.zero;

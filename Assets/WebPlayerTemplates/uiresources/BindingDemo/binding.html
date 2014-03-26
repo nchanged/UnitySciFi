@@ -1,0 +1,175 @@
+<html>
+<head>
+	<link rel="stylesheet" href="css/console.css" type="text/css" media="screen">
+	<link rel="stylesheet" href="css/vader/jquery-ui-1.8.21.custom.css" type="text/css" media="screen">
+	
+	<title>Binding Sample</title>
+	<style type="text/css">
+		body {
+			background-image:url("background.jpg");
+		}
+		
+		@-webkit-keyframes turning_cw
+		{
+			0%
+			{
+				-webkit-transform: rotate(0deg);
+			}
+			100%
+			{
+				-webkit-transform: rotate(360deg);
+			}
+		 }
+		
+		#logo {
+			position: absolute;
+			top: 268px;
+			left: 412px;
+			-webkit-animation: turning_cw 8s infinite;
+		}
+		
+	</style>
+</head>
+<body>
+	<script type="text/javascript" src="javascript/underscore-min.js"></script>
+	<script type="text/javascript" src="javascript/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="javascript/jquery-ui-1.8.21.custom.min.js"></script>
+	<script type="text/javascript" src="javascript/coherent.js"></script>
+	<script type="text/javascript" src="javascript/console.js"></script>
+	<script type="text/javascript">
+	
+	function openOptions(options) {
+		$("#options").dialog( "open" );
+		$("#backend").text(options.Backend); 
+		$("#gameWidth").val(options.Width); 
+		$("#gameHeight").val(options.Height); 
+		$("#user").text(options.Username); 
+		$("#netPort").val(options.NetworkPort);
+		
+		gameOptionsTypeName = options.__Type;
+	}
+	
+	function onApplyButton(){
+		var options = {};
+		options.__Type = gameOptionsTypeName || "GameOptions";
+		options.Backend = $("#backend").text();
+		options.Width = Number($("#gameWidth").val());
+		options.Height = Number($("#gameHeight").val());
+		options.Username = $("#user").text();
+		options.NetworkPort = Number($("#netPort").val());
+		
+		// This will call the C++ engine code with the just created structure. It'll be correctly populated
+		engine.call("ApplyOptions", options);
+	}
+	
+	// JavaScript can request data from the engine, the passed function will be invoked with the data returned by the
+	// bound routine in the engine
+	// If an error occurs the global error handling function will be invoked
+	function getLatency() {
+		engine.call("GetLatency").then(function() {
+			$("#latency").text(arguments[0]);
+		});
+	}
+
+	// Optionally you can pass an object with 'callback' and 'error' properties. If an error occurs you can be notified directly in this way
+	function getGameTime() {
+		engine.call("GetGameTime").then(
+			function () {
+				$("#gameTime").text(arguments[0]);
+			},
+			function (type, message) {
+				/* Will be called on error */
+				console.error(message);
+			}
+		);
+	}
+	
+	// When the C++ code triggers the "OpenOptions" event we specify that 'openOptions' should be called here
+	engine.on("OpenOptions", openOptions);
+	
+	// You can test the page even outside the engine by just mocking the required functions and using engine.IsAttached to branch the code 
+	function mock() {
+		var options = { Backend: "MockUnity3D", Width:1024, Height:768, Username: "Mockuser", NetworkPort: 17777 };
+		openOptions(options);
+	}
+	
+	$(document).ready(function() {
+		$("#options").dialog( { autoOpen: false, width: 420, closeOnEscape: false, open: function() {
+			$(this)                            
+				.parent()                          
+				.find(".ui-dialog-titlebar-close") 
+				.hide();                           
+			}
+		});
+		$("#tabs").tabs();
+		
+		$("#applyButton").button().click(onApplyButton);
+		
+		$("#getLatencyButton").button().click(getLatency);
+		
+		$("#getGameTimeButton").button().click(getGameTime);
+		
+		if (!engine.IsAttached) {
+			mock();
+		}
+	});
+	
+	engine.on('Ready', function () {
+		// trigger event handled by C++
+	    engine.trigger('ViewReady');
+	    engine.call('GetMath').then(function (math) {
+	        window.MyMath = math;
+
+	        engine.trigger('gameConsole:AddCommand', 'sum', 'computes the sum of its arguments', function (line) {
+	            var numbers = line.split(/\s+/).map(Number);
+	            numbers.splice(0, 1);
+	            window.MyMath.Sum(numbers).then(function (sum) {
+	                engine.trigger('gameConsole:Trace', 'The sum of', numbers, 'is', sum);
+	            });
+                return 'Please wait ...'
+	        });
+
+	        engine.trigger('gameConsole:AddCommand', 'avg', 'computes the average of its arguments', function (line) {
+	            var numbers = line.split(/\s+/).map(Number);
+	            numbers.splice(0, 1);
+	            window.MyMath.Average(numbers).then(function (avg) {
+	                engine.trigger('gameConsole:Trace', 'The average of', numbers, 'is', avg);
+	            });
+                return 'Please wait ...'
+	        });
+	    });
+	});
+		
+	</script>
+<div id="logo"><img src="logo.png"/></div>
+<div id="options" title="Game Options" visibility="hidden">
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabs-1">Graphics</a></li>
+			<li><a href="#tabs-2">User</a></li>
+			<li><a href="#tabs-3">Network</a></li>
+		</ul>
+		<div id="tabs-1">
+			<div style="float: left">Backend: </div> <div id='backend'></div>
+			<div> <div>Width: </div> <input type="number" id='gameWidth' size='6'/> </div>
+			<div> <div>Height: </div> <input type="number" id='gameHeight' size='6'/> </div>
+		</div>
+		<div id="tabs-2">
+			<div style="float: left">User: </div> <div id='user'></div>
+			<div>Current game time: </div> <div id='gameTime'>Click below to retrieve</div>
+			<button id='getGameTimeButton'>Get GameTime</button>
+		</div>
+		<div id="tabs-3">
+			<div> <div>Network port: </div> <input type="number" id='netPort' size='6'/> </div>
+			<div>Latency: </div> <div id='latency'>Click below to retrieve</div>
+			<button id='getLatencyButton'>Get Latency</button>
+		</div>
+	</div>
+	
+	<button id='applyButton' style="float: right">Apply</button>
+</div>
+
+<div><p style="color: red;">Press '~' to turn the debug console on/off</p></div>
+
+</body>
+</html>

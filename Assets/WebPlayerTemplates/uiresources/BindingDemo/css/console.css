@@ -1,0 +1,57 @@
+#console {
+    background: rgba(0, 0, 0, 0.9);
+    height: 300px;
+    width: 100%;
+    top: 0px;
+    left: 0px;
+    position: fixed;
+    z-index: 999;
+    display: none;
+    color: #fff;
+    text-align: left;
+	font-family: courier;
+    font-size: 10pt;
+}
+
+#console_window {
+    width: 99%;
+    background: rgba(100, 100, 100, 0.7);
+    margin: 2px auto 2px auto;
+    height: 240px;
+    padding: 4px;
+    color: #000;
+    overflow-y: scroll;
+}
+
+#console_input {
+	width: 99%;
+    margin: 1px auto 1px auto;
+	padding: 4px;
+    background: rgba(100, 100, 100, 0.7);
+	border: none;
+}
+
+div.console_result {
+	margin: 2px;
+}
+
+.command {
+	font-weight: bold;
+}
+
+:hover div.console_result  {
+	border: 1px solid red;
+}
+
+table.command_list {
+	width: 100%;
+}
+
+td.command_name {
+	width: 16%;
+	font-weight: bold;
+}
+
+#console > .ui-widget {
+	font-family: courier;
+}

@@ -1,0 +1,19 @@
+#sayButton
+{
+	position: relative;
+	top: 10px;
+	width: 90px;
+}
+
+#sayingsList
+{
+	height: 180px;
+	overflow-y:auto;
+}
+
+#textInput
+{
+	width: 180px;
+	position:relative;
+	top:15px;
+}

@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>IMEDialog</title>
+	<link rel="stylesheet" href="css/jquery-ui-1.10.3.custom.min.css">
+	<link rel="stylesheet" href="css/ime.css">
+	
+	<script src="javascript/jquery-1.9.1.js"></script>
+	<script src="javascript/jquery-ui-1.10.3.custom.min.js"></script>
+	
+	<script>
+		var  submitInput = function() {
+			var input = $('#textInput').val();
+			$('<p></p>')
+				.text(input)
+				.appendTo('#sayingsList');
+					
+			$('#textInput').val("");
+		}
+		
+		$(function() {
+			$("#dialog").dialog({
+				closeOnEscape: false,
+				resizable: false,
+				open: function(event, ui)
+					{ $(".ui-dialog-titlebar-close").hide(); },
+				width: 320,
+				height: 300
+			});
+			$("#sayButton").button();
+			$("#sayButton").click(submitInput);
+		});
+  </script>
+  
+</head>
+<body>
+ 
+<div id="dialog" title="IME Demo">
+	<div id="sayingsList"></div>
+	<form onsubmit="return false;">
+		<input type="text" id="textInput"></input>
+		<input id="sayButton" type="submit" value="Say"></input>
+	</form>	
+</div>
+ 
+</body>
+</html>

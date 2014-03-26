@@ -1,0 +1,52 @@
+<html>
+<head>
+    <title>Coherent UI Demo - menu</title>
+    
+    <!-- css -->
+    <link rel="stylesheet" href="css/menu.css" type="text/css" media="screen" />
+	<link rel='stylesheet' href='css/fonts.css' type='text/css'>
+    <!-- js -->
+    <script type="text/javascript" src="js/jquery/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="js/underscore/underscore-min.js"></script>
+	<script type="text/javascript" src="js/backbone/backbone-min.js"></script>
+
+	<script type="text/javascript" src="js/coherent.js"></script>
+	
+	<script type="text/javascript">
+	var fadeTime = 2000;
+	
+	$(document).ready(function() {
+		$('#cuLogo').fadeIn(fadeTime, function(){
+			var menu = $('#menuBack');
+			$(menu).addClass('menuItemActive');
+
+			var menuTexts = $('.menuText');
+			$(menuTexts).removeClass('menuTextInactive');
+			$(menuTexts).addClass('menuTextActive');
+		});
+	});                                   
+	</script> 
+</head>
+<body>
+	<div id='cuLogo'>
+		<img src='img/Coherent UI - icon.png'/>
+	</div>
+	<div id="menu">
+		<div id='menuBack'>
+			<div id='newGameBack' class='menuItem'>
+				<span id="newGame" class='menuText menuTextInactive' onclick='engine.call("NewGame");'>New Game</span>
+			</div>
+			<div id='optionsBack' class='menuItem'>
+				<span id="options" class='menuText menuTextInactive'>Options</span>
+			</div>
+			<div id='dlcBack' class='menuItem'>
+				<span id="dlc" class='menuText menuTextInactive'>DLC</span>
+			</div>
+			<div id='quitGameBack' class='menuItem'>
+				<span id="quitGame" class='menuText menuTextInactive'>Quit Game</span>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

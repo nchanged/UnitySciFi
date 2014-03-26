@@ -10,7 +10,8 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable, IDentifia
 	public string MapId {get;set;}
 	public bool IsReady {get;set;}
 	public bool IsBuilding {get;set;}
-	
+	public long ReadyEstimation {get;set;}
+
 	public string[] SelectAnimations {get;set;}
 	public string DefaultAnimation {get;set;}
 	

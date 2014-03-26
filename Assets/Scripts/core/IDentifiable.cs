@@ -7,6 +7,7 @@ public interface IDentifiable {
 	string ObjectName {get;set;}
 	string UserId {get;set;}
 	string MapId {get;set;}
+	long ReadyEstimation {get;set;}
 	bool IsReady {get;set;}
 	bool IsBuilding {get;set;}
 }

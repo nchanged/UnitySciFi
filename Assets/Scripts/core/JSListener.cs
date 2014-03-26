@@ -53,6 +53,11 @@ public class JSListener : MonoBehaviour {
 		Vector3 position = new Vector3(posX,0,posZ);
 		bool isReady = (Int32.Parse(json["is_ready"]) == 1);
 		bool isBuilding = (Int32.Parse(json["is_building"]) == 1);
+		long ReadyEstimation = 0L;
+		if ( json["ready_estimation"] != null ) {
+			ReadyEstimation = 
+				long.Parse(json["ready_estimation"], System.Globalization.NumberStyles.AllowThousands | System.Globalization.NumberStyles.AllowLeadingSign);
+		}
 
 		GameObject instance = (GameObject)Instantiate(Resources.Load(objectName), position, new Quaternion());
 		instance.transform.parent = DynamicObjects.transform;
@@ -64,6 +69,7 @@ public class JSListener : MonoBehaviour {
 		identification.ObjectId = objectId;
 		identification.ObjectName = objectName;
 		identification.UserId = userId;
+		identification.ReadyEstimation = ReadyEstimation;
 		identification.MapId = mapId;
 		identification.IsReady = isReady;
 		identification.IsBuilding = isBuilding;
@@ -91,6 +97,7 @@ public class JSListener : MonoBehaviour {
 				float barPosZ = instance.renderer.bounds.center.z;
 				Vector3 barPosition = new Vector3(barPosX, barPosY, barPosZ);
 				GameObject progressBar = (GameObject)Instantiate(Resources.Load("gui/progressBar"), barPosition, new Quaternion());
+				progressBar.gameObject.name = "progressbar";
 				progressBar.transform.parent = instance.transform;
 			}
 		}
