@@ -55,16 +55,15 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 		{
 			if ( child.gameObject.name == "progressbar" ) {
 				Transform eta = child.transform.Find("ETA");
+				Transform title = child.transform.Find("Title");
+				if ( title != null ) {
+					title.gameObject.GetComponent<TextMesh>().text = "Building " + ObjectName;
+				}
 
 				if (eta != null ){
 					eta.gameObject.GetComponent<TextMesh>().text = readableFormat;
-
 				}
 
-				//foreach (Transform pchild in child.gameObject.transform)
-				//{
-				//	Debug.Log(pchild);
-				//}
 
 			}
 		}
