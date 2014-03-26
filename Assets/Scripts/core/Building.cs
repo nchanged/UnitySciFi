@@ -54,13 +54,10 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 		foreach (Transform child in transform)
 		{
 			if ( child.gameObject.name == "progressbar" ) {
-				Transform pbackground = child.transform.Find("background");
-				if (pbackground != null) {
-					Transform eta = pbackground.Find("ETA");
-					if (eta != null ){
-						eta.gameObject.GetComponent<TextMesh>().text = readableFormat;
+				Transform eta = child.transform.Find("ETA");
 
-					}
+				if (eta != null ){
+					eta.gameObject.GetComponent<TextMesh>().text = readableFormat;
 
 				}
 
