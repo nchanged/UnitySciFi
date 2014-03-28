@@ -219,7 +219,14 @@ public class UserInput : MonoBehaviour
 					{
 						// hitObject is the button--> its parent is the button container --> and its parent is the building.
 						GameObject parentGameObject = hitObject.transform.parent.transform.parent.gameObject;
-						JSTrigger.StartBuildingConstruction (parentGameObject);
+						if(hitObject.name == "OkButton")
+						{
+							JSTrigger.StartBuildingConstruction (parentGameObject);
+						}
+						else
+						{
+							Destroy(parentGameObject);
+						}
 					}
 					else
 					{

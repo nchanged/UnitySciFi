@@ -117,10 +117,8 @@ public class SelectGameObject : MonoBehaviour {
 
 		//gui.triggerEvent("showUnitBar");
 		string unitId = getUnitGUIName(target);
-		Debug.Log("unit " + unitId);
 
 		GUIView.core.TriggerEvent("unitSelected", unitId);
-		//Debug.Log("")
 		//GUIView.core.TriggerEvent("test");
 
 
@@ -139,8 +137,6 @@ public class SelectGameObject : MonoBehaviour {
 
 
 		Vector3 cornerScale = new Vector3(2,2,1);
-		//Debug.Log(" NATURAL " + size);
-		//Debug.Log("REAL " + collider.size);
 		//size = collider.size;
 		GameObject instRB = Instantiate(Resources.Load("gui/SelectionPart"), target.transform.localPosition, Quaternion.Euler(90, 270+yRotation, 0)) as GameObject;
 		instRB.transform.parent = target.transform;
