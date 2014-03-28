@@ -81,14 +81,14 @@ public class JSListener : MonoBehaviour {
 		{
 			if(isBuilding)
 			{
-				GameObject spinner = (GameObject)Instantiate(Resources.Load("ConstructionSpinner"));
+				/*GameObject spinner = (GameObject)Instantiate(Resources.Load("ConstructionSpinner"));
 				BoxCollider collider = instance.GetComponent("BoxCollider") as BoxCollider;
 				float spinnerScale = (collider.size.x > collider.size.z) ? collider.size.x * 1.5f : collider.size.z * 1.5f;
 				Vector3 spinnerSize = new Vector3(spinnerScale, spinnerScale, spinnerScale);
 
-				//spinner.transform.parent = instance.transform;
-				//spinner.transform.position = new Vector3(posX, 0.2f, posZ);
-				//spinner.transform.localScale = spinnerSize;
+				spinner.transform.parent = instance.transform;
+				spinner.transform.position = new Vector3(posX, 0.2f, posZ);
+				spinner.transform.localScale = spinnerSize;*/
 
 				instance.AddComponent("PulseGlow");
 
@@ -111,19 +111,24 @@ public class JSListener : MonoBehaviour {
 		bool isBuilding = (Int32.Parse(json["is_building"]) == 1);
 
 		if(isBuilding){
-			// Find the center of the screen and put the placeholder there.
-			Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-			RaycastHit hit;			
-			if (Physics.Raycast(ray, out hit) && hit.collider.gameObject.name == "Terrain"){
-				Vector3 position = hit.point;
-				GameObject instance = (GameObject)Instantiate(Resources.Load(objectName), position, new Quaternion());
+			Transform camera = Camera.main.transform;
+			Ray ray = new Ray(camera.position, camera.forward);
+			RaycastHit[] hits = Physics.RaycastAll(ray);
+			Vector3 terrainHitPos = Vector3.zero;
+			for(var i = 0; i < hits.Length; i++)
+			{
+				if(hits[i].transform.gameObject.name == "Terrain")
+					terrainHitPos = hits[i].point;
+			}
+
+			if (terrainHitPos != Vector3.zero){
+				GameObject instance = (GameObject)Instantiate(Resources.Load(objectName), terrainHitPos, new Quaternion());
 				SelectGameObject.DeselectAll();
 				SelectGameObject.Dispatch(instance);
 				IDraggable draggableComponent = DragGameObject.GetDraggable (instance);
 				draggableComponent.IsPlaceholder = true;
 				Building buildingComponent = instance.GetComponent<Building>() as Building;
 				buildingComponent.ObjectId = objectId;
-
 
 				float posX = instance.renderer.bounds.max.x + 2f;
 				float posY = 2.5f;
