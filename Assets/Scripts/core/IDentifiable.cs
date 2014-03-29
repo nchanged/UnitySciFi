@@ -8,6 +8,7 @@ public interface IDentifiable {
 	string UserId {get;set;}
 	string MapId {get;set;}
 	long ReadyEstimation {get;set;}
+	long TakesTime {get;set;}
 	bool IsReady {get;set;}
 	bool IsBuilding {get;set;}
 }

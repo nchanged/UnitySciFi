@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 272162ef1040a45c8bb8c6d31ec90fdb
+guid: 640d615aa25b2441789097f4a055fdc3
 TextureImporter:
   serializedVersion: 2
   mipmaps:
@@ -23,10 +23,10 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 1024
   textureSettings:
-    filterMode: -1
-    aniso: -1
+    filterMode: 1
+    aniso: 1
     mipBias: -1
-    wrapMode: -1
+    wrapMode: 0
   nPOTScale: 1
   lightmap: 0
   compressionQuality: 50

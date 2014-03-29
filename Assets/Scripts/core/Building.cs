@@ -14,6 +14,7 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 	public bool IsPlaceholder {get;set;}
 	public string PlaceholderId {get;set;}
 	public long ReadyEstimation {get;set;}
+	public long TakesTime {get;set;}
 
 	private bool unitSelected = false;
 	//private Vector3 lastValidPosition;
@@ -60,7 +61,14 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 	void UpdateProgressBar()
 	{
 		//Debug.Log(ReadyEstimation);
-		TimeSpan ts = TimeSpan.FromMilliseconds(ReadyEstimation - (long) timer);
+
+		long timeLeft = ReadyEstimation - (long) timer;
+		float percents = 1 - ((float)timeLeft / (float)TakesTime);
+
+		float materialShiftPercentage = (50f / 100f * percents);
+
+
+		TimeSpan ts = TimeSpan.FromMilliseconds(timeLeft);
 		string readableFormat = string.Format("{0:D2} h {1:D2} min {2:D2} sec", 
 		                              //ts.Days, 
 		                              ts.Hours, 
@@ -71,8 +79,9 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 			if ( child.gameObject.name == "progressbar" ) {
 				Transform eta = child.transform.Find("ETA");
 				Transform title = child.transform.Find("Title");
-				Transform spinner = child.transform.Find("Spinner");
-				spinner.Rotate(0,0,50*Time.deltaTime);
+
+				Transform container = child.transform.Find("container");
+				container.gameObject.renderer.material.SetTextureOffset ("_MainTex", new Vector2(materialShiftPercentage,0));
 				if ( title != null ) {
 					title.gameObject.GetComponent<TextMesh>().text = "Building " + ObjectName;
 				}

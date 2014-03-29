@@ -49,6 +49,10 @@ public class JSListener : MonoBehaviour {
 		string userId = json["user_id"];
 		string mapId = json["map_id"];
 		string taskId = json["task_id"];
+		long takes_time = 0;
+		if ( json["takes_time"] != null &&  json["takes_time"] != "null" ) {
+			takes_time = long.Parse(json["takes_time"]);
+		}
 		float posX = float.Parse(json["x"]);
 		float posZ = float.Parse(json["z"]);
 		Vector3 position = new Vector3(posX,0,posZ);
@@ -69,6 +73,7 @@ public class JSListener : MonoBehaviour {
 		identification.InstanceId = instanceId;
 		identification.ObjectId = objectId;
 		identification.ObjectName = objectName;
+		identification.TakesTime = takes_time;
 		identification.UserId = userId;
 		identification.ReadyEstimation = ReadyEstimation;
 		identification.MapId = mapId;

@@ -11,6 +11,7 @@ public abstract class Unit : MonoBehaviour, ISelectable, ICommandable, IDentifia
 	public bool IsReady {get;set;}
 	public bool IsBuilding {get;set;}
 	public long ReadyEstimation {get;set;}
+	public long TakesTime {get;set;}
 
 	public string[] SelectAnimations {get;set;}
 	public string DefaultAnimation {get;set;}
