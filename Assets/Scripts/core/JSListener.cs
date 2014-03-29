@@ -48,6 +48,7 @@ public class JSListener : MonoBehaviour {
 		string objectName = json["name"];
 		string userId = json["user_id"];
 		string mapId = json["map_id"];
+		string taskId = json["task_id"];
 		float posX = float.Parse(json["x"]);
 		float posZ = float.Parse(json["z"]);
 		Vector3 position = new Vector3(posX,0,posZ);
@@ -99,6 +100,13 @@ public class JSListener : MonoBehaviour {
 				GameObject progressBar = (GameObject)Instantiate(Resources.Load("gui/ProgressBar"), barPosition, new Quaternion());
 				progressBar.gameObject.name = "progressbar";
 				progressBar.transform.parent = instance.transform;
+
+				// User is building this object. Remove placeholder building
+				if(taskId != null)
+				{
+					Destroy(Storage.GameObjectCache[taskId]);
+					Storage.GameObjectCache.Remove(taskId);
+				}
 			}
 		}
 	}
@@ -123,6 +131,7 @@ public class JSListener : MonoBehaviour {
 
 			if (terrainHitPos != Vector3.zero){
 				GameObject instance = (GameObject)Instantiate(Resources.Load(objectName), terrainHitPos, new Quaternion());
+				instance.transform.parent = DynamicObjects.transform;
 				SelectGameObject.DeselectAll();
 				SelectGameObject.Dispatch(instance);
 				IDraggable draggableComponent = DragGameObject.GetDraggable (instance);
@@ -136,6 +145,7 @@ public class JSListener : MonoBehaviour {
 				Vector3 buttonsPosition = new Vector3(posX, posY, posZ);
 				GameObject constructionButtons = (GameObject)Instantiate(Resources.Load("gui/ConstructionButtons"), buttonsPosition, new Quaternion());
 				constructionButtons.transform.parent = instance.transform;
+				TextureSwitcher.AddSecondaryMaterial(instance, "DynamicMaterials/PlaceholderGreen");
 			}
 		}
 	}

@@ -10,15 +10,7 @@ public class PulseGlow : MonoBehaviour {
 
 	void Start()
 	{
-		int length = renderer.materials.Length;
-		Material[] materialsArray = new Material[length + 1];
-		for(int i = 0; i < renderer.materials.Length; i++)
-		{
-			materialsArray[i] = renderer.materials[i];
-		}
-		materialsArray[length] = Resources.Load("DynamicMaterials/Glow", typeof(Material)) as Material;
-		renderer.materials = materialsArray;
-		glowMaterial = renderer.materials[length];
+		glowMaterial = TextureSwitcher.AddSecondaryMaterial(gameObject, "DynamicMaterials/Glow");
 	}
 	
 	void Update()

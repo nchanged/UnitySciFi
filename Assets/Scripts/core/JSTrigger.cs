@@ -19,7 +19,7 @@ public class JSTrigger : MonoBehaviour {
 		float xPosition = parentGameObject.transform.position.x;
 		float zPosition = parentGameObject.transform.position.z;
 
+		Storage.GameObjectCache.Add(placeholderId, parentGameObject);
 		GUIView.core.TriggerEvent("startBuilding", placeholderId, unitId, xPosition, zPosition);
-		Destroy (parentGameObject);
 	}
 }

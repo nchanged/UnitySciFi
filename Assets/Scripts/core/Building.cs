@@ -41,7 +41,6 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 		}
 	}
 
-
 	void UpdateProgressBar()
 	{
 		//Debug.Log(ReadyEstimation);
@@ -86,7 +85,6 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 			{
 				dragStartUnitPosition = transform.position;
 			}
-
 			transform.position = dragStartUnitPosition + position - dragStartPosition;
 			return true;
 		}
