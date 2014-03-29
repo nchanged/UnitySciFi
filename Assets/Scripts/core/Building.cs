@@ -16,12 +16,12 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 	public long ReadyEstimation {get;set;}
 
 	private bool unitSelected = false;
-	private Vector3 lastValidPosition;
+	//private Vector3 lastValidPosition;
 	private bool currentPositionValid = true;
 
 	public virtual void Start()
     {
-		lastValidPosition = gameObject.transform.position;
+		//lastValidPosition = gameObject.transform.position;
 		NavMeshObstacle navMeshObstacle = (NavMeshObstacle)gameObject.AddComponent("NavMeshObstacle");
 		navMeshObstacle.carving = true;
     }
@@ -38,6 +38,22 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 				//Debug.Log(ReadyEstimation);
 				UpdateProgressBar();
 			}
+		}
+	}
+
+	void OnTriggerStay(Collider other){
+		if(other.transform.gameObject.name != "Terrain" && this.IsPlaceholder && this.currentPositionValid)
+		{
+			TextureSwitcher.AddSecondaryMaterial(gameObject, "DynamicMaterials/PlaceholderRed");
+			this.currentPositionValid = false;
+		}
+	}
+	void OnTriggerExit(Collider other)
+	{
+		if(other.transform.gameObject.name != "Terrain" && this.IsPlaceholder)
+		{
+			TextureSwitcher.AddSecondaryMaterial(gameObject, "DynamicMaterials/PlaceholderGreen");
+			this.currentPositionValid = true;
 		}
 	}
 
@@ -96,14 +112,14 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 	{
 		dragStartPosition = Vector3.zero;
 		dragStartUnitPosition = Vector3.zero;
-		if(!currentPositionValid)
+		/*if(!currentPositionValid)
 		{
 			gameObject.transform.position = lastValidPosition;
 		}
 		else
 		{
 			lastValidPosition = gameObject.transform.position;
-		}
+		}*/
 	}
 
 	// Selecting unit

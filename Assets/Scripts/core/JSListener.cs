@@ -138,6 +138,9 @@ public class JSListener : MonoBehaviour {
 				draggableComponent.IsPlaceholder = true;
 				Building buildingComponent = instance.GetComponent<Building>() as Building;
 				buildingComponent.ObjectId = objectId;
+				Rigidbody rigidbody =  instance.AddComponent("Rigidbody") as Rigidbody;
+				rigidbody.useGravity = false;
+				rigidbody.isKinematic = true;
 
 				float posX = instance.renderer.bounds.max.x + 2f;
 				float posY = 2.5f;
@@ -145,7 +148,9 @@ public class JSListener : MonoBehaviour {
 				Vector3 buttonsPosition = new Vector3(posX, posY, posZ);
 				GameObject constructionButtons = (GameObject)Instantiate(Resources.Load("gui/ConstructionButtons"), buttonsPosition, new Quaternion());
 				constructionButtons.transform.parent = instance.transform;
+
 				TextureSwitcher.AddSecondaryMaterial(instance, "DynamicMaterials/PlaceholderGreen");
+				instance.transform.position = instance.transform.position; // "Doesn't actually move it, but this causes OnTriggerStay to get invoked"
 			}
 		}
 	}

@@ -200,7 +200,7 @@ public class UserInput : MonoBehaviour
 
 			if (userFingerUp)
 			{
-				GameObject hitObject = hit.transform.gameObject;
+				GameObject hitObject = hit.collider.transform.gameObject;
 				// If we have not move a screen
 				if (withinDeadZone)
 				{
@@ -221,7 +221,14 @@ public class UserInput : MonoBehaviour
 						GameObject parentGameObject = hitObject.transform.parent.transform.parent.gameObject;
 						if(hitObject.name == "OkButton")
 						{
-							JSTrigger.StartBuildingConstruction (parentGameObject);
+							if(draggableComponent.CurrentPositionValid)
+							{
+								JSTrigger.StartBuildingConstruction (parentGameObject);
+							}
+							else
+							{
+								print ("Invalid construction site!! derp");
+							}
 						}
 						else
 						{
