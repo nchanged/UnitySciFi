@@ -13,4 +13,11 @@ public class TextureSwitcher : MonoBehaviour {
 		target.renderer.materials = materialsArray;
 		return target.renderer.materials[1];
 	}
+
+	public static void RevertToDefault(GameObject target)
+	{
+		Material[] materials = new Material[1];
+		materials[0] = target.renderer.materials[0];
+		target.renderer.materials = materials;
+	}
 }

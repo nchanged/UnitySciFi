@@ -22,4 +22,14 @@ public class JSTrigger : MonoBehaviour {
 		Storage.GameObjectCache.Add(placeholderId, parentGameObject);
 		GUIView.core.TriggerEvent("startBuilding", placeholderId, unitId, xPosition, zPosition);
 	}
+
+	public static void CancelBuildingConstructin(string buildingId)
+	{
+		GUIView.core.TriggerEvent ("cancelBuilding", buildingId);
+	}
+
+	public static void ConfirmBuildingConstructionComplete(string buildingId)
+	{
+		GUIView.core.TriggerEvent ("isBuildingComplete", buildingId);
+	}
 }

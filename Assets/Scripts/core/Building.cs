@@ -154,4 +154,28 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 		get{return currentPositionValid;}
 		set{currentPositionValid = value;}
 	}
+
+	public void OnConstructionStart()
+	{
+
+	}
+	public void OnConstructionCancel()
+	{
+		JSTrigger.CancelBuildingConstructin (this.InstanceId);
+		Destroy (gameObject);
+	}
+	public void OnConstructionComplete(bool confirmedByServer)
+	{
+		if(confirmedByServer)
+		{
+			this.IsReady = true;
+			Destroy(gameObject.GetComponent("PulseGlow"));
+			TextureSwitcher.RevertToDefault(gameObject);
+			Destroy(transform.Find("ProgressBar").gameObject);
+		}
+		else
+		{
+			JSTrigger.ConfirmBuildingConstructionComplete(this.InstanceId);
+		}
+	}
 }
