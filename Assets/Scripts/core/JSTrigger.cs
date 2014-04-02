@@ -30,6 +30,6 @@ public class JSTrigger : MonoBehaviour {
 
 	public static void ConfirmBuildingConstructionComplete(string buildingId)
 	{
-		GUIView.core.TriggerEvent ("isBuildingComplete", buildingId);
+		GUIView.core.TriggerEvent ("BuildingComplete", buildingId);
 	}
 }

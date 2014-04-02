@@ -32,12 +32,15 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 	{
 	
 		if ( IsReady == false ) {
+
 			if ( ReadyEstimation > 0 ){
 				timer += Time.deltaTime * 1000;
-
-
-				//Debug.Log(ReadyEstimation);
-				UpdateProgressBar();
+				if ( ReadyEstimation - (long) timer  > 0 ){
+					UpdateProgressBar();
+				} else {
+					IsReady = true;
+					OnConstructionComplete(true);
+				}
 			}
 		}
 	}
@@ -78,22 +81,13 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 		{
 			if ( child.gameObject.name == "progressbar" ) {
 				Transform eta = child.transform.Find("ETA");
-				Transform title = child.transform.Find("Title");
-
 				Transform container = child.transform.Find("container");
 				container.gameObject.renderer.material.SetTextureOffset ("_MainTex", new Vector2(materialShiftPercentage,0));
-				if ( title != null ) {
-					title.gameObject.GetComponent<TextMesh>().text = "Building " + ObjectName;
-				}
-
 				if (eta != null ){
 					eta.gameObject.GetComponent<TextMesh>().text = readableFormat;
 				}
-
-
 			}
 		}
-	
 	}
 
 	private Vector3 dragStartPosition = Vector3.zero;
@@ -166,16 +160,13 @@ public abstract class Building : MonoBehaviour, ISelectable, IDraggable, IDentif
 	}
 	public void OnConstructionComplete(bool confirmedByServer)
 	{
-		if(confirmedByServer)
-		{
-			this.IsReady = true;
-			Destroy(gameObject.GetComponent("PulseGlow"));
-			TextureSwitcher.RevertToDefault(gameObject);
-			Destroy(transform.Find("ProgressBar").gameObject);
-		}
-		else
-		{
-			JSTrigger.ConfirmBuildingConstructionComplete(this.InstanceId);
-		}
+
+		this.IsReady = true;
+		Destroy(gameObject.GetComponent("PulseGlow"));
+		TextureSwitcher.RevertToDefault(gameObject);
+
+		JSTrigger.ConfirmBuildingConstructionComplete(this.InstanceId);
+		Destroy(transform.Find("progressbar").gameObject);
+
 	}
 }
