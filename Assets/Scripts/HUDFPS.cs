@@ -29,6 +29,7 @@ public class HUDFPS : MonoBehaviour
 		// Make a background box
 		GUI.Box (new Rect (10,10,85,25), fps.ToString() + " fps");
 
+	
 	}
      
     void Update()

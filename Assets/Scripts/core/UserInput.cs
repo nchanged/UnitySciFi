@@ -38,6 +38,13 @@ public class UserInput : MonoBehaviour
 		Application.targetFrameRate = 60;
 	}
 
+	void OnGUI () {
+	
+		if( GUI.Button(new Rect (10,50,85,25), "reload") ) {
+			Debug.Log("pukka");
+		}
+	}
+
 	void Start ()
 	{
 		Camera.main.transform.position = new Vector3 (Camera.main.transform.position.x, defaultCameraY, Camera.main.transform.position.z);
